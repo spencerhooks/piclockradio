@@ -30,7 +30,7 @@ import os, time, logging, sys
 
 
 
-logging.basicConfig(stream=sys.stderr, level=logging.INFO)
+logging.basicConfig(stream=sys.stderr, level=logging.DEBUG)
 
 
 
@@ -44,7 +44,7 @@ class Player(object):
             global t
             t = Thread(target = self._send_command, kwargs={'duration': duration, 'tone': tone, 'gain': gain, 'fadetime': fadetime})
             t.start()
-        logging.debug("Generating sound: " + tone + " for: " + str(duration))
+        logging.debug("Generating sound " + tone + " for a duration of " + str(duration))
 
     def play(self, duration=0, source='kqed'):
         """
@@ -57,7 +57,7 @@ class Player(object):
             global t
             t = Thread(target = self._send_command, kwargs={'duration': duration, 'tone': source,})
             t.start()
-        logging.debug("Playing: " + source + " for: " + str(duration))
+        logging.debug("Playing source " + source + " for a duration of " + str(duration))
 
     def stop(self):
         """

@@ -6,20 +6,24 @@ from streamgen import Player
 p = Player()
 
 app = Flask(__name__)
-app.config["CACHE_TYPE"] = "null"
 
 @app.route('/')
 def clock():
-    return render_template('clock.html')
+    return render_template('clock.html', play_state='Play')
 
 @app.route('/settings/')
 def settings():
     return render_template('settings.html')
 
-@app.route('/play_sound')
-def play_sound():
-    p.play()
-    return render_template('clock.html')
+@app.route('/play_sound/<ps>')
+def play_sound(ps):
+    if ps == 'Play':
+        p.play()
+        ps = 'Stop'
+    elif ps == 'Stop':
+        p.stop()
+        ps = 'Play'
+    return render_template('clock.html', play_state=ps)
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)
