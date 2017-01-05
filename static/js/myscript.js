@@ -1,8 +1,8 @@
-function change()
-{
-    if (this.value=="button") this.value = "new button";
-    else this.value = "button";
-}
+$( "#my-button" ).click(function() {
+  console.log($('#my-button').prop('value'));
+  document.getElementById('my-button').innerHTML = 'Insert into butt'
+>>>>>>> origin/master
+});
 
 var clock;
 
@@ -17,5 +17,3 @@ $(document).ready(function() {
     // clock.setTime(220880);
     // clock.setCountdown(true);
     // clock.start();
-
-});
