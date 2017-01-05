@@ -1,5 +1,4 @@
-function change()
-{
-    if (this.value=="button") this.value = "new button";
-    else this.value = "button";
-}
+
+$( "#my-button" ).click(function() {
+  console.log($('#my-button').prop('value'));
+});

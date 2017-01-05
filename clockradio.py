@@ -13,7 +13,7 @@ def clock():
 
 @app.route('/settings/')
 def settings():
-    return render_template('settings.html')
+    return render_template('settings.html', button_state='Press Me')
 
 @app.route('/play_sound/<ps>')
 def play_sound(ps):
