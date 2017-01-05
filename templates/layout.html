@@ -11,6 +11,8 @@
   <link rel="stylesheet" href="https://unpkg.com/purecss@0.6.1/build/grids-responsive-min.css">
   <!--Import Local CSS-->
   <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+  <!--Import flipclock CSS-->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/flipclock.css') }}">
   <!--Import font-awsome-->
   <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
   <!--Import Google Icon Font-->
@@ -42,8 +44,12 @@
 
 <!--Import jQuery before materialize.js-->
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<!--Import materialize.js-->
 <script type="text/javascript" src="{{ url_for('static', filename='js/materialize.js') }}"></script>
+<!--Import my local js-->
 <script type="text/javascript" src="{{ url_for('static', filename='js/myscript.js') }}"></script>
+<!--Import my flipclock js-->
+<script type="text/javascript" src="{{ url_for('static', filename='js/flipclock.js') }}"></script>
 </body>
 
 </html>
