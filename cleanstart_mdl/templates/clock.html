@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+{% block content %}
+<style>
+.my-card-clock.mdl-card {
+  width: 690px;
+  margin: auto;
+}
+</style>
+
+<div class="mdl-card my-card-clock mdl-shadow--16dp">
+  <div class="mdl-card__title">
+    <h2 class="mdl-card__title-text">Clock</h2>
+  </div>
+  <div class="mdl-card__media">
+    <img src="{{ url_for('static', filename='images/clock.png') }}" width="690" height="280" border="0" alt="" style="padding:0px;">
+  </div>
+</div>
+{% endblock %}
