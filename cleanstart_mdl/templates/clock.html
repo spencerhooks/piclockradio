@@ -1,18 +1,37 @@
 {% extends "layout.html" %}
 {% block content %}
-<style>
-.my-card-clock.mdl-card {
-  width: 690px;
-  margin: auto;
-}
-</style>
 
-<div class="mdl-card my-card-clock mdl-shadow--16dp">
-  <div class="mdl-card__title">
-    <h2 class="mdl-card__title-text">Clock</h2>
+<div id="clockParent">
+  <div class="mdl-grid">
+    <div class="mdl-cell mdl-cell--3-col" id="left">Left</div>
+    <div class="mdl-cell mdl-cell--3-col" id="leftCenter">Left Center</div>
+    <div class="mdl-cell mdl-cell--3-col" id="rightCenter">Right Center</div>
+    <div class="mdl-cell mdl-cell--3-col">
+      <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="alarmSwitch" id="switchLabel">
+        <input type="checkbox" id="alarmSwitch" class="mdl-switch__input" checked>
+        <span class="mdl-switch__label" id="switchSpan">Alarm</span>
+      </label>
+    </div>
   </div>
-  <div class="mdl-card__media">
-    <img src="{{ url_for('static', filename='images/clock.png') }}" width="690" height="280" border="0" alt="" style="padding:0px;">
+  <div class="mdl-card my-card-clock mdl-shadow--8dp">
+    <div class="mdl-card__media">
+      <img src="{{ url_for('static', filename='images/clock.png') }}" id="cardImage" width="690" height="280" border="0" alt="" style="padding:0px;">
+    </div>
   </div>
+  <div class="mdl-grid">
+    <div class="mdl-cell mdl-cell--bottom mdl-cell--6-col">
+      <p style="width:350px">
+      <input class="mdl-slider mdl-js-slider" type="range" id="volumeSlider" min="0" max="10" value="4">
+      <i class="material-icons" style="font-size:24px">volume_down</i>
+      </p>
+    </div>
+    <div class="mdl-cell mdl-cell--6-col">
+      <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" style="width:100%; height:80px; color:white">
+      <i class="material-icons" style="font-size:48px">play_circle_filled</i>  Generate Noise
+      </button>
+    </div>
+  <button class="mdl-button my-button-settings mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-button--colored" id="settingsButton">
+    <i class="material-icons" id="settingsIcon">settings</i>
+  </button>
 </div>
 {% endblock %}

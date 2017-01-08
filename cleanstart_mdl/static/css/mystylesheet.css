@@ -1,0 +1,28 @@
+body {
+  background-color: #B3B2B2;
+  margin-top: 50px;
+}
+
+.my-card-clock.mdl-card {
+  width: 690px;
+  margin: auto;
+}
+
+.my-button-settings.mdl-button {
+  color: white;
+  position: absolute;
+  left: 0px;
+  bottom: 0px;
+}
+
+.mdl-grid {
+  max-width: 690px;
+}
+
+.mdl-cell {
+  color: white;
+}
+
+.material-icons {
+  color: white;
+}

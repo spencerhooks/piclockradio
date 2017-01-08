@@ -6,19 +6,22 @@
   <!--Import Material Design Lite CSS & Icons/Font-->
   <link rel="stylesheet" href={{ url_for('static', filename='css/material.css') }}>
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <!--Import my custom CSS-->
+  <link rel="stylesheet" href={{ url_for('static', filename='css/mystylesheet.css') }}>
 
 </head>
 
 <body>
-  <p></p>
-  <div class="container">
+  <div class="container" margin-top="50px">
     {% block content %}
     {% endblock %}
   </div>
 
 
-<!--Import jQuery before materialize.js-->
+  <!--Import the Material Design Lite javascript file-->
   <script type="text/javascript" src="{{ url_for('static', filename='js/material.js') }}"></script>
+  <!--Import my custom javascript file-->
+  <script type="text/javascript" src="{{ url_for('static', filename='js/myscript.js') }}"></script>
 </body>
 
 </html>
