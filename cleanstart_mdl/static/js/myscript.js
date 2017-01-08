@@ -2,12 +2,33 @@
 document.addEventListener("change", changeListener)
 function changeListener(o) {
   console.log("Target ID of changed: " + o.target.id)
+  console.log(o.target.value)
+  console.log(o.target.checked)
+  if (o.target.id === "volumeSlider") {
+    var request = new XMLHttpRequest()
+    request.open("GET", "/change_volume/" + o.target.value)
+    request.send()
+  }
+  if (o.target.id === "alarmSwitch") {
+    var request = new XMLHttpRequest()
+    request.open("GET", "/alarm_on_off/" + o.target.checked)
+    request.send()
+  }
+}
+
+var noiseButtonElement = document.querySelector("#noiseButton")
+noiseButtonElement.addEventListener("click", makeNoise)
+function makeNoise(e) {
+  console.log("make some noise")
+  var request = new XMLHttpRequest()
+  request.open("GET", "/play_pause")
+  request.send()
 }
 
 var theParent = document.querySelector("#clockParent")
-theParent.addEventListener("click", doSomething, false)
+theParent.addEventListener("click", clickListener, false)
 
-function doSomething(e) {
+function clickListener(e) {
     console.log("target ID of clicked: " + e.target.id)
     // console.log("type " + e.target.tagName)
     // console.log("parent " + e.target.parentElement.tagName)
