@@ -1,11 +1,13 @@
 body {
   background-color: #B3B2B2;
   margin-top: 50px;
+  font-family: 'Roboto', sans-serif;
 }
 
 .my-card-clock.mdl-card {
   width: 690px;
   margin: auto;
+  padding: 20px;
 }
 
 .my-button-settings.mdl-button {

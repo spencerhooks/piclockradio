@@ -13,11 +13,16 @@
       </label>
     </div>
   </div>
-  <div class="mdl-card my-card-clock mdl-shadow--8dp">
-    <div class="mdl-card__media">
-      <img src="{{ url_for('static', filename='images/clock.png') }}" id="cardImage" width="690" height="280" border="0" alt="" style="padding:0px;">
+  <div>
+    <div class="mdl-card my-card-clock mdl-shadow--8dp" id="clockCard">
+      <h1 id="clockText" style="font-size:160px; font-weight:300; color:#B3B2B2;" align="center"></h1>
     </div>
   </div>
+  <!-- <div class="mdl-card my-card-clock mdl-shadow--8dp">
+    <div class="mdl-card__media">
+      <img src="{{ url_for('static', filename='images/clock.png') }}" id="cardImage" width="690" height="280">
+    </div>
+  </div> -->
   <div class="mdl-grid">
     <div class="mdl-cell mdl-cell--bottom mdl-cell--6-col">
       <p style="width:350px">
@@ -26,8 +31,8 @@
       </p>
     </div>
     <div class="mdl-cell mdl-cell--6-col">
-      <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" style="width:100%; height:80px; color:white">
-      <i class="material-icons" style="font-size:48px">play_circle_filled</i>  Generate Noise
+      <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" it="noiseButton" style="width:100%; height:80px; color:white">
+      <img src="{{ url_for('static', filename='images/waveform.png') }}" id="noiseImage" width="300">
       </button>
     </div>
   <button class="mdl-button my-button-settings mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-button--colored" id="settingsButton">
