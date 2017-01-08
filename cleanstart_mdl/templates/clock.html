@@ -3,10 +3,17 @@
 
 <div id="clockParent">
   <div class="mdl-grid">
-    <div class="mdl-cell mdl-cell--3-col" id="left">Left</div>
-    <div class="mdl-cell mdl-cell--3-col" id="leftCenter">Left Center</div>
-    <div class="mdl-cell mdl-cell--3-col" id="rightCenter">Right Center</div>
-    <div class="mdl-cell mdl-cell--3-col">
+    <div class="mdl-cell mdl-cell--bottom mdl-cell--3-col" id="alarmTime" style="padding-bottom:5px">
+      <form action="#">
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+          <input class="mdl-textfield__input" type="text" id="alarmInput">
+          <label class="mdl-textfield__label" for="alarmInput">Alarm:</label>
+        </div>
+      </form>
+    </div>
+    <div class="mdl-cell mdl-cell--bottom mdl-cell--3-col" id="leftCenter" style="padding-bottom:20px">Left Center</div>
+    <div class="mdl-cell mdl-cell--bottom mdl-cell--3-col" id="rightCenter" style="padding-bottom:20px">Right Center</div>
+    <div class="mdl-cell mdl-cell--bottom mdl-cell--3-col" style="padding-bottom:20px">
       <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="alarmSwitch" id="switchLabel">
         <input type="checkbox" id="alarmSwitch" class="mdl-switch__input" checked>
         <span class="mdl-switch__label" id="switchSpan">Alarm</span>
@@ -24,10 +31,10 @@
     </div>
   </div> -->
   <div class="mdl-grid">
-    <div class="mdl-cell mdl-cell--bottom mdl-cell--6-col">
+    <div class="mdl-cell mdl-cell--6-col mdl-cell--middle">
+      <i class="material-icons" style="font-size:36px">volume_mute</i>
       <p style="width:350px">
-      <input class="mdl-slider mdl-js-slider" type="range" id="volumeSlider" min="0" max="10" value="4">
-      <i class="material-icons" style="font-size:24px">volume_down</i>
+        <input class="mdl-slider mdl-js-slider" type="range" id="volumeSlider" min="0" max="100" value="40">
       </p>
     </div>
     <div class="mdl-cell mdl-cell--6-col">
