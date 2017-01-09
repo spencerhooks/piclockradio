@@ -41,10 +41,16 @@ function changeListener(o) {
 var noiseButtonElement = document.querySelector("#noiseButton")
 noiseButtonElement.addEventListener("click", makeNoise)
 function makeNoise(e) {
-  console.log("make some noise")
-  document.getElementById('noiseImage').src = $SCRIPT_ROOT + "/static/images/waveform_color.png"
+  noiseGenState = !noiseGenState
+  if (noiseGenState) {
+    document.getElementById('noiseImage').src = $SCRIPT_ROOT + "/static/images/waveform_color.png"
+    console.log("make some noise")
+  } else {
+    document.getElementById('noiseImage').src = $SCRIPT_ROOT + "/static/images/waveform.png"
+    console.log("stop making noise")
+  }
   var request = new XMLHttpRequest()
-  request.open("GET", "/play_pause")
+  request.open("GET", "/play_pause") // modify to send different signals for play vs stop
   request.send()
 }
 
