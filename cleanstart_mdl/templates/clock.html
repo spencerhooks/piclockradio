@@ -3,20 +3,24 @@
 
 <div id="clockParent">
   <div class="mdl-grid">
-    <div class="mdl-cell mdl-cell--bottom mdl-cell--3-col" id="alarmTime" style="padding-bottom:5px">
+    <div class="mdl-cell mdl-cell--bottom mdl-cell--4-col" id="alarmTime" style="padding-bottom:5px">
       <form action="#">
         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-          <input class="mdl-textfield__input" type="text" id="alarmInput">
-          <label class="mdl-textfield__label" for="alarmInput">Alarm:</label>
+          <input class="mdl-textfield__input" type="text" value="5:30am" id="alarmInput">
+          <label class="mdl-textfield__label" for="alarmInput">Alarm Set For:</label>
         </div>
       </form>
     </div>
-    <div class="mdl-cell mdl-cell--bottom mdl-cell--3-col" id="leftCenter" style="padding-bottom:20px">Left Center</div>
-    <div class="mdl-cell mdl-cell--bottom mdl-cell--3-col" id="rightCenter" style="padding-bottom:20px">Right Center</div>
-    <div class="mdl-cell mdl-cell--bottom mdl-cell--3-col" style="padding-bottom:20px">
-      <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="alarmSwitch" id="switchLabel">
-        <input type="checkbox" id="alarmSwitch" class="mdl-switch__input" checked>
-        <span class="mdl-switch__label" id="switchSpan">Alarm</span>
+    <div class="mdl-cell mdl-cell--bottom mdl-cell--4-col" style="padding: 0px 0px 20px 75px">
+      <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="alarmSwitch" id="alarmSwitchLabel">
+        <input type="checkbox" id="alarmSwitch" class="mdl-switch__input">
+        <span class="mdl-switch__label" id="alarmSwitchSpan">Alarm</span>
+      </label>
+    </div>
+    <div class="mdl-cell mdl-cell--bottom mdl-cell--4-col" style="padding: 0px 0px 20px 80px">
+      <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="sleepLightSwitch" id="sleepLightLabel">
+        <input type="checkbox" id="sleepLightSwitch" class="mdl-switch__input">
+        <span class="mdl-switch__label" id="sleepLightSwitchSpan">Sleep Light</span>
       </label>
     </div>
   </div>
@@ -25,15 +29,10 @@
       <h1 id="clockText" style="font-size:160px; font-weight:300; color:#B3B2B2;" align="center"></h1>
     </div>
   </div>
-  <!-- <div class="mdl-card my-card-clock mdl-shadow--8dp">
-    <div class="mdl-card__media">
-      <img src="{{ url_for('static', filename='images/clock.png') }}" id="cardImage" width="690" height="280">
-    </div>
-  </div> -->
   <div class="mdl-grid">
     <div class="mdl-cell mdl-cell--6-col mdl-cell--middle">
-      <i class="material-icons" style="font-size:36px">volume_mute</i>
-      <p style="width:350px">
+      <i class="material-icons" style="font-size:24px; float:left;">volume_mute</i>
+      <p style="width:340px; padding-top:5px">
         <input class="mdl-slider mdl-js-slider" type="range" id="volumeSlider" min="0" max="100" value="40">
       </p>
     </div>

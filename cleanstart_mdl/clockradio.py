@@ -22,20 +22,26 @@ def command(cmd='NONE'):
         #     player.stop()
         #     print("stop making noise")
         print("play or pause")
-    return 'True'
+    return ('', 204)
 
 @app.route('/alarm_on_off/<state>')
 def alarm_state_change(state):
     if state == 'true':
         print("change alarm state to " + state)
-    return 'True'
+    return ('', 204)
+
+@app.route('/sleep_light_on_off/<state>')
+def sleep_light_state_change(state):
+    if state == 'true':
+        print("change sleep light state to " + state)
+    return ('', 204)
 
 @app.route('/change_volume/<volume_target>')
 def volume(volume_target):
     # mixer.setvolume(volume_target)
     print(volume_target)
     # return int(mixer.getvolume())
-    return 'True'
+    return ('', 204)
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)
