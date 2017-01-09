@@ -22,6 +22,10 @@ def command(cmd='NONE'):
         #     player.stop()
         #     print("stop making noise")
         print("play or pause")
+    if cmd == "snooze":
+        print("snooze")
+    if cmd == "mute":
+        print("mute")
     return ('', 204)
 
 @app.route('/alarm_on_off/<state>')
@@ -39,7 +43,7 @@ def sleep_light_state_change(state):
 @app.route('/change_volume/<volume_target>')
 def volume(volume_target):
     # mixer.setvolume(volume_target)
-    print(volume_target)
+    print("volume target: " + volume_target)
     # return int(mixer.getvolume())
     return ('', 204)
 

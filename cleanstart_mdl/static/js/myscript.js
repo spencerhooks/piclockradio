@@ -5,15 +5,22 @@ function changeListener(o) {
   console.log(o.target.value)
   console.log(o.target.checked)
   if (o.target.id === "volumeSlider") {
+    if (o.target.value === "0") {
+      document.getElementById('muteIcon').style.color = "white"
+    } else {
+      document.getElementById('muteIcon').style.color = "#3F51B5"
+    }
     var request = new XMLHttpRequest()
     request.open("GET", "/change_volume/" + o.target.value)
     request.send()
   }
   if (o.target.id === "alarmSwitch") {
     if (o.target.checked) {
-      document.getElementById('alarmSwitchSpan').style.color = "indigo"
+      document.getElementById('alarmSwitchSpan').style.color = "#3F51B5"
+      document.getElementById('clockText').style.color = "#3F51B5"
     } else {
       document.getElementById('alarmSwitchSpan').style.color = "white"
+      document.getElementById('clockText').style.color = "#B3B2B2"
     }
     var request = new XMLHttpRequest()
     request.open("GET", "/alarm_on_off/" + o.target.checked)
@@ -21,7 +28,7 @@ function changeListener(o) {
   }
   if (o.target.id === "sleepLightSwitch") {
     if (o.target.checked) {
-      document.getElementById('sleepLightSwitchSpan').style.color = "indigo"
+      document.getElementById('sleepLightSwitchSpan').style.color = "#3F51B5"
     } else {
       document.getElementById('sleepLightSwitchSpan').style.color = "white"
     }
@@ -35,8 +42,29 @@ var noiseButtonElement = document.querySelector("#noiseButton")
 noiseButtonElement.addEventListener("click", makeNoise)
 function makeNoise(e) {
   console.log("make some noise")
+  document.getElementById('noiseImage').src = $SCRIPT_ROOT + "/static/images/waveform_color.png"
   var request = new XMLHttpRequest()
   request.open("GET", "/play_pause")
+  request.send()
+}
+
+var ClockElement = document.querySelector("#clockCard")
+ClockElement.addEventListener("click", snooze)
+function snooze(e) {
+  console.log("snooze")
+  var request = new XMLHttpRequest()
+  request.open("GET", "/snooze")
+  request.send()
+}
+
+var MuteButtonElement = document.querySelector("#muteButton")
+MuteButtonElement.addEventListener("click", mute)
+function mute(e) {
+  console.log("mute")
+  document.getElementById('volumeSlider').MaterialSlider.change(0)
+  document.getElementById('muteIcon').style.color = "white"
+  var request = new XMLHttpRequest()
+  request.open("GET", "/change_volume/0")
   request.send()
 }
 

@@ -23,6 +23,9 @@
   <script type="text/javascript" src="{{ url_for('static', filename='js/material.js') }}"></script>
   <!--Import my custom javascript file-->
   <script type="text/javascript" src="{{ url_for('static', filename='js/myscript.js') }}"></script>
+  <script type=text/javascript>
+  $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+  </script>
 </body>
 
 </html>
