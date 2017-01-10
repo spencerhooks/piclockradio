@@ -35,8 +35,8 @@ def alarm_state_change(state):
         print("change alarm state to " + state)
     return ('', 204)
 
-@app.route('/get_time')
-def get_time(state):
+@app.route('/get_time/')
+def get_time():
     t = datetime.now().strftime('%I:%M')
     p = datetime.now().strftime('%p')
     f = t + p.lower()

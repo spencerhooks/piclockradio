@@ -93,26 +93,39 @@ function mute(e) {
 // }
 
 function startTime() {
-    var today = new Date();
-    var h = today.getHours();
-    var m = today.getMinutes();
-    var s = today.getSeconds();
-    var amPM = "am"
-    m = checkTime(m);
-    s = checkTime(s);
-    if (h >= 12) {
-      amPM = "pm"
-      if (h > 12) {
-        h = h - 12
-      }
-    } else {
-      amPM = "am"
-    }
-    document.getElementById('clockText').innerHTML =
-    h + ":" + m + amPM;
-    var t = setTimeout(startTime, 500);
+  var myrequest = new XMLHttpRequest()
+  myrequest.onreadystatechange = setTime
+  myrequest.open("GET", "/get_time") // modify to send different signals for play vs stop
+  myrequest.send()
+
+    // var today = new Date();
+    // var h = today.getHours();
+    // var m = today.getMinutes();
+    // var s = today.getSeconds();
+    // var amPM = "am"
+    // m = checkTime(m);
+    // s = checkTime(s);
+    // if (h >= 12) {
+    //   amPM = "pm"
+    //   if (h > 12) {
+    //     h = h - 12
+    //   }
+    // } else {
+    //   amPM = "am"
+    // }
+
+  // console.log('loop')
+
+  var t = setTimeout(startTime, 500)
 }
+
 function checkTime(i) {
-    if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
-    return i;
+  if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
+  return i;
+}
+
+function setTime () {
+  if (this.readyState == 4 && this.status == 200) {
+    document.getElementById('clockText').innerHTML = this.responseText
+  }
 }
