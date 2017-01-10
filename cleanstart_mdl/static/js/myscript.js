@@ -57,7 +57,7 @@ function makeNoise(e) {
 var ClockElement = document.querySelector("#clockCard")
 ClockElement.addEventListener("click", snooze)
 function snooze(e) {
-  console.log("snooze")
+  console.log("snooze") // add functionality to change
   var request = new XMLHttpRequest()
   request.open("GET", "/snooze")
   request.send()
