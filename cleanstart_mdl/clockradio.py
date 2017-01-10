@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
 from flask import Flask, render_template
+from datetime import datetime
 # import alsaaudio, streamgen
 #
 # player = streamgen.Player()
@@ -33,6 +34,13 @@ def alarm_state_change(state):
     if state == 'true':
         print("change alarm state to " + state)
     return ('', 204)
+
+@app.route('/get_time')
+def get_time(state):
+    t = datetime.now().strftime('%I:%M')
+    p = datetime.now().strftime('%p')
+    f = t + p.lower()
+    return (f)
 
 @app.route('/sleep_light_on_off/<state>')
 def sleep_light_state_change(state):
