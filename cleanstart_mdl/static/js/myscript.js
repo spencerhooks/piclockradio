@@ -93,11 +93,7 @@ function mute(e) {
 // }
 
 function startTime() {
-  var myrequest = new XMLHttpRequest()
-  myrequest.onreadystatechange = setTime
-  myrequest.open("GET", "/get_time") // modify to send different signals for play vs stop
-  myrequest.send()
-
+  myRequest(setTime, "/get_time")
     // var today = new Date();
     // var h = today.getHours();
     // var m = today.getMinutes();
@@ -124,8 +120,15 @@ function checkTime(i) {
   return i;
 }
 
+function myRequest(callBackFunction, requestedURL) {
+  var myrequest = new XMLHttpRequest()
+  myrequest.onreadystatechange = callBackFunction
+  myrequest.open("GET", requestedURL) // modify to send different signals for play vs stop
+  myrequest.send()
+}
+
 function setTime () {
   if (this.readyState == 4 && this.status == 200) {
-    document.getElementById('clockText').innerHTML = this.responseText
+    document.getElementById('clockText').innerHTML = (JSON.parse(this.responseText)).time
   }
 }
