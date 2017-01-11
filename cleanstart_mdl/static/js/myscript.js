@@ -94,30 +94,7 @@ function mute(e) {
 
 function startTime() {
   myRequest(setTime, "/get_time")
-    // var today = new Date();
-    // var h = today.getHours();
-    // var m = today.getMinutes();
-    // var s = today.getSeconds();
-    // var amPM = "am"
-    // m = checkTime(m);
-    // s = checkTime(s);
-    // if (h >= 12) {
-    //   amPM = "pm"
-    //   if (h > 12) {
-    //     h = h - 12
-    //   }
-    // } else {
-    //   amPM = "am"
-    // }
-
-  // console.log('loop')
-
-  var t = setTimeout(startTime, 500)
-}
-
-function checkTime(i) {
-  if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
-  return i;
+  var t = setTimeout(startTime, 1000)
 }
 
 function myRequest(callBackFunction, requestedURL) {

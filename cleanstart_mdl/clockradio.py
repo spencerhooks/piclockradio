@@ -41,10 +41,12 @@ def alarm_state_change(state):
 @app.route('/get_time/')
 def get_time():
     global clock_data
-    t = datetime.now().strftime('%I:%M')
-    p = datetime.now().strftime('%p')
-    f = t + p.lower()
-    clock_data['time'] = f
+    hour_minute = datetime.now().strftime('%I:%M')
+    am_pm = datetime.now().strftime('%p')
+    full_time = hour_minute + am_pm.lower()
+    clock_data['time'] = full_time
+    # with open('clock_data_file.json', 'w') as f:
+    #     json.dump(clock_data, f)
     return (json.dumps(clock_data))
 
 @app.route('/sleep_light_on_off/<state>')
