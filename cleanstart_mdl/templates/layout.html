@@ -24,8 +24,7 @@
   <!--Import my custom javascript file-->
   <script type="text/javascript" src="{{ url_for('static', filename='js/myscript.js') }}"></script>
   <script type=text/javascript>
-  var $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
-  var noiseGenState = false
+  var $SCRIPT_ROOT = {{ request.script_root|tojson|safe }}; // Create a path variable to be used on javascript (necessary because of Jinja2 template engine)
   </script>
 </body>
 

@@ -1,19 +1,17 @@
 
+// Setup a listener for change events to switches and sliders and send to server
 document.addEventListener("change", changeListener)
 function changeListener(o) {
   console.log("Target ID of changed: " + o.target.id)
   console.log(o.target.value)
   console.log(o.target.checked)
+
+  // Handle volume slider
   if (o.target.id === "volumeSlider") {
-    if (o.target.value === "0") {
-      document.getElementById('muteIcon').style.color = "white"
-    } else {
-      document.getElementById('muteIcon').style.color = "#3F51B5"
-    }
-    var request = new XMLHttpRequest()
-    request.open("GET", "/change_volume/" + o.target.value)
-    request.send()
+    myRequest(updateClock, "/change_volume/" + o.target.value)
   }
+
+  // Handle alarm on/off switch
   if (o.target.id === "alarmSwitch") {
     if (o.target.checked) {
       document.getElementById('alarmSwitchSpan').style.color = "#3F51B5"
@@ -26,6 +24,8 @@ function changeListener(o) {
     request.open("GET", "/alarm_on_off/" + o.target.checked)
     request.send()
   }
+
+  // Handle sleep light switch (turns on light for 30 minutes and then fades off)
   if (o.target.id === "sleepLightSwitch") {
     if (o.target.checked) {
       document.getElementById('sleepLightSwitchSpan').style.color = "#3F51B5"
@@ -38,22 +38,14 @@ function changeListener(o) {
   }
 }
 
+// Setup a listener for click events on the noise generator button
 var noiseButtonElement = document.querySelector("#noiseButton")
 noiseButtonElement.addEventListener("click", makeNoise)
 function makeNoise(e) {
-  noiseGenState = !noiseGenState
-  if (noiseGenState) {
-    document.getElementById('noiseImage').src = $SCRIPT_ROOT + "/static/images/waveform_color.png"
-    console.log("make some noise")
-  } else {
-    document.getElementById('noiseImage').src = $SCRIPT_ROOT + "/static/images/waveform.png"
-    console.log("stop making noise")
-  }
-  var request = new XMLHttpRequest()
-  request.open("GET", "/play_pause") // modify to send different signals for play vs stop
-  request.send()
+  myRequest(updateClock, "/generate_noise")
 }
 
+// Setup a listener for click events on the main clock face, used as a snooze button
 var ClockElement = document.querySelector("#clockCard")
 ClockElement.addEventListener("click", snooze)
 function snooze(e) {
@@ -63,49 +55,43 @@ function snooze(e) {
   request.send()
 }
 
+// Setup a listener for the mute button
 var MuteButtonElement = document.querySelector("#muteButton")
 MuteButtonElement.addEventListener("click", mute)
 function mute(e) {
   console.log("mute")
-  document.getElementById('volumeSlider').MaterialSlider.change(0)
-  document.getElementById('muteIcon').style.color = "white"
-  var request = new XMLHttpRequest()
-  request.open("GET", "/change_volume/0")
-  request.send()
+  myRequest(updateClock, "/mute")
 }
 
-// var theParent = document.querySelector("#clockParent")
-// theParent.addEventListener("click", clickListener, false)
-//
-// function clickListener(e) {
-//     console.log("target ID of clicked: " + e.target.id)
-//     console.log("type " + e.target.tagName)
-//     console.log("parent " + e.target.parentElement.tagName)
-//     if (e.target !== e.currentTarget && e.target.id !== "ignore") {  // currentTarget is parent; ignore SPAN to avoid double call
-//         var clickedItem = e.target.id
-//         var checkBoxState = document.getElementById("alarmSwitch").checked
-//         console.log("clicked on " + clickedItem + "  " + checkBoxState)
-//         var request = new XMLHttpRequest()
-//         request.open("GET", "/" + e.target.id, true)
-//         request.send()
-//     }
-//     e.stopPropagation()  // stop propagation up the DOM to avoid redundant onclick actions
-// }
-
+// Loop for the clock to get the time every second
 function startTime() {
-  myRequest(setTime, "/get_time")
+  myRequest(updateClock, "/get_time")
   var t = setTimeout(startTime, 1000)
 }
 
+// General purpose function to send requests to the server
 function myRequest(callBackFunction, requestedURL) {
   var myrequest = new XMLHttpRequest()
   myrequest.onreadystatechange = callBackFunction
-  myrequest.open("GET", requestedURL) // modify to send different signals for play vs stop
+  myrequest.open("GET", requestedURL)
   myrequest.send()
 }
 
-function setTime () {
+// Update all of UI elements with the data returned from the server. All variables are updated on every callback
+function updateClock () {
   if (this.readyState == 4 && this.status == 200) {
-    document.getElementById('clockText').innerHTML = (JSON.parse(this.responseText)).time
+    document.getElementById('clockText').innerHTML = (JSON.parse(this.responseText)).time  // Update clock time
+    if ((JSON.parse(this.responseText)).generating_noise == true) {  // Update the noise generator button state
+      document.getElementById('noiseImage').src = $SCRIPT_ROOT + "/static/images/waveform_color.png"
+    } else if ((JSON.parse(this.responseText)).generating_noise == false) {
+      document.getElementById('noiseImage').src = $SCRIPT_ROOT + "/static/images/waveform.png"
+    }
+    if ((JSON.parse(this.responseText)).mute == true) {  // There's a bug when dragging the slider, need to fix this
+      document.getElementById('volumeSlider').MaterialSlider.change(0)
+      document.getElementById('muteIcon').style.color = "white"
+    } else if ((JSON.parse(this.responseText)).mute == false) {
+      document.getElementById('volumeSlider').MaterialSlider.change((JSON.parse(this.responseText)).volume)
+      document.getElementById('muteIcon').style.color = "#3F51B5"
+    }
   }
 }
