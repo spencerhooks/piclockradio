@@ -13,16 +13,7 @@ function changeListener(o) {
 
   // Handle alarm on/off switch
   if (o.target.id === "alarmSwitch") {
-    if (o.target.checked) {
-      document.getElementById('alarmSwitchSpan').style.color = "#3F51B5"
-      document.getElementById('clockText').style.color = "#3F51B5"
-    } else {
-      document.getElementById('alarmSwitchSpan').style.color = "white"
-      document.getElementById('clockText').style.color = "#B3B2B2"
-    }
-    var request = new XMLHttpRequest()
-    request.open("GET", "/alarm_on_off/" + o.target.checked)
-    request.send()
+    myRequest(updateClock, "/alarm_on_off/" + o.target.checked)
   }
 
   // Handle sleep light switch (turns on light for 30 minutes and then fades off)
@@ -80,18 +71,32 @@ function myRequest(callBackFunction, requestedURL) {
 // Update all of UI elements with the data returned from the server. All variables are updated on every callback
 function updateClock () {
   if (this.readyState == 4 && this.status == 200) {
-    document.getElementById('clockText').innerHTML = (JSON.parse(this.responseText)).time  // Update clock time
-    if ((JSON.parse(this.responseText)).generating_noise == true) {  // Update the noise generator button state
+    // Update clock time
+    document.getElementById('clockText').innerHTML = (JSON.parse(this.responseText)).time
+
+    // Update the noise generator button state
+    if ((JSON.parse(this.responseText)).generating_noise == true) {
       document.getElementById('noiseImage').src = $SCRIPT_ROOT + "/static/images/waveform_color.png"
     } else if ((JSON.parse(this.responseText)).generating_noise == false) {
       document.getElementById('noiseImage').src = $SCRIPT_ROOT + "/static/images/waveform.png"
     }
-    if ((JSON.parse(this.responseText)).mute == true) {  // There's a bug when dragging the slider, need to fix this
+
+    // Update the volume slider. **There's a bug when dragging the slider, need to fix this**
+    if ((JSON.parse(this.responseText)).mute == true) {
       document.getElementById('volumeSlider').MaterialSlider.change(0)
       document.getElementById('muteIcon').style.color = "white"
     } else if ((JSON.parse(this.responseText)).mute == false) {
       document.getElementById('volumeSlider').MaterialSlider.change((JSON.parse(this.responseText)).volume)
       document.getElementById('muteIcon').style.color = "#3F51B5"
+    }
+
+    // Update the alarm on/off switch
+    if ((JSON.parse(this.responseText)).alarm_on_off == true) {
+      document.getElementById('alarmSwitchSpan').style.color = "#3F51B5"
+      document.getElementById('clockText').style.color = "#3F51B5"
+    } else if ((JSON.parse(this.responseText)).alarm_on_off == false) {
+      document.getElementById('alarmSwitchSpan').style.color = "white"
+      document.getElementById('clockText').style.color = "#B3B2B2"
     }
   }
 }

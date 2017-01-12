@@ -49,9 +49,9 @@ def command(cmd='NONE'):
 # Alarm state (needs updating)
 @app.route('/alarm_on_off/<state>')
 def alarm_state_change(state):
-    if state == 'true':
-        print("change alarm state to " + state)
-    return ('', 204)
+    clock_data['alarm_on_off'] = str2bool(state)
+    write_file()
+    return (json.dumps(clock_data))
 
 # Update time for clock face
 @app.route('/get_time/')
@@ -84,6 +84,9 @@ def volume(volume_target):
 def write_file():
     with open('clock_data_file.json', 'w') as f:
         json.dump(clock_data, f)
+# Convert string to boolean
+def str2bool(v):
+  return v.lower() in ("yes", "true", "t", "1")
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)
