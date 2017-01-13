@@ -2,9 +2,9 @@
 // Setup a listener for change events to switches and sliders and send to server
 document.addEventListener("change", changeListener)
 function changeListener(o) {
-  console.log("Target ID of changed: " + o.target.id)
-  console.log(o.target.value)
-  console.log(o.target.checked)
+  // console.log("Target ID of changed: " + o.target.id)
+  // console.log(o.target.value)
+  // console.log(o.target.checked)
 
   // Handle volume slider
   if (o.target.id === "volumeSlider") {
@@ -18,16 +18,10 @@ function changeListener(o) {
 
   // Handle sleep light switch (turns on light for 30 minutes and then fades off)
   if (o.target.id === "sleepLightSwitch") {
-    if (o.target.checked) {
-      document.getElementById('sleepLightSwitchSpan').style.color = "#3F51B5"
-    } else {
-      document.getElementById('sleepLightSwitchSpan').style.color = "white"
-    }
-    var request = new XMLHttpRequest()
-    request.open("GET", "/sleep_light_on_off/" + o.target.checked)
-    request.send()
+    myRequest(updateClock, "/sleep_light_on_off/" + o.target.checked)
   }
 }
+
 
 // Setup a listener for click events on the noise generator button
 var noiseButtonElement = document.querySelector("#noiseButton")
@@ -40,10 +34,7 @@ function makeNoise(e) {
 var ClockElement = document.querySelector("#clockCard")
 ClockElement.addEventListener("click", snooze)
 function snooze(e) {
-  console.log("snooze") // add functionality to change
-  var request = new XMLHttpRequest()
-  request.open("GET", "/snooze")
-  request.send()
+  myRequest(updateClock, "/snooze")
 }
 
 // Setup a listener for the mute button
@@ -94,9 +85,20 @@ function updateClock () {
     if ((JSON.parse(this.responseText)).alarm_on_off == true) {
       document.getElementById('alarmSwitchSpan').style.color = "#3F51B5"
       document.getElementById('clockText').style.color = "#3F51B5"
+      document.getElementById('alarmSwitchLabel').MaterialSwitch.on()
     } else if ((JSON.parse(this.responseText)).alarm_on_off == false) {
       document.getElementById('alarmSwitchSpan').style.color = "white"
       document.getElementById('clockText').style.color = "#B3B2B2"
+      document.getElementById('alarmSwitchLabel').MaterialSwitch.off()
+    }
+
+    // Update the sleep light on/off switch
+    if ((JSON.parse(this.responseText)).sleep_light_on_off == true) {
+      document.getElementById('sleepLightSwitchSpan').style.color = "#3F51B5"
+      document.getElementById('sleepLightSwitchLabel').MaterialSwitch.on()
+    } else if ((JSON.parse(this.responseText)).sleep_light_on_off == false) {
+      document.getElementById('sleepLightSwitchSpan').style.color = "white"
+      document.getElementById('sleepLightSwitchLabel').MaterialSwitch.off()
     }
   }
 }
