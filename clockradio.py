@@ -1,29 +1,116 @@
 #!/usr/bin/python
 
 from flask import Flask, render_template
-from streamgen import Player
-
-p = Player()
+from datetime import datetime
+import thread
+import json, time
+# import alsaaudio, streamgen
+#
+# player = streamgen.Player()
+# mixer = alsaaudio.Mixer()
 
 app = Flask(__name__)
 
+# Open the json file used for data storage, read the last state
+with open('clock_data_file.json', 'r') as f:
+    try:
+        clock_data = json.load(f)
+    # if the file is empty the ValueError will be thrown
+    except ValueError:
+        clock_data = {}
+
 @app.route('/')
 def clock():
-    return render_template('clock.html', play_state='Play')
+    return render_template('clock.html')
 
-@app.route('/settings/')
-def settings():
-    return render_template('settings.html', button_state='Press Me')
+# General purpose route to capture the simple commands
+@app.route('/<cmd>')
+def command(cmd='NONE'):
+    # Return null so that we don't update the file unnecessarily
+    if cmd == 'favicon.ico':
+        return('', 204)
 
-@app.route('/play_sound/<ps>')
-def play_sound(ps):
-    if ps == 'Play':
-        p.play()
-        ps = 'Stop'
-    elif ps == 'Stop':
-        p.stop()
-        ps = 'Play'
-    return render_template('clock.html', play_state=ps)
+    # Update the dictionary to generate noise
+    if cmd == 'generate_noise':
+        # if player.is_playing() == False:
+        #     player.generate()
+        #     print("play noise generator")
+        # else:
+        #     player.stop()
+        #     print("stop making noise")
+        if clock_data['generating_noise'] == True: clock_data['generating_noise'] = False
+        else: clock_data['generating_noise'] = True
+        print("generating noise: " + str(clock_data['generating_noise']))
+
+    # Update the dictionary for snooze
+    if cmd == 'snooze':
+        if clock_data['snooze'] == True: clock_data['snooze'] = False
+        else: clock_data['snooze'] = True
+        print("snoozing: " + str(clock_data['snooze']))  # Maybe change clock face background color to indicate snooze?
+        # When snooze is trigger the alarm should be turned off and reset for 10min in the future. Need to figure out interaction model here
+
+    # Update the dictionary for mute
+    if cmd == 'mute':
+        if clock_data['mute'] == True:
+            clock_data['mute'] = False
+        else: clock_data['mute'] = True
+
+    # Write the dictionary out to file and return the dictionary to the client
+    write_file()
+    return (json.dumps(clock_data))
+
+# Alarm state (needs updating)
+@app.route('/alarm_on_off/<state>')
+def alarm_state_change(state):
+    clock_data['alarm_on_off'] = str2bool(state)
+    write_file()
+    return (json.dumps(clock_data))
+
+# Sleep light on/off
+@app.route('/sleep_light_on_off/<state>')
+def sleep_light_state_change(state):
+    clock_data['sleep_light_on_off'] = str2bool(state)
+    write_file()
+    return (json.dumps(clock_data))
+
+# Update time for clock face
+@app.route('/get_time/')
+def get_time():
+    hour_minute = (datetime.now().strftime('%I:%M')).lstrip("0")
+    am_pm = datetime.now().strftime('%p')
+    full_time = hour_minute + am_pm.lower()
+    clock_data['time'] = full_time
+    return (json.dumps(clock_data))
+
+# Set the volume according to the slider input
+@app.route('/change_volume/<volume_target>')
+def volume(volume_target):
+    # mixer.setvolume(volume_target)
+    clock_data['volume'] = volume_target
+    print("volume target: " + volume_target)
+    # return int(mixer.getvolume())
+    write_file()
+    return (json.dumps(clock_data))  # There's a bug when dragging the slider, need to fix this.
+
+# Sound the alarm
+def run_alarm():
+    while True:
+        if clock_data['time'] == clock_data['alarm_time'] and clock_data['alarm_on_off'] == True:
+            print("sound the alarm!!")
+        time.sleep(.5)
+            # Play KQED for 15 minutes with fade in/out
+
+# Spawn thread for alarm
+my_thread = thread.start_new_thread(run_alarm, ())
+
+# Write the data to file
+def write_file():
+    with open('clock_data_file.json', 'w') as f:
+        json.dump(clock_data, f)
+
+# Convert string to boolean
+def str2bool(v):
+  return v.lower() in ("yes", "true", "t", "1")
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)

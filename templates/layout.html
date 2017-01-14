@@ -1,55 +1,31 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Spencer's Clock Radio</title>
 
-  <title>Spencer's Alarm</title>
+  <!--Import Material Design Lite CSS & Icons/Font-->
+  <link rel="stylesheet" href={{ url_for('static', filename='css/material.css') }}>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
+  <!--Import my custom CSS-->
+  <link rel="stylesheet" href={{ url_for('static', filename='css/mystylesheet.css') }}>
 
-  <!--Import Pure CSS-->
-  <link rel="stylesheet" href="https://unpkg.com/purecss@0.6.1/build/pure-min.css">
-  <link rel="stylesheet" href="https://unpkg.com/purecss@0.6.1/build/grids-responsive-min.css">
-  <!--Import Local CSS-->
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
-  <!--Import flipclock CSS-->
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/flipclock.css') }}">
-  <!--Import font-awsome-->
-  <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
-  <!--Import Google Icon Font-->
-  <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <!--Import materialize.css-->
-  <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/materialize.css') }}"  media="screen,projection"/>
-
-  <!--Let browser know website is optimized for mobile-->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 </head>
 
-<body>
-  <div class="header">
-      <div class="home-menu pure-menu pure-menu-horizontal pure-menu-fixed">
-          <a class="pure-menu-heading" href="">Spencer's Clock Radio</a>
-
-          <ul class="pure-menu-list">
-              <li class="pure-menu-item pure-menu-selected"><a href="{{ url_for('clock') }}" class="pure-menu-link">Clock</a></li>
-              <li class="pure-menu-item"><a href="{{ url_for('settings') }}" class="pure-menu-link">Settings</a></li>
-          </ul>
-
-      </div>
-  </div>
-  <div class="container">
+<body onload="startTime()">
+  <div class="container" margin-top="50px">
     {% block content %}
     {% endblock %}
   </div>
 
 
-<!--Import jQuery before materialize.js-->
-<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-<!--Import materialize.js-->
-<script type="text/javascript" src="{{ url_for('static', filename='js/materialize.js') }}"></script>
-<!--Import my local js-->
-<script type="text/javascript" src="{{ url_for('static', filename='js/myscript.js') }}"></script>
-<!--Import my flipclock js-->
-<script type="text/javascript" src="{{ url_for('static', filename='js/flipclock.js') }}"></script>
+  <!--Import the Material Design Lite javascript file-->
+  <script type="text/javascript" src="{{ url_for('static', filename='js/material.js') }}"></script>
+  <!--Import my custom javascript file-->
+  <script type="text/javascript" src="{{ url_for('static', filename='js/myscript.js') }}"></script>
+  <script type=text/javascript>
+  var $SCRIPT_ROOT = {{ request.script_root|tojson|safe }}; // Create a path variable to be used on javascript (necessary because of Jinja2 template engine)
+  </script>
 </body>
 
 </html>
