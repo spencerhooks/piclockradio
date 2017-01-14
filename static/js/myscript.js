@@ -41,7 +41,6 @@ function snooze(e) {
 var MuteButtonElement = document.querySelector("#muteButton")
 MuteButtonElement.addEventListener("click", mute)
 function mute(e) {
-  console.log("mute")
   myRequest(updateClock, "/mute")
 }
 
@@ -51,7 +50,7 @@ function startTime() {
   var t = setTimeout(startTime, 1000)
 }
 
-// General purpose function to send requests to the server
+// Function to send requests to the server
 function myRequest(callBackFunction, requestedURL) {
   var myrequest = new XMLHttpRequest()
   myrequest.onreadystatechange = callBackFunction
@@ -88,9 +87,13 @@ function updateClock () {
     if ((JSON.parse(this.responseText)).alarm_on_off == true) {
       document.getElementById('alarmSwitchSpan').style.color = "#3F51B5"
       document.getElementById('clockText').style.color = "#3F51B5"
+      document.getElementById('alarmInput').style.color = "#3F51B5"
+      document.getElementById('alarmInputLabel').style.color = "#3F51B5"
       document.getElementById('alarmSwitchLabel').MaterialSwitch.on()
     } else if ((JSON.parse(this.responseText)).alarm_on_off == false) {
       document.getElementById('alarmSwitchSpan').style.color = "white"
+      document.getElementById('alarmInput').style.color = "white"
+      document.getElementById('alarmInputLabel').style.color = "white"
       document.getElementById('clockText').style.color = "#B3B2B2"
       document.getElementById('alarmSwitchLabel').MaterialSwitch.off()
     }
@@ -102,6 +105,13 @@ function updateClock () {
     } else if ((JSON.parse(this.responseText)).sleep_light_on_off == false) {
       document.getElementById('sleepLightSwitchSpan').style.color = "white"
       document.getElementById('sleepLightSwitchLabel').MaterialSwitch.off()
+    }
+
+    // Change the background of the clock while indicating snooze
+    if ((JSON.parse(this.responseText)).indicate_snooze == true) {
+      document.getElementById('clockCard').style.backgroundColor = "#adb9ff"
+    } else if ((JSON.parse(this.responseText)).indicate_snooze == false) {
+      document.getElementById('clockCard').style.backgroundColor = "white"
     }
 
   }

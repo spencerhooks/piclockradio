@@ -6,8 +6,8 @@
     <div class="mdl-cell mdl-cell--bottom mdl-cell--4-col" id="alarmTime" style="padding-bottom:5px">
       <form action="#">
         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-          <input class="mdl-textfield__input" type="text" value="5:30am" disabled style="color:#3F51B5" id="alarmInput">
-          <label class="mdl-textfield__label" for="alarmInput" style="color:#3F51B5">Alarm Set For:</label>
+          <input class="mdl-textfield__input" type="text" value="5:30am" disabled id="alarmInput">
+          <label class="mdl-textfield__label" for="alarmInput" id="alarmInputLabel">Alarm Set For:</label>
         </div>
       </form>
     </div>
@@ -25,7 +25,9 @@
     </div>
   </div>
   <div class="mdl-card my-card-clock mdl-shadow--8dp" id="clockCard">
-    <h1 id="clockText" style="font-size:160px; font-weight:300; color:#B3B2B2;" align="center"></h1>
+    <button class="mdl-button mdl-js-button mdl-js-ripple-effect" style="height:100%; padding: 20px 0px 20px 0px; text-transform:lowercase" align="center" id=clockButton>
+      <h1 id="clockText" style="font-size:160px; font-weight:300; color:#B3B2B2;" align="center"></h1>
+    </button>
   </div>
   <br>
   <div class="mdl-grid mdl-grid--no-spacing">

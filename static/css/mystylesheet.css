@@ -7,7 +7,7 @@ body {
 .my-card-clock.mdl-card {
   width: 690px;
   margin: auto;
-  padding: 20px;
+  padding: 0px;
 }
 
 .my-button-settings.mdl-button {

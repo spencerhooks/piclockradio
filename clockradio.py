@@ -1,5 +1,6 @@
 #!/usr/bin/python
 
+
 from flask import Flask, render_template
 from threading import Thread
 import json, time, datetime
@@ -77,7 +78,10 @@ def get_time():
     hour_minute = (datetime.datetime.now().strftime('%I:%M')).lstrip("0")
     am_pm = datetime.datetime.now().strftime('%p')
     full_time = hour_minute + am_pm.lower()
-    if not clock_data['pause_clock']: clock_data['time'] = full_time
+    if not clock_data['indicate_snooze']: clock_data['time'] = full_time # Pause clock refesh to indicate snooze
+    if full_time == clock_data['alarm_reset_time'] and datetime.datetime.now().strftime('%w') in ('1', '2', '3', '4', '5'): # Turn on alarm automatically on weekdays
+        clock_data['alarm_on_off'] = True
+        clock_data['alarm_time'] = '5:30am' #### Set alarm to 5:30am automatically; should add setting for this
     return (json.dumps(clock_data))
 
 # Set the volume according to the slider input
@@ -102,9 +106,11 @@ def run_alarm():
 
 # Snooze the alarm
 def snooze():
-    if clock_data['alarm_sounding'] == False: return ('', 204)
+    if clock_data['alarm_sounding'] == False or clock_data['alarm_on_off'] == False: return ('', 204)
     elif clock_data['alarm_sounding'] == True:
-        clock_data['pause_clock'] = True
+
+        # Pause the clock and indicate a snooze to the client
+        clock_data['indicate_snooze'] = True
 
         # Get the time in 10 min to snooze the alarm time out by 10 min
         new_hour_minute = ((datetime.datetime.now() + datetime.timedelta(minutes = 10)).strftime('%I:%M')).lstrip("0")
@@ -113,14 +119,17 @@ def snooze():
         print new_alarm_time
         clock_data['alarm_time'] = new_alarm_time
 
-        clock_data['time'] = "SNOOZE"
+        # Display a snooze indicator on the clockface
+        clock_data['time'] = "snooze"
         time.sleep(3)
         clock_data['time'] = "10 min"
         time.sleep(3)
-        clock_data['pause_clock'] = False
+
+        # Resume clock function, tell the client to stop indicating snooze, and write the file
+        clock_data['indicate_snooze'] = False
         write_file()
-    print("snoozing")  # Maybe change clock face background color to indicate snooze?
-    # When snooze is trigger the alarm should be turned off and reset for 10min in the future. Need to figure out interaction model here
+    print("snoozing")
+    # When snooze is trigger the alarm should be turned off and reset for 10min in the future.
 
 # Spawn thread for alarm
 alarm_thread = Thread(target=run_alarm)
