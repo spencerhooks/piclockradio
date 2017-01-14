@@ -2,7 +2,7 @@
 
 ## Known Issues ##
 1. The volume slider has a bug where holding and dragging (but not letting go) causes a visual problem because the slider position is updated by javascript from the previous position in json file.
-2. 
+2.
 
 ## List of Requirements ##
 1. Sunrise light (control external Hue light)
@@ -58,6 +58,3 @@
 3. Alsaaudio: apt-get install python-alsaaudio
 
 Material Design Alarm Design: http://tutorialzine.com/2015/04/material-design-stopwatch-alarm-and-timer/
-
-Github token: 9046ff1e95dbfa91346d67b4b2f9dc9bbbffd581
-Gist ID: 9d81a5614c32af52bba68fa1ea8c258a
