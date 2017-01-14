@@ -1,9 +1,8 @@
 #!/usr/bin/python
 
 from flask import Flask, render_template
-from datetime import datetime
-import thread
-import json, time
+from threading import Thread
+import json, time, datetime
 # import alsaaudio, streamgen
 #
 # player = streamgen.Player()
@@ -44,10 +43,9 @@ def command(cmd='NONE'):
 
     # Update the dictionary for snooze
     if cmd == 'snooze':
-        if clock_data['snooze'] == True: clock_data['snooze'] = False
-        else: clock_data['snooze'] = True
-        print("snoozing: " + str(clock_data['snooze']))  # Maybe change clock face background color to indicate snooze?
-        # When snooze is trigger the alarm should be turned off and reset for 10min in the future. Need to figure out interaction model here
+        snooze_thread = Thread(target=snooze)
+        snooze_thread.daemon = True
+        snooze_thread.start()
 
     # Update the dictionary for mute
     if cmd == 'mute':
@@ -76,10 +74,10 @@ def sleep_light_state_change(state):
 # Update time for clock face
 @app.route('/get_time/')
 def get_time():
-    hour_minute = (datetime.now().strftime('%I:%M')).lstrip("0")
-    am_pm = datetime.now().strftime('%p')
+    hour_minute = (datetime.datetime.now().strftime('%I:%M')).lstrip("0")
+    am_pm = datetime.datetime.now().strftime('%p')
     full_time = hour_minute + am_pm.lower()
-    clock_data['time'] = full_time
+    if not clock_data['pause_clock']: clock_data['time'] = full_time
     return (json.dumps(clock_data))
 
 # Set the volume according to the slider input
@@ -96,12 +94,38 @@ def volume(volume_target):
 def run_alarm():
     while True:
         if clock_data['time'] == clock_data['alarm_time'] and clock_data['alarm_on_off'] == True:
-            print("sound the alarm!!")
+            clock_data['alarm_sounding'] = True
+            print("sound the alarm for 15 minutes!!")
         time.sleep(.5)
-            # Play KQED for 15 minutes with fade in/out
+            # Need to change alarm_sounding to False
+            # Play KQED for 15 minutes with fade in/out; use global variable so other functions can stop playback
+
+# Snooze the alarm
+def snooze():
+    if clock_data['alarm_sounding'] == False: return ('', 204)
+    elif clock_data['alarm_sounding'] == True:
+        clock_data['pause_clock'] = True
+
+        # Get the time in 10 min to snooze the alarm time out by 10 min
+        new_hour_minute = ((datetime.datetime.now() + datetime.timedelta(minutes = 10)).strftime('%I:%M')).lstrip("0")
+        new_am_pm = datetime.datetime.now().strftime('%p')
+        new_alarm_time = new_hour_minute + new_am_pm.lower()
+        print new_alarm_time
+        clock_data['alarm_time'] = new_alarm_time
+
+        clock_data['time'] = "SNOOZE"
+        time.sleep(3)
+        clock_data['time'] = "10 min"
+        time.sleep(3)
+        clock_data['pause_clock'] = False
+        write_file()
+    print("snoozing")  # Maybe change clock face background color to indicate snooze?
+    # When snooze is trigger the alarm should be turned off and reset for 10min in the future. Need to figure out interaction model here
 
 # Spawn thread for alarm
-my_thread = thread.start_new_thread(run_alarm, ())
+alarm_thread = Thread(target=run_alarm)
+alarm_thread.daemon = True
+alarm_thread.start()
 
 # Write the data to file
 def write_file():

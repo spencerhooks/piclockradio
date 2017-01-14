@@ -1,1 +1,1 @@
-{"sleep_light_on_off": true, "mute": false, "generating_noise": false, "alarm_time": "7:01pm", "volume": "64", "time": "7:34pm", "snooze": true, "alarm_on_off": false}
+{"sleep_light_on_off": false, "mute": false, "pause_clock": false, "generating_noise": true, "alarm_time": "10:11am", "volume": "39", "time": "10 min", "snooze": true, "alarm_sounding": true, "alarm_on_off": true}
