@@ -3,6 +3,10 @@
 ## Known Issues/To Do List ##
 1. The volume slider has a bug where holding and dragging (but not letting go) causes a visual problem because the slider position is updated by javascript from the previous position in json file.
 2. Connect up the settings page.
+  1. Update settings from datafile (only) on page load [using start()]
+  2. Update datafile on input
+  3. Use new dictionary entries in python
+3. Turn on coffee maker
 
 
 ## List of Requirements ##
@@ -54,6 +58,8 @@ m.setvolume(50) # set volume
 vol = m.getvolume() # get volume float value
 ```
 4. Need to figure out a user interaction so the alarm can be turned off (after it has gone off) but remain on for the next day.
+5. regex for time ```pattern="^([0[0-9]|1[0-2]):[0-5][0-9][ap][m]$"```
+6. regex for number 1-60 ```pattern="^([1-9]|[0-5][0-9]|60)$"```
 
 ## Needed packages: ##
 1. Sox: apt-get install sox

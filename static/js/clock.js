@@ -2,9 +2,9 @@
 // Setup a listener for change events to switches and sliders and send to server
 document.addEventListener("change", changeListener)
 function changeListener(o) {
-  // console.log("Target ID of changed: " + o.target.id)
-  // console.log(o.target.value)
-  // console.log(o.target.checked)
+  console.log("Target ID of changed: " + o.target.id)
+  console.log(o.target.value)
+  console.log(o.target.checked)
 
   // Handle volume slider
   if (o.target.id === "volumeSlider") {
@@ -20,6 +20,7 @@ function changeListener(o) {
   if (o.target.id === "sleepLightSwitch") {
     myRequest(updateClock, "/sleep_light_on_off/" + o.target.checked)
   }
+
 }
 
 
@@ -45,9 +46,9 @@ function mute(e) {
 }
 
 // Loop for the clock to get the time every second
-function startTime() {
+function start() {
   myRequest(updateClock, "/get_time")
-  var t = setTimeout(startTime, 1000)
+  var t = setTimeout(start, 1000)
 }
 
 // Function to send requests to the server

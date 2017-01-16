@@ -14,7 +14,7 @@
 
 </head>
 
-<body onload="startTime()">
+<body onload="start()">
   <div class="container" margin-top="50px">
     {% block content %}
     {% endblock %}
@@ -23,10 +23,9 @@
 
   <!--Import the Material Design Lite javascript file-->
   <script type="text/javascript" src="{{ url_for('static', filename='js/material.js') }}"></script>
-  <!--Import my custom javascript file-->
-  <script type="text/javascript" src="{{ url_for('static', filename='js/myscript.js') }}"></script>
+  <!--Create a path variable to be used on javascript (necessary because of Jinja2 template engine)-->
   <script type=text/javascript>
-  var $SCRIPT_ROOT = {{ request.script_root|tojson|safe }}; // Create a path variable to be used on javascript (necessary because of Jinja2 template engine)
+    var $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
   </script>
 </body>
 
