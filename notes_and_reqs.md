@@ -1,8 +1,9 @@
 # Notes and Requirements #
 
-## Known Issues ##
+## Known Issues/To Do List ##
 1. The volume slider has a bug where holding and dragging (but not letting go) causes a visual problem because the slider position is updated by javascript from the previous position in json file.
-2.
+2. Connect up the settings page.
+
 
 ## List of Requirements ##
 1. Sunrise light (control external Hue light)

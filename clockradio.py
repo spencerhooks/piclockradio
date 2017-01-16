@@ -23,13 +23,14 @@ with open('clock_data_file.json', 'r') as f:
 def clock():
     return render_template('clock.html')
 
+@app.route('/settings/')
+def settings():
+    return render_template('settings.html')
+
+
 # General purpose route to capture the simple commands
 @app.route('/<cmd>')
 def command(cmd='NONE'):
-    # Return null so that we don't update the file unnecessarily
-    if cmd == 'favicon.ico':
-        return('', 204)
-
     # Update the dictionary to generate noise
     if cmd == 'generate_noise':
         # if player.is_playing() == False:

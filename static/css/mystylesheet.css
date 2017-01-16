@@ -4,6 +4,13 @@ body {
   font-family: 'Roboto', sans-serif;
 }
 
+.clock-settings-card {
+  width: 320px;
+  height: 320px;
+  margin: auto;
+  padding: 10px 10px 10px 10px
+}
+
 .my-card-clock.mdl-card {
   width: 690px;
   margin: auto;

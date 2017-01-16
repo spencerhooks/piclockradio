@@ -1,0 +1,51 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<h1 align="Center" style="color:#3F51B5">Settings</h1>
+<div id="clockParent">
+  <div class="mdl-grid">
+    <div class="clock-settings-card mdl-card mdl-shadow--8dp" id="alarmSettingsCard">
+      <form action="#">
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+          <input class="mdl-textfield__input" type="text" pattern="^([0[0-9]|1[0-2]):[0-5][0-9][ap][m]$" title="Use H:MMxm format" id="alarmTimeSettingInput">
+          <label class="mdl-textfield__label" for="alarmTimeSettingLabel">Alarm Set For:</label>
+        </div>
+      </form>
+      <form action="#">
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+          <input class="mdl-textfield__input" type="text" pattern="^[0-9][0-9]$" title="Number of minutes" id="alarmDurationSettingInput">
+          <label class="mdl-textfield__label" for="alarmDurationSettingLabel">Alarm Duration (Minutes):</label>
+        </div>
+      </form>
+      <form action="#">
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+          <input class="mdl-textfield__input" type="text" pattern="^([0[0-9]|1[0-2]):[0-5][0-9][ap][m]$" title="Use H:MMxm format" id="alarmResetTimeInput">
+          <label class="mdl-textfield__label" for="alarmResetTimeLabel">Weekday Auto Alarm-On Time:</label>
+        </div>
+      </form>
+      <br>
+      <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="alarmAutoSetSwitch" id="alarmAutoSetSwitchLabel">
+        <input type="checkbox" id="alarmAutoSetSwitch" class="mdl-switch__input">
+        <span class="mdl-switch__label" id="alarmAutoSetSwitchSpan">Weekday Auto Alarm On/Off</span>
+      </label>
+    </div>
+    <div class="clock-settings-card mdl-card mdl-shadow--8dp" id="sleepSettingsCard">
+      <form action="#">
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+          <input class="mdl-textfield__input" type="text" pattern="^[0-9][0-9]$" id="sleepTimeSettingInput">
+          <label class="mdl-textfield__label" for="sleepTimeSettingLabel">Sleep Light Duration (Minutes):</label>
+        </div>
+      </form>
+      <form action="#">
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+          <input class="mdl-textfield__input" type="text" pattern="^[0-9][0-9]$" title="Number of minutes" id="snoozeTimeSettingInput">
+          <label class="mdl-textfield__label" for="snoozeTimeSettingLabel">Snooze Duration (Minutes):</label>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<button class="mdl-button my-button-settings mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-button--colored" onclick="javascript:location.href='http://localhost:5000/'" id="alarmPageButton">
+  <i class="material-icons" id="alarmPageIcon">alarm</i>
+</button>
+{% endblock %}
