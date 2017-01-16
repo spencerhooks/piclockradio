@@ -37,22 +37,22 @@
 
 ## Notes: ##
 1. Use pygame to loop brownian noise:
-  ```python
-  import pygame
-  pygame.init()
-  pygame.mixer.music.load("brownnoise2.mp3")
-  pygame.mixer.music.play(-1)
-  ```
+```python
+import pygame
+pygame.init()
+pygame.mixer.music.load("brownnoise2.mp3")
+pygame.mixer.music.play(-1)
+```
 2. Better still, use sox to generate brown noise (no looping)
   1. See script
   2. There's a python wrapper, but it doesn't add much in this case and is blocking when it calls the sox player
 3. Setting volume:
-  ```python
-  import alsaaudio
-  m = alsaaudio.Mixer()   # defined alsaaudio.Mixer to change volume. Default device is Mixer. Chip needs to use 'Power Amplifier'
-  m.setvolume(50) # set volume
-  vol = m.getvolume() # get volume float value
-  ```
+```python
+import alsaaudio
+m = alsaaudio.Mixer()   # defined alsaaudio.Mixer to change volume. Default device is Mixer. Chip needs to use 'Power Amplifier'
+m.setvolume(50) # set volume
+vol = m.getvolume() # get volume float value
+```
 4. Need to figure out a user interaction so the alarm can be turned off (after it has gone off) but remain on for the next day.
 
 ## Needed packages: ##
