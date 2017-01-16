@@ -37,7 +37,8 @@
 
 ## Notes: ##
 1. Use pygame to loop brownian noise:
-  ```python
+  ```
+  python
   import pygame
   pygame.init()
   pygame.mixer.music.load('brownnoise2.mp3')
