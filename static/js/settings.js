@@ -6,17 +6,21 @@ function changeListener(o) {
   console.log(o.target.value)
   console.log(o.target.checked)
 
-  // Handle volume slider
-  // if (o.target.id === "volumeSlider") {
-  //   myRequest(updateClock, "/change_volume/" + o.target.value)
-  // }
+  // Handle alarm time setting
+  if (o.target.id === "alarmTimeSettingInput") {
+    myRequest(updateClock, "/alarm_time_set/" + o.target.value)
+  }
+
+  // Handle alarm duration setting
+  if (o.target.id === "alarmDurationSettingInput") {
+    myRequest(updateClock, "/alarm_duration_set/" + o.target.value)
+  }
 
 }
 
 // Load the settings from the data file and update html
 function start() {
   myRequest(updateClock, "/get_time")
-  // console.log("Starting up")
 }
 
 // Function to send requests to the server
@@ -31,8 +35,36 @@ function myRequest(callBackFunction, requestedURL) {
 function updateClock () {
   if (this.readyState == 4 && this.status == 200) {
 
-    // Update the alarm set time indicator
+    // Initialize the alarm set time input
     document.getElementById('alarmTimeSettingInput').value = (JSON.parse(this.responseText)).alarm_time
+
+    // Initialize the alarm duration input
+    document.getElementById('alarmDurationSettingInput').value = (JSON.parse(this.responseText)).alarm_duration
+
+    // Initialize the weekday auto alarm-on time input (time when the alarm is switched back on each day)
+    document.getElementById('alarmResetTimeInput').value = (JSON.parse(this.responseText)).alarm_reset_time
+
+    // Initialize the weekday auto alarm-on time on/off switch
+    if ((JSON.parse(this.responseText)).alarm_auto_reset == true) {
+      document.getElementById('alarmAutoSetSwitchSpan').style.color = "#3F51B5"
+      document.getElementById('alarmAutoSetSwitchLabel').MaterialSwitch.on()
+    } else if ((JSON.parse(this.responseText)).alarm_auto_reset == false) {
+      document.getElementById('alarmAutoSetSwitchSpan').style.color = "#B3B2B2"
+      document.getElementById('alarmAutoSetSwitchLabel').MaterialSwitch.off()
+    }
+
+    // Initialize the sleep light duration input
+    document.getElementById('sleepTimeSettingInput').value = (JSON.parse(this.responseText)).sleep_light_duration
+
+    // Initialize the snooze duration input
+    document.getElementById('snoozeTimeSettingInput').value = (JSON.parse(this.responseText)).snooze_duration
+
+    // Initialize the coffee pot input
+    if ((JSON.parse(this.responseText)).coffee_pot == true) {
+      document.getElementById('coffeePotSwitchLabel').MaterialSwitch.on()
+    } else if ((JSON.parse(this.responseText)).coffee_pot == false) {
+      document.getElementById('coffeePotSwitchLabel').MaterialSwitch.off()
+    }
 
   }
 }

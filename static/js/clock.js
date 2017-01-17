@@ -59,14 +59,26 @@ function myRequest(callBackFunction, requestedURL) {
   myrequest.send()
 }
 
+// Function to convert 24 hour time format to a 12 hour time with no leading zero and am/pm added.
+function formatTime(t){
+  var h = parseInt(t.slice(0,2), 10)
+  var m = parseInt(t.slice(3,5), 10)
+	var suffix = h >= 12 ? "pm" : "am"
+
+  m = m < 10 ? "0"+m : m  // Add leading zero if less than 10 minutes
+	h = ((h + 11) % 12) + 1  // Convert from 24 hour to 12 hour
+
+	return h+":"+m+suffix;
+}
+
 // Update all of UI elements with the data returned from the server. All variables are updated on every callback
 function updateClock () {
   if (this.readyState == 4 && this.status == 200) {
     // Update clock time
-    document.getElementById('clockText').innerHTML = (JSON.parse(this.responseText)).time
+    document.getElementById('clockText').innerHTML = formatTime((JSON.parse(this.responseText)).time)
 
     // Update the alarm set time indicator
-    document.getElementById('alarmInput').value = (JSON.parse(this.responseText)).alarm_time
+    document.getElementById('alarmInput').value = formatTime((JSON.parse(this.responseText)).alarm_time)
 
     // Update the noise generator button state
     if ((JSON.parse(this.responseText)).generating_noise == true) {

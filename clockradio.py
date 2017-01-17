@@ -27,7 +27,6 @@ def clock():
 def settings():
     return render_template('settings.html')
 
-
 # General purpose route to capture the simple commands
 @app.route('/<cmd>')
 def command(cmd='NONE'):
@@ -76,13 +75,11 @@ def sleep_light_state_change(state):
 # Update time for clock face
 @app.route('/get_time/')
 def get_time():
-    hour_minute = (datetime.datetime.now().strftime('%I:%M')).lstrip("0")
-    am_pm = datetime.datetime.now().strftime('%p')
-    full_time = hour_minute + am_pm.lower()
+    full_time = (datetime.datetime.now().strftime('%H:%M'))
     if not clock_data['indicate_snooze']: clock_data['time'] = full_time # Pause clock refesh to indicate snooze
     if full_time == clock_data['alarm_reset_time'] and datetime.datetime.now().strftime('%w') in ('1', '2', '3', '4', '5'): # Turn on alarm automatically on weekdays
         clock_data['alarm_on_off'] = True
-        clock_data['alarm_time'] = '5:30am' #### Set alarm to 5:30am automatically; should add setting for this
+        clock_data['alarm_time'] = '05:30' #### Set alarm to 5:30am automatically; should add setting for this
     return (json.dumps(clock_data))
 
 # Set the volume according to the slider input
@@ -94,6 +91,20 @@ def volume(volume_target):
     # return int(mixer.getvolume())
     write_file()
     return (json.dumps(clock_data))  # There's a bug when dragging the slider, need to fix this.
+
+# Alarm time setting
+@app.route('/alarm_time_set/<time>')
+def alarm_time(time):
+    clock_data['alarm_time'] = time
+    write_file()
+    return (json.dumps(clock_data))
+
+# Alarm duration setting
+@app.route('/alarm_duration_set/<time>')
+def alarm_duration(time):
+    clock_data['alarm_duration'] = time
+    write_file()
+    return (json.dumps(clock_data))
 
 # Sound the alarm
 def run_alarm():
@@ -140,7 +151,7 @@ alarm_thread.start()
 # Write the data to file
 def write_file():
     with open('clock_data_file.json', 'w') as f:
-        json.dump(clock_data, f)
+        json.dump(clock_data, f, indent=4, sort_keys=True)
 
 # Convert string to boolean
 def str2bool(v):

@@ -1,1 +1,18 @@
-{"sleep_light_on_off": false, "mute": false, "pause_clock": false, "generating_noise": false, "indicate_snooze": false, "alarm_time": "15:30", "volume": "73", "alarm_reset_time": "12:00pm", "time": "12:24am", "alarm_sounding": true, "alarm_on_off": false}
+{
+    "alarm_auto_reset": true, 
+    "alarm_duration": "30", 
+    "alarm_on_off": false, 
+    "alarm_reset_time": "12:00", 
+    "alarm_sounding": true, 
+    "alarm_time": "05:30", 
+    "coffee_pot": true, 
+    "generating_noise": false, 
+    "indicate_snooze": false, 
+    "mute": false, 
+    "pause_clock": false, 
+    "sleep_light_duration": "30", 
+    "sleep_light_on_off": false, 
+    "snooze_duration": "10", 
+    "time": "22:49", 
+    "volume": "77"
+}

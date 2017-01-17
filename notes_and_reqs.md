@@ -2,11 +2,12 @@
 
 ## Known Issues/To Do List ##
 1. The volume slider has a bug where holding and dragging (but not letting go) causes a visual problem because the slider position is updated by javascript from the previous position in json file.
-2. Connect up the settings page.
+2. Connect up the settings page. ***Do I want to continuously update the settings inputs?***
   1. Update settings from datafile (only) on page load [using start()]
   2. Update datafile on input
   3. Use new dictionary entries in python
 3. Turn on coffee maker
+4. Text inputs on settings page send entry even though it doesn't match the regex pattern. Need to stop that from going into the file/dict
 
 
 ## List of Requirements ##
