@@ -86,8 +86,10 @@ function updateClock () {
 
     // Initialize the coffee pot input
     if ((JSON.parse(this.responseText)).coffee_pot == true) {
+      document.getElementById('coffeePotSwitchSpan').style.color = "#3F51B5"
       document.getElementById('coffeePotSwitchLabel').MaterialSwitch.on()
     } else if ((JSON.parse(this.responseText)).coffee_pot == false) {
+      document.getElementById('coffeePotSwitchSpan').style.color = "#B3B2B2"
       document.getElementById('coffeePotSwitchLabel').MaterialSwitch.off()
     }
 
