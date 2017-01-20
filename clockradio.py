@@ -106,6 +106,14 @@ def alarm_duration(time):
     write_file()
     return (json.dumps(clock_data))
 
+# Alarm rest time setting
+@app.route('/alarm_reset_time_set/<time>')
+def alarm_reset_time(time):
+    clock_data['alarm_reset_time'] = time
+    write_file()
+    return (json.dumps(clock_data))
+
+
 # Sound the alarm
 def run_alarm():
     while True:

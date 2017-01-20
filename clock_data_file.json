@@ -2,7 +2,7 @@
     "alarm_auto_reset": true, 
     "alarm_duration": "30", 
     "alarm_on_off": false, 
-    "alarm_reset_time": "12:00", 
+    "alarm_reset_time": "12:59", 
     "alarm_sounding": true, 
     "alarm_time": "05:30", 
     "coffee_pot": true, 
@@ -13,6 +13,6 @@
     "sleep_light_duration": "30", 
     "sleep_light_on_off": false, 
     "snooze_duration": "10", 
-    "time": "22:49", 
+    "time": "17:49", 
     "volume": "77"
 }

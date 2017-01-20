@@ -16,6 +16,11 @@ function changeListener(o) {
     myRequest(updateClock, "/alarm_duration_set/" + o.target.value)
   }
 
+  // Handle weekday auto alarm-on time setting
+  if (o.target.id === "alarmResetTimeSettingInput") {
+    myRequest(updateClock, "/alarm_reset_time_set/" + o.target.value)
+  }
+
 }
 
 // Load the settings from the data file and update html
@@ -42,7 +47,7 @@ function updateClock () {
     document.getElementById('alarmDurationSettingInput').value = (JSON.parse(this.responseText)).alarm_duration
 
     // Initialize the weekday auto alarm-on time input (time when the alarm is switched back on each day)
-    document.getElementById('alarmResetTimeInput').value = (JSON.parse(this.responseText)).alarm_reset_time
+    document.getElementById('alarmResetTimeSettingInput').value = (JSON.parse(this.responseText)).alarm_reset_time
 
     // Initialize the weekday auto alarm-on time on/off switch
     if ((JSON.parse(this.responseText)).alarm_auto_reset == true) {
