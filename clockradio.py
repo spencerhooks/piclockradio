@@ -113,6 +113,33 @@ def alarm_reset_time(time):
     write_file()
     return (json.dumps(clock_data))
 
+# Auto alarm reset switch
+@app.route('/alarm_auto_set/<state>')
+def alarm_auto(state):
+    clock_data['alarm_auto_reset'] = str2bool(state)
+    write_file()
+    return (json.dumps(clock_data))
+
+# Sleep time setting
+@app.route('/sleep_time_set/<time>')
+def sleep_time(time):
+    clock_data['sleep_light_duration'] = time
+    write_file()
+    return (json.dumps(clock_data))
+
+# Snooze duration setting
+@app.route('/snooze_duration_set/<time>')
+def snooze_duration(time):
+    clock_data['snooze_duration'] = time
+    write_file()
+    return (json.dumps(clock_data))
+
+# Coffee pot setting
+@app.route('/coffee_pot_set/<state>')
+def coffee_pot(state):
+    clock_data['coffee_pot'] = str2bool(state)
+    write_file()
+    return (json.dumps(clock_data))
 
 # Sound the alarm
 def run_alarm():

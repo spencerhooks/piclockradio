@@ -21,6 +21,26 @@ function changeListener(o) {
     myRequest(updateClock, "/alarm_reset_time_set/" + o.target.value)
   }
 
+  // Handle alarm on/off switch
+  if (o.target.id === "alarmAutoSetSwitch") {
+    myRequest(updateClock, "/alarm_auto_set/" + o.target.checked)
+  }
+
+  // Handle sleep light duration
+  if (o.target.id === "sleepTimeSettingInput") {
+    myRequest(updateClock, "/sleep_time_set/" + o.target.value)
+  }
+
+  // Handle snooze duration
+  if (o.target.id === "snoozeDurationSettingInput") {
+    myRequest(updateClock, "/snooze_duration_set/" + o.target.value)
+  }
+
+  // Coffee pot on/off switch
+  if (o.target.id === "coffeePotSwitch") {
+    myRequest(updateClock, "/coffee_pot_set/" + o.target.checked)
+  }
+
 }
 
 // Load the settings from the data file and update html
@@ -62,7 +82,7 @@ function updateClock () {
     document.getElementById('sleepTimeSettingInput').value = (JSON.parse(this.responseText)).sleep_light_duration
 
     // Initialize the snooze duration input
-    document.getElementById('snoozeTimeSettingInput').value = (JSON.parse(this.responseText)).snooze_duration
+    document.getElementById('snoozeDurationSettingInput').value = (JSON.parse(this.responseText)).snooze_duration
 
     // Initialize the coffee pot input
     if ((JSON.parse(this.responseText)).coffee_pot == true) {
