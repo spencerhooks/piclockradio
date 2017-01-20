@@ -79,7 +79,6 @@ def get_time():
     if not clock_data['indicate_snooze']: clock_data['time'] = full_time # Pause clock refesh to indicate snooze
     if full_time == clock_data['alarm_reset_time'] and datetime.datetime.now().strftime('%w') in ('1', '2', '3', '4', '5'): # Turn on alarm automatically on weekdays
         clock_data['alarm_on_off'] = True
-        clock_data['alarm_time'] = '05:30' #### Set alarm to 5:30am automatically; should add setting for this
     return (json.dumps(clock_data))
 
 # Set the volume according to the slider input
@@ -144,11 +143,15 @@ def coffee_pot(state):
 # Sound the alarm
 def run_alarm():
     while True:
-        if clock_data['time'] == clock_data['alarm_time'] and clock_data['alarm_on_off'] == True:
+        if clock_data['time'] == clock_data['alarm_time'] and clock_data['alarm_on_off'] == True and clock_data['alarm_sounding'] == False:
+            print("Sound the alarm for " + clock_data['alarm_duration'] + " minutes!!")
+            off_time = (datetime.datetime.now() + datetime.timedelta(minutes=(int(clock_data['alarm_duration']) + 1))).strftime('%H:%M')
+            print("Will turn off at: " + off_time)
             clock_data['alarm_sounding'] = True
-            print("sound the alarm for 15 minutes!!")
+        # elif (clock_data['time'] != clock_data['alarm_time'] or clock_data['alarm_on_off'] == False) and clock_data['alarm_sounding'] == True:
+        #     print("stoping the alarm")
+        #     clock_data['alarm_sounding'] = False
         time.sleep(.5)
-            # Need to change alarm_sounding to False
             # Play KQED for 15 minutes with fade in/out; use global variable so other functions can stop playback
 
 # Snooze the alarm
