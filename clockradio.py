@@ -1,13 +1,12 @@
 #!/usr/bin/python
 
-
 from flask import Flask, render_template
 from threading import Thread
 import json, time, datetime
-# import alsaaudio, streamgen
-#
-# player = streamgen.Player()
-# mixer = alsaaudio.Mixer()
+import alsaaudio, streamgen
+
+player = streamgen.Player()
+mixer = alsaaudio.Mixer(device='pulse')
 
 app = Flask(__name__)
 
@@ -30,17 +29,13 @@ def settings():
 # General purpose route to capture the simple commands
 @app.route('/<cmd>')
 def command(cmd='NONE'):
-    # Update the dictionary to generate noise
     if cmd == 'generate_noise':
-        # if player.is_playing() == False:
-        #     player.generate()
-        #     print("play noise generator")
-        # else:
-        #     player.stop()
-        #     print("stop making noise")
-        if clock_data['generating_noise'] == True: clock_data['generating_noise'] = False
-        else: clock_data['generating_noise'] = True
-        print("generating noise: " + str(clock_data['generating_noise']))
+        if clock_data['generating_noise'] == False:
+            player.generate()
+            clock_data['generating_noise'] = True
+        elif clock_data['generating_noise'] == True:
+            player.stop()
+            clock_data['generating_noise'] = False
 
     # Update the dictionary for snooze
     if cmd == 'snooze':
@@ -84,10 +79,9 @@ def get_time():
 # Set the volume according to the slider input
 @app.route('/change_volume/<volume_target>')
 def volume(volume_target):
-    # mixer.setvolume(volume_target)
-    clock_data['volume'] = volume_target
-    print("volume target: " + volume_target)
-    # return int(mixer.getvolume())
+    mixer.setvolume(int(volume_target))
+    clock_data['volume'] = str(mixer.getvolume()[0])
+    print("volume target: " + str(mixer.getvolume()[0]))
     write_file()
     return (json.dumps(clock_data))  # There's a bug when dragging the slider, need to fix this.
 
@@ -145,12 +139,12 @@ def run_alarm():
     while True:
         if clock_data['time'] == clock_data['alarm_time'] and clock_data['alarm_on_off'] == True and clock_data['alarm_sounding'] == False:
             print("Sound the alarm for " + clock_data['alarm_duration'] + " minutes!!")
-            off_time = (datetime.datetime.now() + datetime.timedelta(minutes=(int(clock_data['alarm_duration']) + 1))).strftime('%H:%M')
-            print("Will turn off at: " + off_time)
+
+            # off_time = (datetime.datetime.now() + datetime.timedelta(minutes=(int(clock_data['alarm_duration']) + 1))).strftime('%H:%M')
             clock_data['alarm_sounding'] = True
-        # elif (clock_data['time'] != clock_data['alarm_time'] or clock_data['alarm_on_off'] == False) and clock_data['alarm_sounding'] == True:
-        #     print("stoping the alarm")
-        #     clock_data['alarm_sounding'] = False
+        elif clock_data['alarm_sounding'] == True:
+            print("check if alarm is still sounding if yes, check on/off switch and take action. set dict to false")
+            clock_data['alarm_sounding'] = False
         time.sleep(.5)
             # Play KQED for 15 minutes with fade in/out; use global variable so other functions can stop playback
 

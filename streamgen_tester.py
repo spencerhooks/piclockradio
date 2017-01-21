@@ -5,7 +5,7 @@ import time
 
 p = Player()
 
-p.play(duration=5)
+p.generate(duration=5)
 
 print ("playing stuff")
 print (p.is_playing())

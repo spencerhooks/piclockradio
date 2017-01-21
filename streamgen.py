@@ -30,7 +30,7 @@ import os, time, logging, sys
 
 
 
-logging.basicConfig(stream=sys.stderr, level=logging.DEBUG)
+logging.basicConfig(stream=sys.stderr, level=logging.INFO)
 
 
 
