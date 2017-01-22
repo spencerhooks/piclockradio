@@ -41,9 +41,8 @@ class Player(object):
         Method to generate synthetic signal using SoX.
         """
         if logging.getLogger().getEffectiveLevel() != 10:
-            global t
-            t = Thread(target = self._send_command, kwargs={'duration': duration, 'tone': tone, 'gain': gain, 'fadetime': fadetime})
-            t.start()
+            self.t = Thread(target = self._send_command, kwargs={'duration': duration, 'tone': tone, 'gain': gain, 'fadetime': fadetime})
+            self.t.start()
         logging.debug("Generating sound " + tone + " for a duration of " + str(duration))
 
     def play(self, duration=0, source='kqed'):
@@ -54,9 +53,8 @@ class Player(object):
         the duration of audio.
         """
         if logging.getLogger().getEffectiveLevel() != 10:
-            global t
-            t = Thread(target = self._send_command, kwargs={'duration': duration, 'tone': source,})
-            t.start()
+            self.t = Thread(target = self._send_command, kwargs={'duration': duration, 'tone': source,})
+            self.t.start()
         logging.debug("Playing source " + source + " for a duration of " + str(duration))
 
     def stop(self):
@@ -64,8 +62,13 @@ class Player(object):
         Method to stop playback. This is only needed when duration is not given or is set to 0 (infinite).
         """
         if logging.getLogger().getEffectiveLevel() != 10:
-            global _player
-            _player.terminate()
+            try:
+                self._player.terminate()
+            except AttributeError as e:  # Make things a bit more user friendly and allow a stop command even if not playing
+                if str(e) == "'Player' object has no attribute '_player'":
+                    return
+                else:
+                    raise AttributeError(str(e))  # Only catch the known error and raise any others to pass them through
         logging.debug("Stopping Playback")
 
     def is_playing(self):
@@ -73,14 +76,13 @@ class Player(object):
         Method to check status of player. Returns status of thread to indicate activity.
         """
         if logging.getLogger().getEffectiveLevel() != 10:
-            global t
             try:
-                return t.is_alive()
-            except NameError as e:  # Make things a bit more user friendly and return False even if playback never started
-                if str(e) == "global name 't' is not defined":
+                return self.t.is_alive()
+            except AttributeError as e:  # Make things a bit more user friendly and return False even if playback never started
+                if str(e) == "'Player' object has no attribute 't'":
                     return False
                 else:
-                    raise NameError(str(e))  # Only catch the known error and raise any others to pass them through
+                    raise AttributeError(str(e))  # Only catch the known error and raise any others to pass them through
         logging.debug("Returning Value True")
         return True
 
@@ -88,12 +90,11 @@ class Player(object):
         """
         Private method used to send command to SoX or mpg123.
         """
-        global _player
         if tone == 'kqed':  # If tone is kqed then we use mpg123 to play the kqed live stream.
-            _player = Popen(['mpg123', '-q', '-@', 'http://streams.kqed.org/kqedradio.m3u'])
+            self._player = Popen(['mpg123', '-q', '-@', 'http://streams.kqed.org/kqedradio.m3u'])
             if duration != 0:  # duration is handled manually in this case.
                 time.sleep(duration)
                 self.stop()
         else:
             is_null = False if duration == 0 else True  # Make sure the fade stop position is null when duration is 0
-            _player = Popen(['play', '-q', '-n', 'synth', str(duration), tone, 'gain', str(gain), 'fade', 'q', str(fadetime)] + ['0']*is_null)
+            self._player = Popen(['play', '-q', '-n', 'synth', str(duration), tone, 'gain', str(gain), 'fade', 'q', str(fadetime)] + ['0']*is_null)

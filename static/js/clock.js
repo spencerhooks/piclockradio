@@ -74,8 +74,14 @@ function formatTime(t){
 // Update all of UI elements with the data returned from the server. All variables are updated on every callback
 function updateClock () {
   if (this.readyState == 4 && this.status == 200) {
+
     // Update clock time
-    document.getElementById('clockText').innerHTML = formatTime((JSON.parse(this.responseText)).time)
+    if ((JSON.parse(this.responseText)).indicate_snooze == false) {
+      document.getElementById('clockText').innerHTML = formatTime((JSON.parse(this.responseText)).time)
+    } else if ((JSON.parse(this.responseText)).indicate_snooze == true) {
+      console.log("indicate snooze")
+      document.getElementById('clockText').innerHTML = (JSON.parse(this.responseText)).time
+    }
 
     // Update the alarm set time indicator
     document.getElementById('alarmInput').value = formatTime((JSON.parse(this.responseText)).alarm_time)

@@ -5,7 +5,8 @@ from threading import Thread
 import json, time, datetime
 import alsaaudio, streamgen
 
-player = streamgen.Player()
+noiseplayer = streamgen.Player()
+alarmplayer = streamgen.Player()
 mixer = alsaaudio.Mixer(device='pulse')
 
 app = Flask(__name__)
@@ -31,10 +32,10 @@ def settings():
 def command(cmd='NONE'):
     if cmd == 'generate_noise':
         if clock_data['generating_noise'] == False:
-            player.generate()
+            noiseplayer.generate(gain=-10)
             clock_data['generating_noise'] = True
         elif clock_data['generating_noise'] == True:
-            player.stop()
+            noiseplayer.stop()
             clock_data['generating_noise'] = False
 
     # Update the dictionary for snooze
@@ -137,48 +138,60 @@ def coffee_pot(state):
 # Sound the alarm
 def run_alarm():
     while True:
-        if clock_data['time'] == clock_data['alarm_time'] and clock_data['alarm_on_off'] == True and clock_data['alarm_sounding'] == False:
+        mytime = clock_data['alarm_time']
+        if clock_data['snoozing'] == True: mytime = clock_data['snooze_time']
+        if clock_data['time'] == mytime and clock_data['alarm_on_off'] == True and clock_data['alarm_sounding'] == False:
             print("Sound the alarm for " + clock_data['alarm_duration'] + " minutes!!")
-
-            # off_time = (datetime.datetime.now() + datetime.timedelta(minutes=(int(clock_data['alarm_duration']) + 1))).strftime('%H:%M')
+            alarmplayer.play(duration=(int(clock_data['alarm_duration'])*60))
             clock_data['alarm_sounding'] = True
         elif clock_data['alarm_sounding'] == True:
-            print("check if alarm is still sounding if yes, check on/off switch and take action. set dict to false")
-            clock_data['alarm_sounding'] = False
+            if alarmplayer.is_playing() == False:
+                clock_data['alarm_sounding'] = False
+                clock_data['snoozing'] == False
+                print("stopped automatically after duration")
+            elif clock_data['alarm_on_off'] == False:
+                alarmplayer.stop()
+                clock_data['alarm_sounding'] = False
+                clock_data['snoozing'] == False
+                print("stopped because of switch")
+        if clock_data['alarm_on_off'] == False:
+            clock_data['snoozing'] = False
         time.sleep(.5)
             # Play KQED for 15 minutes with fade in/out; use global variable so other functions can stop playback
+
+# Spawn thread for alarm
+alarm_thread = Thread(target=run_alarm)
+alarm_thread.daemon = True
+alarm_thread.start()
 
 # Snooze the alarm
 def snooze():
     if clock_data['alarm_sounding'] == False or clock_data['alarm_on_off'] == False: return ('', 204)
     elif clock_data['alarm_sounding'] == True:
 
+        # Stop playback of KQED
+        alarmplayer.stop()
+        clock_data['alarm_sounding'] = False
+        clock_data['snoozing'] = True
+
         # Pause the clock and indicate a snooze to the client
         clock_data['indicate_snooze'] = True
 
-        # Get the time in 10 min to snooze the alarm time out by 10 min
-        new_hour_minute = ((datetime.datetime.now() + datetime.timedelta(minutes = 10)).strftime('%I:%M')).lstrip("0")
-        new_am_pm = datetime.datetime.now().strftime('%p')
-        new_alarm_time = new_hour_minute + new_am_pm.lower()
-        print new_alarm_time
-        clock_data['alarm_time'] = new_alarm_time
+        # Get the time in 10 min to set snooze_time
+        print (datetime.datetime.now() + datetime.timedelta(minutes=int(clock_data['snooze_duration']))).strftime('%H:%M')
+        clock_data['snooze_time'] = (datetime.datetime.now() + datetime.timedelta(minutes=int(clock_data['snooze_duration']))).strftime('%H:%M')
 
         # Display a snooze indicator on the clockface
         clock_data['time'] = "snooze"
-        time.sleep(3)
-        clock_data['time'] = "10 min"
-        time.sleep(3)
+        time.sleep(2)
+        clock_data['time'] = clock_data['snooze_duration'] + " min"
+        time.sleep(2)
 
         # Resume clock function, tell the client to stop indicating snooze, and write the file
         clock_data['indicate_snooze'] = False
         write_file()
     print("snoozing")
-    # When snooze is trigger the alarm should be turned off and reset for 10min in the future.
-
-# Spawn thread for alarm
-alarm_thread = Thread(target=run_alarm)
-alarm_thread.daemon = True
-alarm_thread.start()
+    # When snooze is trigger the alarm should be turned off and snoozed for the duration in settings
 
 # Write the data to file
 def write_file():
