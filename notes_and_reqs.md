@@ -57,6 +57,9 @@ vol = m.getvolume() # get volume float value
 4. Need to figure out a user interaction so the alarm can be turned off (after it has gone off) but remain on for the next day.
 5. regex for time ```pattern="^([0[0-9]|1[0-2]):[0-5][0-9][ap][m]$"```
 6. regex for number 1-60 ```pattern="^([1-9]|[0-5][0-9]|60)$"```
+7. check the host OS, name, cpu, etc using ```os.uname()```
+    1. get cpu with ```os.uname()[4]```
+    2. match arm* with ```os.uname()[4].startswith('arm')```
 
 ## Needed packages: ##
 1. Sox: apt-get install sox
