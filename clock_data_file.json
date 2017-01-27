@@ -1,10 +1,10 @@
 {
     "alarm_auto_reset": true, 
-    "alarm_duration": "1", 
+    "alarm_duration": "30", 
     "alarm_on_off": false, 
     "alarm_reset_time": "12:00", 
     "alarm_sounding": false, 
-    "alarm_time": "16:19", 
+    "alarm_time": "05:30", 
     "coffee_pot": true, 
     "generating_noise": false, 
     "indicate_snooze": false, 
@@ -12,9 +12,10 @@
     "pause_clock": false, 
     "sleep_light_duration": "30", 
     "sleep_light_on_off": false, 
-    "snooze_duration": "1", 
+    "snooze_duration": "10", 
     "snooze_time": "16:20", 
     "snoozing": false, 
-    "time": "16:31", 
+    "sunrise": true, 
+    "time": "13:59", 
     "volume": "100"
 }

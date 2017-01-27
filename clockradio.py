@@ -1,7 +1,8 @@
-#!/usr/bin/python
+#!/usr/bin/python2
 
 from flask import Flask, render_template
 from threading import Thread
+from phue import Bridge
 import json, time, datetime
 import alsaaudio, streamgen
 
@@ -54,7 +55,7 @@ def command(cmd='NONE'):
     write_file()
     return (json.dumps(clock_data))
 
-# Alarm state (needs updating)
+# Alarm state
 @app.route('/alarm_on_off/<state>')
 def alarm_state_change(state):
     clock_data['alarm_on_off'] = str2bool(state)
@@ -135,6 +136,13 @@ def coffee_pot(state):
     write_file()
     return (json.dumps(clock_data))
 
+# Sunrise setting
+@app.route('/sunrise_set/<state>')
+def sunrise(state):
+    clock_data['sunrise'] = str2bool(state)
+    write_file()
+    return (json.dumps(clock_data))
+
 # Sound the alarm
 def run_alarm():
     while True:
@@ -157,12 +165,49 @@ def run_alarm():
         if clock_data['alarm_on_off'] == False:
             clock_data['snoozing'] = False
         time.sleep(.5)
-            # Play KQED for 15 minutes with fade in/out; use global variable so other functions can stop playback
+            # Play KQED for 15 minutes with fade in/out
 
 # Spawn thread for alarm
 alarm_thread = Thread(target=run_alarm)
 alarm_thread.daemon = True
 alarm_thread.start()
+
+# Make the sunrise
+def run_sunrise():
+    TRANSITION_TIME = 4*60 # 4 minutes in seconds
+    DELAY_TIME = 30 # 30 minutes
+
+    # Change to your IP address
+    b = Bridge('192.168.1.217')
+
+    # Define the color transitions. Each variable runs for a duration defined by TRANSITION_TIME.
+    color_list = [{'on' : True, 'bri' : 0, 'hue' : 0}] # red
+    color_list.append({'transitiontime' : TRANSITION_TIME*10, 'on' : True, 'bri' : 15, 'hue' : 2000}) # lighter red
+    color_list.append({'transitiontime' : TRANSITION_TIME*10, 'on' : True, 'bri' : 25, 'hue' : 5000}) # red orange
+    color_list.append({'transitiontime' : TRANSITION_TIME*10, 'on' : True, 'bri' : 50, 'hue' : 9977}) # orange
+    color_list.append({'transitiontime' : TRANSITION_TIME*10, 'on' : True, 'bri' : 100, 'hue' : 9980}) # orange yellow
+    color_list.append({'transitiontime' : TRANSITION_TIME*10, 'on' : True, 'bri' : 150, 'hue' : 13390}) # yellow
+    color_list.append({'transitiontime' : TRANSITION_TIME*10, 'on' : True, 'bri' : 200, 'hue' : 15191}) # yellow white
+    color_list.append({'transitiontime' : TRANSITION_TIME*10, 'on' : True, 'bri' : 255, 'hue' : 20000}) # white
+
+    while True:
+        if(datetime.datetime.now() + datetime.timedelta(minutes=-32)).strftime('%H:%M') == clock_data['alarm_time']:
+            for element in color_list:
+                b.set_light(3, element)
+                time.sleep(TRANSITION_TIME)
+
+            end_time = datetime.datetime.now() + datetime.timedelta(minutes=DELAY_TIME)
+            while datetime.datetime.now() < end_time:
+
+                time.sleep(5)
+
+            b.set_light(3,'on', False)
+        time.sleep(30)
+
+# Spawn the sunrise thread
+sunrise_thread = Thread(target=run_sunrise)
+sunrise_thread.daemon = True
+sunrise_thread.start()
 
 # Snooze the alarm
 def snooze():

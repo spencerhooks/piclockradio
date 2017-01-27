@@ -41,6 +41,11 @@ function changeListener(o) {
     myRequest(updateClock, "/coffee_pot_set/" + o.target.checked)
   }
 
+  // Sunrise on/off switch
+  if (o.target.id === "sunriseSwitch") {
+    myRequest(updateClock, "/sunrise_set/" + o.target.checked)
+  }
+
 }
 
 // Load the settings from the data file and update html
@@ -91,6 +96,17 @@ function updateClock () {
     } else if ((JSON.parse(this.responseText)).coffee_pot == false) {
       document.getElementById('coffeePotSwitchSpan').style.color = "#B3B2B2"
       document.getElementById('coffeePotSwitchLabel').MaterialSwitch.off()
+    }
+
+
+
+    // Initialize the sunrise input
+    if ((JSON.parse(this.responseText)).sunrise == true) {
+      document.getElementById('sunriseSwitchSpan').style.color = "#3F51B5"
+      document.getElementById('sunriseSwitchLabel').MaterialSwitch.on()
+    } else if ((JSON.parse(this.responseText)).sunrise == false) {
+      document.getElementById('sunriseSwitchSpan').style.color = "#B3B2B2"
+      document.getElementById('sunriseSwitchLabel').MaterialSwitch.off()
     }
 
   }

@@ -9,11 +9,9 @@ from threading import Thread
 #     p = Popen(['play', '-q', '-n', 'synth', 'brownnoise'])
 #     print "running thread"
 
-t = Thread(target = Popen(['play', '-q', '-n', 'synth', 'brownnoise']))
+t = Thread(target = do_stuff)
 t.daemon = False
 t.start()
 
-print (t.is_alive())
-time.sleep(5)
-target.terminate()
-print (t.is_alive())
+def do_stuff():
+    print
