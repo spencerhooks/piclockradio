@@ -196,11 +196,7 @@ def run_sunrise():
                 b.set_light(3, element)
                 time.sleep(TRANSITION_TIME)
 
-            end_time = datetime.datetime.now() + datetime.timedelta(minutes=DELAY_TIME)
-            while datetime.datetime.now() < end_time:
-
-                time.sleep(5)
-
+            time.sleep(DELAY_TIME)
             b.set_light(3,'on', False)
         time.sleep(30)
 
