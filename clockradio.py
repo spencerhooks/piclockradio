@@ -1,7 +1,7 @@
 #!/usr/bin/python2
 
 from flask import Flask, render_template
-from threading import Thread
+from threading import Thread, Timer
 from phue import Bridge
 import json, time, datetime
 import alsaaudio, streamgen
@@ -12,6 +12,26 @@ mixer = alsaaudio.Mixer(device='pulse')
 
 app = Flask(__name__)
 
+# Hue bridge
+b = Bridge('192.168.1.217')
+
+# Constants for sunrise
+TRANSITION_TIME = 10 # 4 minutes
+DELAY_TIME = 10 # 30 minutes
+
+# Define the color transitions for sunrise. Each variable runs for a duration defined by TRANSITION_TIME.
+color_list = [{'on' : True, 'bri' : 0, 'hue' : 0}] # red
+color_list.append({'transitiontime' : TRANSITION_TIME*10, 'on' : True, 'bri' : 15, 'hue' : 2000}) # lighter red
+color_list.append({'transitiontime' : TRANSITION_TIME*10, 'on' : True, 'bri' : 25, 'hue' : 5000}) # red orange
+color_list.append({'transitiontime' : TRANSITION_TIME*10, 'on' : True, 'bri' : 50, 'hue' : 9977}) # orange
+color_list.append({'transitiontime' : TRANSITION_TIME*10, 'on' : True, 'bri' : 100, 'hue' : 9980}) # orange yellow
+color_list.append({'transitiontime' : TRANSITION_TIME*10, 'on' : True, 'bri' : 150, 'hue' : 13390}) # yellow
+color_list.append({'transitiontime' : TRANSITION_TIME*10, 'on' : True, 'bri' : 200, 'hue' : 15191}) # yellow white
+color_list.append({'transitiontime' : TRANSITION_TIME*10, 'on' : True, 'bri' : 255, 'hue' : 38000}) # white
+
+# Counter used for recursive sunrise loop
+sunrise_counter = 0
+
 # Open the json file used for data storage, read the last state
 with open('clock_data_file.json', 'r') as f:
     try:
@@ -20,10 +40,15 @@ with open('clock_data_file.json', 'r') as f:
     except ValueError:
         clock_data = {}
 
+
+####  Flask routes
+
+# Primary clock page
 @app.route('/')
 def clock():
     return render_template('clock.html')
 
+# Settings page
 @app.route('/settings/')
 def settings():
     return render_template('settings.html')
@@ -140,11 +165,23 @@ def coffee_pot(state):
 @app.route('/sunrise_set/<state>')
 def sunrise(state):
     clock_data['sunrise'] = str2bool(state)
+    if clock_data['sunrise'] == False:
+        turn_off_light()
+        try:
+            sunrise_thread.cancel()
+        except NameError as e:
+            if str(e) == "global name 'sunrise_thread' is not defined":
+                pass
+            else:
+                raise NameError(str(e))  # Only catch the known error and raise any others to pass them through
     write_file()
     return (json.dumps(clock_data))
 
+
+#### Non route functions
+
 # Sound the alarm
-def run_alarm():
+def alarm_loop():
     while True:
         mytime = clock_data['alarm_time']
         if clock_data['snoozing'] == True: mytime = clock_data['snooze_time']
@@ -168,42 +205,54 @@ def run_alarm():
             # Play KQED for 15 minutes with fade in/out
 
 # Spawn thread for alarm
-alarm_thread = Thread(target=run_alarm)
+alarm_thread = Thread(target=alarm_loop)
 alarm_thread.daemon = True
 alarm_thread.start()
 
+# Turn off light
+def turn_off_light():
+    while b.get_light(3, 'on'):
+        b.set_light(3, 'on', False)
+
+# Recursive function to run the sunrise light by using the color_list elements
+def make_sunrise():
+    global sunrise_counter
+
+    if sunrise_counter <= len(color_list)-1:
+        print sunrise_counter, len(color_list)
+        b.set_light(3, (color_list[sunrise_counter]))
+        print(color_list[sunrise_counter])
+        global sunrise_thread
+        sunrise_thread = Timer(TRANSITION_TIME, make_sunrise)
+        sunrise_thread.daemon = False
+        sunrise_thread.start()
+    elif sunrise_counter == len(color_list):
+        print "turning off this time through"
+        sunrise_thread = Timer(DELAY_TIME, turn_off_light)
+        sunrise_thread.daemon = False
+        sunrise_thread.start()
+
+    sunrise_counter += 1
+
 # Make the sunrise
-def run_sunrise():
-    TRANSITION_TIME = 4*60 # 4 minutes in seconds
-    DELAY_TIME = 30 # 30 minutes
-
-    # Change to your IP address
-    b = Bridge('192.168.1.217')
-
-    # Define the color transitions. Each variable runs for a duration defined by TRANSITION_TIME.
-    color_list = [{'on' : True, 'bri' : 0, 'hue' : 0}] # red
-    color_list.append({'transitiontime' : TRANSITION_TIME*10, 'on' : True, 'bri' : 15, 'hue' : 2000}) # lighter red
-    color_list.append({'transitiontime' : TRANSITION_TIME*10, 'on' : True, 'bri' : 25, 'hue' : 5000}) # red orange
-    color_list.append({'transitiontime' : TRANSITION_TIME*10, 'on' : True, 'bri' : 50, 'hue' : 9977}) # orange
-    color_list.append({'transitiontime' : TRANSITION_TIME*10, 'on' : True, 'bri' : 100, 'hue' : 9980}) # orange yellow
-    color_list.append({'transitiontime' : TRANSITION_TIME*10, 'on' : True, 'bri' : 150, 'hue' : 13390}) # yellow
-    color_list.append({'transitiontime' : TRANSITION_TIME*10, 'on' : True, 'bri' : 200, 'hue' : 15191}) # yellow white
-    color_list.append({'transitiontime' : TRANSITION_TIME*10, 'on' : True, 'bri' : 255, 'hue' : 20000}) # white
-
+def sunrise_loop():
     while True:
-        if(datetime.datetime.now() + datetime.timedelta(minutes=-32)).strftime('%H:%M') == clock_data['alarm_time']:
-            for element in color_list:
-                b.set_light(3, element)
-                time.sleep(TRANSITION_TIME)
+        if(datetime.datetime.now() + datetime.timedelta(minutes=32)).strftime('%H:%M') == clock_data['alarm_time']:
 
-            time.sleep(DELAY_TIME)
-            b.set_light(3,'on', False)
-        time.sleep(30)
+            print("make the sun rise")
+            global sunrise_counter
+            sunrise_counter = 0
+            # Spawn the first sunrise thread
+            sunrise_thread = Thread(target = make_sunrise)
+            sunrise_thread.daemon = False
+            sunrise_thread.start()
+
+        time.sleep(60)
 
 # Spawn the sunrise thread
-sunrise_thread = Thread(target=run_sunrise)
-sunrise_thread.daemon = True
-sunrise_thread.start()
+sunrise_loop_thread = Thread(target=sunrise_loop)
+sunrise_loop_thread.daemon = True
+sunrise_loop_thread.start()
 
 # Snooze the alarm
 def snooze():
