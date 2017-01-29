@@ -1,7 +1,7 @@
 {
     "alarm_auto_reset": true, 
     "alarm_duration": "30", 
-    "alarm_on_off": true, 
+    "alarm_on_off": false, 
     "alarm_reset_time": "12:00", 
     "alarm_sounding": false, 
     "alarm_time": "12:52", 
@@ -16,6 +16,6 @@
     "snooze_time": "10:58", 
     "snoozing": false, 
     "sunrise": true, 
-    "time": "12:19", 
+    "time": "16:26", 
     "volume": "100"
 }

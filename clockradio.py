@@ -16,18 +16,18 @@ app = Flask(__name__)
 b = Bridge('192.168.1.217')
 
 # Constants for sunrise
-TRANSITION_TIME = 10 # 4 minutes
-DELAY_TIME = 10 # 30 minutes
+TRANSITION_TIME = 4*60 # 4 minutes
+DELAY_TIME = 30*60 # 30 minutes
 
 # Define the color transitions for sunrise. Each variable runs for a duration defined by TRANSITION_TIME.
-color_list = [{'on' : True, 'bri' : 0, 'hue' : 0}] # red
-color_list.append({'transitiontime' : TRANSITION_TIME*10, 'on' : True, 'bri' : 15, 'hue' : 2000}) # lighter red
-color_list.append({'transitiontime' : TRANSITION_TIME*10, 'on' : True, 'bri' : 25, 'hue' : 5000}) # red orange
-color_list.append({'transitiontime' : TRANSITION_TIME*10, 'on' : True, 'bri' : 50, 'hue' : 9977}) # orange
-color_list.append({'transitiontime' : TRANSITION_TIME*10, 'on' : True, 'bri' : 100, 'hue' : 9980}) # orange yellow
-color_list.append({'transitiontime' : TRANSITION_TIME*10, 'on' : True, 'bri' : 150, 'hue' : 13390}) # yellow
-color_list.append({'transitiontime' : TRANSITION_TIME*10, 'on' : True, 'bri' : 200, 'hue' : 15191}) # yellow white
-color_list.append({'transitiontime' : TRANSITION_TIME*10, 'on' : True, 'bri' : 255, 'hue' : 38000}) # white
+color_list = [{'on':True, 'bri':0, 'hue':0}] # red
+color_list.append({'transitiontime':TRANSITION_TIME*10, 'on':True, 'bri':15, 'hue':2000}) # lighter red
+color_list.append({'transitiontime':TRANSITION_TIME*10, 'on':True, 'bri':25, 'hue':5000}) # red orange
+color_list.append({'transitiontime':TRANSITION_TIME*10, 'on':True, 'bri':50, 'hue':9977}) # orange
+color_list.append({'transitiontime':TRANSITION_TIME*10, 'on':True, 'bri':100, 'hue':9980}) # orange yellow
+color_list.append({'transitiontime':TRANSITION_TIME*10, 'on':True, 'bri':150, 'hue':13390}) # yellow
+color_list.append({'transitiontime':TRANSITION_TIME*10, 'on':True, 'bri':200, 'hue':15191}) # yellow white
+color_list.append({'transitiontime':TRANSITION_TIME*10, 'on':True, 'bri':255, 'hue':38000}) # white
 
 # Counter used for recursive sunrise loop
 sunrise_counter = 0
@@ -91,6 +91,10 @@ def alarm_state_change(state):
 @app.route('/sleep_light_on_off/<state>')
 def sleep_light_state_change(state):
     clock_data['sleep_light_on_off'] = str2bool(state)
+    if clock_data['sleep_light_on_off'] == True:
+        b.set_light(3, {'on':True, 'bri':200, 'hue':15191})
+    elif clock_data['sleep_light_on_off'] == False:
+        turn_off_light()
     write_file()
     return (json.dumps(clock_data))
 
