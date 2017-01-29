@@ -15,9 +15,10 @@ app = Flask(__name__)
 # Hue bridge
 b = Bridge('192.168.1.217')
 
-# Constants for sunrise
+# Constants for sunrise/sleep light
 TRANSITION_TIME = 4*60 # 4 minutes
 DELAY_TIME = 30*60 # 30 minutes
+FADE_OFF_TIME = 600 # 10 minutes
 
 # Define the color transitions for sunrise. Each variable runs for a duration defined by TRANSITION_TIME.
 color_list = [{'on':True, 'bri':0, 'hue':0}] # red
@@ -73,8 +74,11 @@ def command(cmd='NONE'):
     # Update the dictionary for mute
     if cmd == 'mute':
         if clock_data['mute'] == True:
+            mixer.setvolume(int(clock_data['volume']))
             clock_data['mute'] = False
-        else: clock_data['mute'] = True
+        else:
+            mixer.setvolume(0)
+            clock_data['mute'] = True
 
     # Write the dictionary out to file and return the dictionary to the client
     write_file()
@@ -93,7 +97,16 @@ def sleep_light_state_change(state):
     clock_data['sleep_light_on_off'] = str2bool(state)
     if clock_data['sleep_light_on_off'] == True:
         b.set_light(3, {'on':True, 'bri':200, 'hue':15191})
+        sleep_light_thread = Timer(FADE_OFF_TIME*2, fade_off_light)
+        sleep_light_thread.start()
     elif clock_data['sleep_light_on_off'] == False:
+        try:
+            sleep_light_thread.cancel()
+        except UnboundLocalError as e:
+            if str(e) == "local variable 'sleep_light_thread' referenced before assignment":
+                pass
+            else:
+                raise UnboundLocalError(str(e))  # Only catch the known error and raise any others to pass them through
         turn_off_light()
     write_file()
     return (json.dumps(clock_data))
@@ -218,6 +231,13 @@ def turn_off_light():
     while b.get_light(3, 'on'):
         b.set_light(3, 'on', False)
 
+def fade_off_light():
+    b.set_light(3, {'transitiontime':FADE_OFF_TIME*10, 'bri':0})
+    time.sleep(FADE_OFF_TIME)
+    turn_off_light()
+    clock_data['sleep_light_on_off'] = False
+    write_file()
+
 # Recursive function to run the sunrise light by using the color_list elements
 def make_sunrise():
     global sunrise_counter
@@ -228,12 +248,10 @@ def make_sunrise():
         print(color_list[sunrise_counter])
         global sunrise_thread
         sunrise_thread = Timer(TRANSITION_TIME, make_sunrise)
-        sunrise_thread.daemon = False
         sunrise_thread.start()
     elif sunrise_counter == len(color_list):
         print "turning off this time through"
         sunrise_thread = Timer(DELAY_TIME, turn_off_light)
-        sunrise_thread.daemon = False
         sunrise_thread.start()
 
     sunrise_counter += 1
@@ -248,7 +266,6 @@ def sunrise_loop():
             sunrise_counter = 0
             # Spawn the first sunrise thread
             sunrise_thread = Thread(target = make_sunrise)
-            sunrise_thread.daemon = False
             sunrise_thread.start()
 
         time.sleep(60)

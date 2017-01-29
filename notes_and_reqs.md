@@ -2,11 +2,9 @@
 
 ## Known Issues/To Do List ##
 1. The volume slider has a bug where holding and dragging (but not letting go) causes a visual problem because the slider position is updated by javascript from the previous position in json file.
-  1. Volume not updating anymore
+  1. Volume not working in chrome on Ubuntu for some reason (works in Firefox on Ubuntu)
 2. If you turn off alarm within one minute and immediately turn it back on the alarm sounds because it's still the right time
 3. Text inputs on settings page send entry even though it doesn't match the regex pattern. Need to stop that from going into the file/dict
-4. Add fade out to sleep light
-
 
 ## List of Requirements ##
 1. Sunrise light (control external Hue light)
