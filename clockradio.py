@@ -3,8 +3,23 @@
 from flask import Flask, render_template
 from threading import Thread, Timer
 from phue import Bridge
-import json, time, datetime
+import json, time, datetime, logging, logging.handlers
 import alsaaudio, streamgen
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+
+# create a file handler
+handler = logging.handlers.RotatingFileHandler('clockradio.log', maxBytes=10*1024*1024, backupCount=5)
+handler.setLevel(logging.INFO)
+
+# create a logging format
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+handler.setFormatter(formatter)
+
+# add the handlers to the logger
+logger.addHandler(handler)
 
 noiseplayer = streamgen.Player()
 alarmplayer = streamgen.Player()
@@ -37,58 +52,72 @@ sunrise_counter = 0
 with open('clock_data_file.json', 'r') as f:
     try:
         clock_data = json.load(f)
+        logger.info("Successful opened json data file loaded into dictionary.")
     # if the file is empty the ValueError will be thrown
     except ValueError:
         clock_data = {}
-
+        logger.info("Couldn't open json data file, creating new empty dictionary.")
 
 ####  Flask routes
 
 # Primary clock page
 @app.route('/')
 def clock():
+    logger.info("Responding to request for clock.html.")
     return render_template('clock.html')
 
 # Settings page
 @app.route('/settings/')
 def settings():
+    logger.info("Responding to request for settings.html.")
     return render_template('settings.html')
 
 # General purpose route to capture the simple commands
 @app.route('/<cmd>')
 def command(cmd='NONE'):
+    logger.info("Received command: %s", cmd)
+
     if cmd == 'generate_noise':
         if clock_data['generating_noise'] == False:
             noiseplayer.generate(gain=-10)
             clock_data['generating_noise'] = True
+            logger.info("Noise button pressed. Generating brownian noise at a gain of -10dBFS.")
         elif clock_data['generating_noise'] == True:
             noiseplayer.stop()
             clock_data['generating_noise'] = False
+            logger.info("Noise button pressed. Stopping brownian noise generation.")
 
     # Update the dictionary for snooze
     if cmd == 'snooze':
         snooze_thread = Thread(target=snooze)
         snooze_thread.daemon = True
         snooze_thread.start()
+        logger.info("Snooze trigger; Starting snooze thread.")
 
     # Update the dictionary for mute
     if cmd == 'mute':
         if clock_data['mute'] == True:
             mixer.setvolume(int(clock_data['volume']))
             clock_data['mute'] = False
+            logger.info("Mute button pressed. Muting volume and disabling volume slider.")
         else:
             mixer.setvolume(0)
             clock_data['mute'] = True
+            logger.info("Mute button pressed. Unmuting volume and enabling volume slider.")
 
     # Write the dictionary out to file and return the dictionary to the client
     write_file()
+    logger.info("Finished handling general purpose button captures; writing file and returning json to client.")
+    logger.debug("Returning file: %s", json.dumps(clock_data))
     return (json.dumps(clock_data))
 
 # Alarm state
 @app.route('/alarm_on_off/<state>')
 def alarm_state_change(state):
     clock_data['alarm_on_off'] = str2bool(state)
+    logger.info("Received alarm on/off state: %s; Setting dictionary and writing to file.", state)
     write_file()
+    logger.debug("Returning file: %s", json.dumps(clock_data))
     return (json.dumps(clock_data))
 
 # Sleep light on/off
@@ -99,6 +128,7 @@ def sleep_light_state_change(state):
         b.set_light(3, {'on':True, 'bri':200, 'hue':15191})
         sleep_light_thread = Timer(FADE_OFF_TIME*2, fade_off_light)
         sleep_light_thread.start()
+        logger.info("Received sleep light on/off state: %s; Starting sleep light thread to turn on light for %s minutes before fading off", state, FADE_OFF_TIME*3/60)
     elif clock_data['sleep_light_on_off'] == False:
         try:
             sleep_light_thread.cancel()
@@ -107,8 +137,10 @@ def sleep_light_state_change(state):
                 pass
             else:
                 raise UnboundLocalError(str(e))  # Only catch the known error and raise any others to pass them through
+        logger.info("Received sleep light on/off state: %s; Cancelling sleep light thread and turning off light.", state)
         turn_off_light()
     write_file()
+    logger.debug("Returning file: %s", json.dumps(clock_data))
     return (json.dumps(clock_data))
 
 # Update time for clock face
@@ -118,6 +150,7 @@ def get_time():
     if not clock_data['indicate_snooze']: clock_data['time'] = full_time # Pause clock refesh to indicate snooze
     if full_time == clock_data['alarm_reset_time'] and datetime.datetime.now().strftime('%w') in ('1', '2', '3', '4', '5'): # Turn on alarm automatically on weekdays
         clock_data['alarm_on_off'] = True
+    logger.debug("Returning file: %s", json.dumps(clock_data))
     return (json.dumps(clock_data))
 
 # Set the volume according to the slider input
@@ -127,13 +160,15 @@ def volume(volume_target):
     clock_data['volume'] = str(mixer.getvolume()[0])
     print("volume target: " + str(mixer.getvolume()[0]))
     write_file()
-    return (json.dumps(clock_data))  # There's a bug when dragging the slider, need to fix this.
+    logger.debug("Returning file: %s", json.dumps(clock_data))
+    return (json.dumps(clock_data))
 
 # Alarm time setting
 @app.route('/alarm_time_set/<time>')
 def alarm_time(time):
     clock_data['alarm_time'] = time
     write_file()
+    logger.debug("Returning file: %s", json.dumps(clock_data))
     return (json.dumps(clock_data))
 
 # Alarm duration setting
@@ -141,6 +176,7 @@ def alarm_time(time):
 def alarm_duration(time):
     clock_data['alarm_duration'] = time
     write_file()
+    logger.debug("Returning file: %s", json.dumps(clock_data))
     return (json.dumps(clock_data))
 
 # Alarm rest time setting
@@ -148,6 +184,7 @@ def alarm_duration(time):
 def alarm_reset_time(time):
     clock_data['alarm_reset_time'] = time
     write_file()
+    logger.debug("Returning file: %s", json.dumps(clock_data))
     return (json.dumps(clock_data))
 
 # Auto alarm reset switch
@@ -155,6 +192,7 @@ def alarm_reset_time(time):
 def alarm_auto(state):
     clock_data['alarm_auto_reset'] = str2bool(state)
     write_file()
+    logger.debug("Returning file: %s", json.dumps(clock_data))
     return (json.dumps(clock_data))
 
 # Sleep time setting
@@ -162,6 +200,7 @@ def alarm_auto(state):
 def sleep_time(time):
     clock_data['sleep_light_duration'] = time
     write_file()
+    logger.debug("Returning file: %s", json.dumps(clock_data))
     return (json.dumps(clock_data))
 
 # Snooze duration setting
@@ -169,6 +208,7 @@ def sleep_time(time):
 def snooze_duration(time):
     clock_data['snooze_duration'] = time
     write_file()
+    logger.debug("Returning file: %s", json.dumps(clock_data))
     return (json.dumps(clock_data))
 
 # Coffee pot setting
@@ -176,6 +216,7 @@ def snooze_duration(time):
 def coffee_pot(state):
     clock_data['coffee_pot'] = str2bool(state)
     write_file()
+    logger.debug("Returning file: %s", json.dumps(clock_data))
     return (json.dumps(clock_data))
 
 # Sunrise setting
@@ -192,6 +233,7 @@ def sunrise(state):
             else:
                 raise NameError(str(e))  # Only catch the known error and raise any others to pass them through
     write_file()
+    logger.debug("Returning file: %s", json.dumps(clock_data))
     return (json.dumps(clock_data))
 
 
@@ -302,7 +344,6 @@ def snooze():
         clock_data['indicate_snooze'] = False
         write_file()
     print("snoozing")
-    # When snooze is trigger the alarm should be turned off and snoozed for the duration in settings
 
 # Write the data to file
 def write_file():

@@ -1,6 +1,6 @@
 
-// Setup a listener for change events to switches and sliders and send to server
-document.addEventListener("change", changeListener)
+// Setup a listener for input events to switches and sliders and send to server
+document.addEventListener("input", changeListener)
 function changeListener(o) {
   console.log("Target ID of changed: " + o.target.id)
   console.log(o.target.value)
@@ -22,7 +22,6 @@ function changeListener(o) {
   }
 
 }
-
 
 // Setup a listener for click events on the noise generator button
 var noiseButtonElement = document.querySelector("#noiseButton")
@@ -95,9 +94,11 @@ function updateClock () {
 
     // Update the volume slider. **There's a bug when dragging the slider, need to fix this**
     if ((JSON.parse(this.responseText)).mute == true) {
-      document.getElementById('volumeSlider').MaterialSlider.change(0)
+      // document.getElementById('volumeSlider').MaterialSlider.change(0)
+      document.getElementById('volumeSlider').MaterialSlider.disable()
       document.getElementById('muteIcon').style.color = "white"
     } else if ((JSON.parse(this.responseText)).mute == false) {
+      document.getElementById('volumeSlider').MaterialSlider.enable()
       document.getElementById('volumeSlider').MaterialSlider.change((JSON.parse(this.responseText)).volume)
       document.getElementById('muteIcon').style.color = "#3F51B5"
     }

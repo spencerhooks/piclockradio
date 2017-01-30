@@ -1,0 +1,71 @@
+2017-01-29 21:43:41,199 - __main__ - INFO - Mute button pressed. Muting volume and disabling volume slider.
+2017-01-29 21:44:12,862 - __main__ - INFO - Responding to request for clock.html.
+2017-01-29 21:50:36,524 - __main__ - INFO - Successful opened json data file loaded into dictionary.
+2017-01-29 21:51:57,803 - __main__ - INFO - Successful opened json data file loaded into dictionary.
+2017-01-29 21:58:17,777 - __main__ - INFO - Successful opened json data file loaded into dictionary.
+2017-01-29 21:58:32,347 - __main__ - INFO - Responding to request for clock.html.
+2017-01-29 21:58:37,740 - __main__ - INFO - Received command: mute
+2017-01-29 21:58:37,743 - __main__ - INFO - Mute button pressed. Unmuting volume and enabling volume slider.
+2017-01-29 21:58:37,744 - __main__ - INFO - Finished handling general purpose button captures; writing file and returning json to client.
+2017-01-29 21:58:46,094 - __main__ - INFO - Received command: mute
+2017-01-29 21:58:46,097 - __main__ - INFO - Mute button pressed. Muting volume and disabling volume slider.
+2017-01-29 21:58:46,098 - __main__ - INFO - Finished handling general purpose button captures; writing file and returning json to client.
+2017-01-29 21:59:32,054 - __main__ - INFO - Successful opened json data file loaded into dictionary.
+2017-01-29 21:59:36,435 - __main__ - INFO - Received command: mute
+2017-01-29 21:59:36,437 - __main__ - INFO - Mute button pressed. Unmuting volume and enabling volume slider.
+2017-01-29 21:59:36,438 - __main__ - INFO - Finished handling general purpose button captures; writing file and returning json to client.
+2017-01-29 21:59:36,438 - __main__ - INFO - Returning file: {"alarm_duration": "30", "snooze_time": "10:58", "coffee_pot": true, "sleep_light_duration": "30", "sleep_light_on_off": false, "snooze_duration": "10", "alarm_auto_reset": true, "mute": true, "pause_clock": false, "generating_noise": false, "indicate_snooze": false, "alarm_time": "05:30", "volume": "52", "alarm_reset_time": "12:00", "time": "21:59", "alarm_sounding": false, "alarm_on_off": false, "snoozing": false, "sunrise": true}
+2017-01-29 21:59:40,856 - __main__ - INFO - Received command: mute
+2017-01-29 21:59:40,859 - __main__ - INFO - Mute button pressed. Muting volume and disabling volume slider.
+2017-01-29 21:59:40,859 - __main__ - INFO - Finished handling general purpose button captures; writing file and returning json to client.
+2017-01-29 21:59:40,859 - __main__ - INFO - Returning file: {"alarm_duration": "30", "snooze_time": "10:58", "coffee_pot": true, "sleep_light_duration": "30", "sleep_light_on_off": false, "snooze_duration": "10", "alarm_auto_reset": true, "mute": false, "pause_clock": false, "generating_noise": false, "indicate_snooze": false, "alarm_time": "05:30", "volume": "52", "alarm_reset_time": "12:00", "time": "21:59", "alarm_sounding": false, "alarm_on_off": false, "snoozing": false, "sunrise": true}
+2017-01-29 22:01:35,403 - __main__ - INFO - Successful opened json data file loaded into dictionary.
+2017-01-29 22:03:09,700 - __main__ - INFO - Successful opened json data file loaded into dictionary.
+2017-01-29 22:03:24,839 - __main__ - INFO - Successful opened json data file loaded into dictionary.
+2017-01-29 22:03:58,029 - __main__ - INFO - Successful opened json data file loaded into dictionary.
+2017-01-29 22:04:42,232 - __main__ - INFO - Successful opened json data file loaded into dictionary.
+2017-01-29 22:10:54,201 - __main__ - INFO - Received alarm on/off state: true; Setting dictionary and writing to file.
+2017-01-29 22:10:58,771 - __main__ - INFO - Received alarm on/off state: false; Setting dictionary and writing to file.
+2017-01-29 22:13:57,509 - __main__ - INFO - Successful opened json data file loaded into dictionary.
+2017-01-29 22:16:12,884 - __main__ - INFO - Successful opened json data file loaded into dictionary.
+2017-01-29 22:17:07,351 - __main__ - INFO - Received sleep light on/off state: false; Cancelling sleep light thread and turning off light.
+2017-01-29 22:17:12,109 - __main__ - INFO - Received sleep light on/off state: false; Cancelling sleep light thread and turning off light.
+2017-01-29 22:18:16,244 - __main__ - INFO - Successful opened json data file loaded into dictionary.
+2017-01-29 22:18:19,916 - __main__ - INFO - Received sleep light on/off state: true; Starting sleep light thread to turn on light for 600 minutes before fading off
+2017-01-29 22:18:38,762 - __main__ - INFO - Received sleep light on/off state: false; Cancelling sleep light thread and turning off light.
+2017-01-29 22:18:56,431 - __main__ - INFO - Successful opened json data file loaded into dictionary.
+2017-01-29 22:19:01,961 - __main__ - INFO - Received sleep light on/off state: true; Starting sleep light thread to turn on light for 30 minutes before fading off
+2017-01-29 22:19:05,369 - __main__ - INFO - Received sleep light on/off state: false; Cancelling sleep light thread and turning off light.
+2017-01-29 22:19:26,676 - __main__ - INFO - Received command: generate_noise
+2017-01-29 22:19:26,677 - __main__ - INFO - Noise button pressed. Generating brownian noise at a gain of -10dBFS.
+2017-01-29 22:19:26,677 - __main__ - INFO - Finished handling general purpose button captures; writing file and returning json to client.
+2017-01-29 22:19:28,767 - __main__ - INFO - Received command: generate_noise
+2017-01-29 22:19:28,767 - __main__ - INFO - Noise button pressed. Stopping brownian noise generation.
+2017-01-29 22:19:28,768 - __main__ - INFO - Finished handling general purpose button captures; writing file and returning json to client.
+2017-01-29 22:19:30,616 - __main__ - INFO - Received command: generate_noise
+2017-01-29 22:19:30,617 - __main__ - INFO - Noise button pressed. Generating brownian noise at a gain of -10dBFS.
+2017-01-29 22:19:30,618 - __main__ - INFO - Finished handling general purpose button captures; writing file and returning json to client.
+2017-01-29 22:19:35,771 - __main__ - INFO - Received command: generate_noise
+2017-01-29 22:19:35,771 - __main__ - INFO - Noise button pressed. Stopping brownian noise generation.
+2017-01-29 22:19:35,771 - __main__ - INFO - Finished handling general purpose button captures; writing file and returning json to client.
+2017-01-29 22:31:06,938 - __main__ - INFO - Successful opened json data file loaded into dictionary.
+2017-01-29 22:31:07,030 - __main__ - INFO - Successful opened json data file loaded into dictionary.
+2017-01-29 22:31:08,250 - __main__ - INFO - Responding to request for clock.html.
+2017-01-29 22:31:11,511 - __main__ - INFO - Received command: snooze
+2017-01-29 22:31:11,511 - __main__ - INFO - Snooze trigger; Starting snooze thread.
+2017-01-29 22:31:11,512 - __main__ - INFO - Finished handling general purpose button captures; writing file and returning json to client.
+2017-01-29 22:31:49,707 - __main__ - INFO - Responding to request for clock.html.
+2017-01-29 22:31:53,486 - __main__ - INFO - Responding to request for settings.html.
+2017-01-29 22:31:55,753 - __main__ - INFO - Responding to request for clock.html.
+2017-01-29 22:32:13,511 - __main__ - INFO - Received command: snooze
+2017-01-29 22:32:13,511 - __main__ - INFO - Snooze trigger; Starting snooze thread.
+2017-01-29 22:32:13,511 - __main__ - INFO - Finished handling general purpose button captures; writing file and returning json to client.
+2017-01-29 22:32:17,842 - __main__ - INFO - Received command: generate_noise
+2017-01-29 22:32:17,843 - __main__ - INFO - Noise button pressed. Generating brownian noise at a gain of -10dBFS.
+2017-01-29 22:32:17,844 - __main__ - INFO - Finished handling general purpose button captures; writing file and returning json to client.
+2017-01-29 22:32:18,988 - __main__ - INFO - Received command: generate_noise
+2017-01-29 22:32:18,988 - __main__ - INFO - Noise button pressed. Stopping brownian noise generation.
+2017-01-29 22:32:18,988 - __main__ - INFO - Finished handling general purpose button captures; writing file and returning json to client.
+2017-01-29 22:32:23,870 - __main__ - INFO - Responding to request for settings.html.
+2017-01-29 22:32:26,784 - __main__ - INFO - Responding to request for clock.html.
+2017-01-29 22:36:57,894 - __main__ - INFO - Successful opened json data file loaded into dictionary.
