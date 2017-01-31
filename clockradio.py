@@ -296,9 +296,7 @@ def make_sunrise():
     global sunrise_counter
 
     if sunrise_counter <= len(color_list)-1:
-        print sunrise_counter, len(color_list)
         b.set_light(3, (color_list[sunrise_counter]))
-        print(color_list[sunrise_counter])
         global sunrise_thread
         sunrise_thread = Timer(TRANSITION_TIME, make_sunrise)
         sunrise_thread.start()
