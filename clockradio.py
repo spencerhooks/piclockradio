@@ -150,6 +150,7 @@ def get_time():
     if not clock_data['indicate_snooze']: clock_data['time'] = full_time # Pause clock refesh to indicate snooze
     if full_time == clock_data['alarm_reset_time'] and datetime.datetime.now().strftime('%w') in ('1', '2', '3', '4', '5'): # Turn on alarm automatically on weekdays
         clock_data['alarm_on_off'] = True
+        logger.info("Turning the alarm on automatically.")
     logger.debug("Returning file: %s", json.dumps(clock_data))
     return (json.dumps(clock_data))
 
@@ -157,8 +158,8 @@ def get_time():
 @app.route('/change_volume/<volume_target>')
 def volume(volume_target):
     mixer.setvolume(int(volume_target))
+    logger.info("Volume slider was moved. Setting volume to: %s.", volume_target)
     clock_data['volume'] = str(mixer.getvolume()[0])
-    print("volume target: " + str(mixer.getvolume()[0]))
     write_file()
     logger.debug("Returning file: %s", json.dumps(clock_data))
     return (json.dumps(clock_data))
@@ -167,6 +168,7 @@ def volume(volume_target):
 @app.route('/alarm_time_set/<time>')
 def alarm_time(time):
     clock_data['alarm_time'] = time
+    logger.info("Alarm time input received. Setting alarm to: %s.", time)
     write_file()
     logger.debug("Returning file: %s", json.dumps(clock_data))
     return (json.dumps(clock_data))
@@ -175,6 +177,7 @@ def alarm_time(time):
 @app.route('/alarm_duration_set/<time>')
 def alarm_duration(time):
     clock_data['alarm_duration'] = time
+    logger.info("Alarm duration input received. Setting alarm duration to: %s.", time)
     write_file()
     logger.debug("Returning file: %s", json.dumps(clock_data))
     return (json.dumps(clock_data))
@@ -183,6 +186,7 @@ def alarm_duration(time):
 @app.route('/alarm_reset_time_set/<time>')
 def alarm_reset_time(time):
     clock_data['alarm_reset_time'] = time
+    logger.info("Alarm reset time input received. Setting alarm rest time to: %s.", time)
     write_file()
     logger.debug("Returning file: %s", json.dumps(clock_data))
     return (json.dumps(clock_data))
@@ -191,6 +195,7 @@ def alarm_reset_time(time):
 @app.route('/alarm_auto_set/<state>')
 def alarm_auto(state):
     clock_data['alarm_auto_reset'] = str2bool(state)
+    logger.info("Alarm auto set switch flipped. Setting alarm auto set state to: %s.", state)
     write_file()
     logger.debug("Returning file: %s", json.dumps(clock_data))
     return (json.dumps(clock_data))
@@ -199,6 +204,7 @@ def alarm_auto(state):
 @app.route('/sleep_time_set/<time>')
 def sleep_time(time):
     clock_data['sleep_light_duration'] = time
+    logger.info("Sleep light duration input received. Setting sleep light duration to: %s.", time)
     write_file()
     logger.debug("Returning file: %s", json.dumps(clock_data))
     return (json.dumps(clock_data))
@@ -207,6 +213,7 @@ def sleep_time(time):
 @app.route('/snooze_duration_set/<time>')
 def snooze_duration(time):
     clock_data['snooze_duration'] = time
+    logger.info("Snooze duration input received. Setting snooze duration to: %s.", time)
     write_file()
     logger.debug("Returning file: %s", json.dumps(clock_data))
     return (json.dumps(clock_data))
@@ -215,6 +222,7 @@ def snooze_duration(time):
 @app.route('/coffee_pot_set/<state>')
 def coffee_pot(state):
     clock_data['coffee_pot'] = str2bool(state)
+    logger.info("Coffee pot switch flipped. Setting coffee pot to: %s.", state)
     write_file()
     logger.debug("Returning file: %s", json.dumps(clock_data))
     return (json.dumps(clock_data))
@@ -223,8 +231,10 @@ def coffee_pot(state):
 @app.route('/sunrise_set/<state>')
 def sunrise(state):
     clock_data['sunrise'] = str2bool(state)
+    logger.info("Sunrise light switch flipped. Setting sunrise light to: %s.", state)
     if clock_data['sunrise'] == False:
         turn_off_light()
+        logger.info("Sunrise light was switched off, turning off light and cancelling any timed threads.")
         try:
             sunrise_thread.cancel()
         except NameError as e:
@@ -245,23 +255,22 @@ def alarm_loop():
         mytime = clock_data['alarm_time']
         if clock_data['snoozing'] == True: mytime = clock_data['snooze_time']
         if clock_data['time'] == mytime and clock_data['alarm_on_off'] == True and clock_data['alarm_sounding'] == False:
-            print("Sound the alarm for " + clock_data['alarm_duration'] + " minutes!!")
+            logger.info("Sound the alarm for " + clock_data['alarm_duration'] + " minutes!!")
             alarmplayer.play(duration=(int(clock_data['alarm_duration'])*60))
             clock_data['alarm_sounding'] = True
         elif clock_data['alarm_sounding'] == True:
             if alarmplayer.is_playing() == False:
                 clock_data['alarm_sounding'] = False
                 clock_data['snoozing'] == False
-                print("stopped automatically after duration")
+                logger.info("Alarm stopped automatically after %s minute duration.", clock_data['alarm_duration'])
             elif clock_data['alarm_on_off'] == False:
                 alarmplayer.stop()
                 clock_data['alarm_sounding'] = False
                 clock_data['snoozing'] == False
-                print("stopped because of switch")
+                logger.info("Alarm stopped because it was switched off by the user.")
         if clock_data['alarm_on_off'] == False:
             clock_data['snoozing'] = False
         time.sleep(.5)
-            # Play KQED for 15 minutes with fade in/out
 
 # Spawn thread for alarm
 alarm_thread = Thread(target=alarm_loop)
@@ -271,9 +280,11 @@ alarm_thread.start()
 # Turn off light
 def turn_off_light():
     while b.get_light(3, 'on'):
+        logger.info("Turning off the light.")
         b.set_light(3, 'on', False)
 
 def fade_off_light():
+    logger.info("Fading off the light for %s minutes.", FADE_OFF_TIME/60)
     b.set_light(3, {'transitiontime':FADE_OFF_TIME*10, 'bri':0})
     time.sleep(FADE_OFF_TIME)
     turn_off_light()
@@ -292,7 +303,7 @@ def make_sunrise():
         sunrise_thread = Timer(TRANSITION_TIME, make_sunrise)
         sunrise_thread.start()
     elif sunrise_counter == len(color_list):
-        print "turning off this time through"
+        logger.info("Turning off light in %s minutes.", DELAY_TIME/60)
         sunrise_thread = Timer(DELAY_TIME, turn_off_light)
         sunrise_thread.start()
 
@@ -303,7 +314,7 @@ def sunrise_loop():
     while True:
         if(datetime.datetime.now() + datetime.timedelta(minutes=32)).strftime('%H:%M') == clock_data['alarm_time']:
 
-            print("make the sun rise")
+            logger.info("Making the sunrise.")
             global sunrise_counter
             sunrise_counter = 0
             # Spawn the first sunrise thread
@@ -319,19 +330,23 @@ sunrise_loop_thread.start()
 
 # Snooze the alarm
 def snooze():
-    if clock_data['alarm_sounding'] == False or clock_data['alarm_on_off'] == False: return ('', 204)
+    if clock_data['alarm_sounding'] == False or clock_data['alarm_on_off'] == False:
+        logger.info("Snooze button was pressed, but alarm is off. Nothing to do.")
+        return ('', 204)
     elif clock_data['alarm_sounding'] == True:
+        logger.info("Snooze button was pressed and alarm is on, time to execute snooze.")
 
         # Stop playback of KQED
+        logger.info("Stopping playback of the alarm (KQED stream)")
         alarmplayer.stop()
         clock_data['alarm_sounding'] = False
         clock_data['snoozing'] = True
 
         # Pause the clock and indicate a snooze to the client
+        logger.info("Pausing the clock updates and indicating a snooze to the user.")
         clock_data['indicate_snooze'] = True
 
         # Get the time in 10 min to set snooze_time
-        print (datetime.datetime.now() + datetime.timedelta(minutes=int(clock_data['snooze_duration']))).strftime('%H:%M')
         clock_data['snooze_time'] = (datetime.datetime.now() + datetime.timedelta(minutes=int(clock_data['snooze_duration']))).strftime('%H:%M')
 
         # Display a snooze indicator on the clockface
@@ -341,18 +356,19 @@ def snooze():
         time.sleep(2)
 
         # Resume clock function, tell the client to stop indicating snooze, and write the file
+        logger.info("Snooze indicated, resuming the normal clock function")
         clock_data['indicate_snooze'] = False
         write_file()
-    print("snoozing")
 
 # Write the data to file
 def write_file():
+    logger.debug("Writing data to clock_data_file.json. Here's the data: ", json.dumps(clock_data))
     with open('clock_data_file.json', 'w') as f:
         json.dump(clock_data, f, indent=4, sort_keys=True)
 
 # Convert string to boolean
 def str2bool(v):
-  return v.lower() in ("yes", "true", "t", "1")
+    return v.lower() in ("yes", "true", "t", "1")
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)
