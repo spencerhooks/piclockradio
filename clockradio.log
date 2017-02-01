@@ -69,3 +69,188 @@
 2017-01-29 22:32:23,870 - __main__ - INFO - Responding to request for settings.html.
 2017-01-29 22:32:26,784 - __main__ - INFO - Responding to request for clock.html.
 2017-01-29 22:36:57,894 - __main__ - INFO - Successful opened json data file loaded into dictionary.
+2017-01-30 21:32:10,940 - __main__ - INFO - Successful opened json data file loaded into dictionary.
+2017-01-30 21:32:11,036 - __main__ - INFO - Successful opened json data file loaded into dictionary.
+2017-01-30 21:32:24,622 - __main__ - INFO - Responding to request for clock.html.
+2017-01-30 21:32:57,684 - __main__ - INFO - Received alarm on/off state: true; Setting dictionary and writing to file.
+2017-01-30 21:33:06,722 - __main__ - INFO - Received alarm on/off state: false; Setting dictionary and writing to file.
+2017-01-30 21:33:08,979 - __main__ - INFO - Received command: generate_noise
+2017-01-30 21:33:08,980 - __main__ - INFO - Noise button pressed. Generating brownian noise at a gain of -10dBFS.
+2017-01-30 21:33:08,982 - __main__ - INFO - Finished handling general purpose button captures; writing file and returning json to client.
+2017-01-30 21:33:15,538 - __main__ - INFO - Received command: generate_noise
+2017-01-30 21:33:15,539 - __main__ - INFO - Noise button pressed. Stopping brownian noise generation.
+2017-01-30 21:33:15,539 - __main__ - INFO - Finished handling general purpose button captures; writing file and returning json to client.
+2017-01-30 21:33:32,280 - __main__ - INFO - Received command: snooze
+2017-01-30 21:33:32,280 - __main__ - INFO - Snooze button was pressed, but alarm is off. Nothing to do.
+2017-01-30 21:33:32,280 - __main__ - INFO - Snooze trigger; Starting snooze thread.
+2017-01-30 21:33:32,281 - __main__ - INFO - Finished handling general purpose button captures; writing file and returning json to client.
+2017-01-30 21:33:42,839 - __main__ - INFO - Volume slider was moved. Setting volume to: 29.
+2017-01-30 21:33:45,850 - __main__ - INFO - Volume slider was moved. Setting volume to: 72.
+2017-01-30 21:33:47,414 - __main__ - INFO - Volume slider was moved. Setting volume to: 63.
+2017-01-31 20:20:47,620 - __main__ - INFO - Successful opened json data file loaded into dictionary.
+2017-01-31 20:20:47,715 - __main__ - INFO - Successful opened json data file loaded into dictionary.
+2017-01-31 20:21:20,826 - __main__ - INFO - Responding to request for clock.html.
+2017-01-31 20:21:23,995 - __main__ - INFO - Volume slider was moved. Setting volume to: 53.
+2017-01-31 20:21:25,438 - __main__ - INFO - Volume slider was moved. Setting volume to: 44.
+2017-01-31 20:21:35,592 - __main__ - INFO - Volume slider was moved. Setting volume to: 61.
+2017-01-31 20:21:41,189 - __main__ - INFO - Received command: mute
+2017-01-31 20:21:41,192 - __main__ - INFO - Mute button pressed. Unmuting volume and enabling volume slider.
+2017-01-31 20:21:41,192 - __main__ - INFO - Finished handling general purpose button captures; writing file and returning json to client.
+2017-01-31 20:21:42,055 - __main__ - INFO - Received command: mute
+2017-01-31 20:21:42,058 - __main__ - INFO - Mute button pressed. Muting volume and disabling volume slider.
+2017-01-31 20:21:42,058 - __main__ - INFO - Finished handling general purpose button captures; writing file and returning json to client.
+2017-01-31 20:21:44,215 - __main__ - INFO - Volume slider was moved. Setting volume to: 60.
+2017-01-31 20:21:44,221 - __main__ - INFO - Volume slider was moved. Setting volume to: 60.
+2017-01-31 20:21:44,234 - __main__ - INFO - Volume slider was moved. Setting volume to: 59.
+2017-01-31 20:21:44,246 - __main__ - INFO - Volume slider was moved. Setting volume to: 59.
+2017-01-31 20:21:44,250 - __main__ - INFO - Volume slider was moved. Setting volume to: 58.
+2017-01-31 20:21:44,258 - __main__ - INFO - Volume slider was moved. Setting volume to: 58.
+2017-01-31 20:21:44,275 - __main__ - INFO - Volume slider was moved. Setting volume to: 57.
+2017-01-31 20:21:44,299 - __main__ - INFO - Volume slider was moved. Setting volume to: 56.
+2017-01-31 20:21:44,319 - __main__ - INFO - Volume slider was moved. Setting volume to: 55.
+2017-01-31 20:21:44,323 - __main__ - INFO - Volume slider was moved. Setting volume to: 54.
+2017-01-31 20:21:44,355 - __main__ - INFO - Volume slider was moved. Setting volume to: 53.
+2017-01-31 20:21:44,374 - __main__ - INFO - Volume slider was moved. Setting volume to: 52.
+2017-01-31 20:21:44,396 - __main__ - INFO - Volume slider was moved. Setting volume to: 51.
+2017-01-31 20:21:44,460 - __main__ - INFO - Volume slider was moved. Setting volume to: 50.
+2017-01-31 20:21:44,501 - __main__ - INFO - Volume slider was moved. Setting volume to: 49.
+2017-01-31 20:21:44,554 - __main__ - INFO - Volume slider was moved. Setting volume to: 48.
+2017-01-31 20:21:44,599 - __main__ - INFO - Volume slider was moved. Setting volume to: 47.
+2017-01-31 20:21:44,669 - __main__ - INFO - Volume slider was moved. Setting volume to: 46.
+2017-01-31 20:21:45,219 - __main__ - INFO - Volume slider was moved. Setting volume to: 47.
+2017-01-31 20:22:04,924 - __main__ - INFO - Responding to request for clock.html.
+2017-01-31 20:22:08,384 - __main__ - INFO - Volume slider was moved. Setting volume to: 64.
+2017-01-31 20:22:09,933 - __main__ - INFO - Received command: generate_noise
+2017-01-31 20:22:09,934 - __main__ - INFO - Noise button pressed. Generating brownian noise at a gain of -10dBFS.
+2017-01-31 20:22:09,935 - __main__ - INFO - Finished handling general purpose button captures; writing file and returning json to client.
+2017-01-31 20:22:10,759 - __main__ - INFO - Received command: generate_noise
+2017-01-31 20:22:10,759 - __main__ - INFO - Noise button pressed. Stopping brownian noise generation.
+2017-01-31 20:22:10,759 - __main__ - INFO - Finished handling general purpose button captures; writing file and returning json to client.
+2017-01-31 20:22:51,095 - __main__ - INFO - Responding to request for clock.html.
+2017-01-31 20:24:28,272 - __main__ - INFO - Successful opened json data file loaded into dictionary.
+2017-01-31 20:26:03,591 - __main__ - INFO - Responding to request for clock.html.
+2017-01-31 20:26:15,696 - __main__ - INFO - Responding to request for clock.html.
+2017-01-31 20:28:29,188 - __main__ - INFO - Responding to request for clock.html.
+2017-01-31 20:28:31,070 - __main__ - INFO - Sleep light switch flipped.
+2017-01-31 20:28:31,074 - __main__ - INFO - Received sleep light on/off state: true; Starting sleep light thread to turn on light for 30 minutes before fading off
+2017-01-31 20:28:32,988 - __main__ - INFO - Sleep light switch flipped.
+2017-01-31 20:28:32,988 - __main__ - INFO - Received sleep light on/off state: false; Cancelling sleep light thread and turning off light.
+2017-01-31 20:28:32,992 - __main__ - INFO - Turning off the light.
+2017-01-31 20:28:49,884 - __main__ - INFO - Sleep light switch flipped.
+2017-01-31 20:28:49,897 - __main__ - INFO - Received sleep light on/off state: true; Starting sleep light thread to turn on light for 30 minutes before fading off
+2017-01-31 20:28:52,910 - __main__ - INFO - Sleep light switch flipped.
+2017-01-31 20:28:52,910 - __main__ - INFO - Received sleep light on/off state: false; Cancelling sleep light thread and turning off light.
+2017-01-31 20:28:52,913 - __main__ - INFO - Turning off the light.
+2017-01-31 20:29:04,724 - __main__ - INFO - Responding to request for clock.html.
+2017-01-31 20:29:12,365 - __main__ - INFO - Sleep light switch flipped.
+2017-01-31 20:29:12,369 - __main__ - INFO - Received sleep light on/off state: true; Starting sleep light thread to turn on light for 30 minutes before fading off
+2017-01-31 20:29:14,700 - __main__ - INFO - Sleep light switch flipped.
+2017-01-31 20:29:14,700 - __main__ - INFO - Received sleep light on/off state: false; Cancelling sleep light thread and turning off light.
+2017-01-31 20:29:14,704 - __main__ - INFO - Turning off the light.
+2017-01-31 20:29:34,059 - __main__ - INFO - Volume slider was moved. Setting volume to: 42.
+2017-01-31 20:29:36,989 - __main__ - INFO - Volume slider was moved. Setting volume to: 67.
+2017-01-31 20:30:48,882 - __main__ - INFO - Received alarm on/off state: true; Setting dictionary and writing to file.
+2017-01-31 20:30:51,363 - __main__ - INFO - Received alarm on/off state: false; Setting dictionary and writing to file.
+2017-01-31 20:30:54,382 - __main__ - INFO - Volume slider was moved. Setting volume to: 32.
+2017-01-31 20:30:55,095 - __main__ - INFO - Volume slider was moved. Setting volume to: 56.
+2017-01-31 20:32:24,310 - __main__ - INFO - Responding to request for settings.html.
+2017-01-31 20:32:27,030 - __main__ - INFO - Sunrise light switch flipped. Setting sunrise light to: false.
+2017-01-31 20:32:27,034 - __main__ - INFO - Sunrise light was switched off, turning off light and cancelling any timed threads.
+2017-01-31 20:32:28,122 - __main__ - INFO - Sunrise light switch flipped. Setting sunrise light to: true.
+2017-01-31 20:32:29,949 - __main__ - INFO - Responding to request for clock.html.
+2017-01-31 20:32:31,206 - __main__ - INFO - Sleep light switch flipped.
+2017-01-31 20:32:31,210 - __main__ - INFO - Received sleep light on/off state: true; Starting sleep light thread to turn on light for 30 minutes before fading off
+2017-01-31 20:32:33,326 - __main__ - INFO - Sleep light switch flipped.
+2017-01-31 20:32:33,326 - __main__ - INFO - Received sleep light on/off state: false; Cancelling sleep light thread and turning off light.
+2017-01-31 20:32:33,330 - __main__ - INFO - Turning off the light.
+2017-01-31 20:32:37,511 - __main__ - INFO - Responding to request for clock.html.
+2017-01-31 20:32:41,616 - __main__ - INFO - Responding to request for settings.html.
+2017-01-31 20:32:44,228 - __main__ - INFO - Sunrise light switch flipped. Setting sunrise light to: false.
+2017-01-31 20:32:44,232 - __main__ - INFO - Sunrise light was switched off, turning off light and cancelling any timed threads.
+2017-01-31 20:32:45,664 - __main__ - INFO - Sunrise light switch flipped. Setting sunrise light to: true.
+2017-01-31 20:32:47,391 - __main__ - INFO - Responding to request for clock.html.
+2017-01-31 20:36:22,387 - __main__ - INFO - Responding to request for clock.html.
+2017-01-31 20:36:26,661 - __main__ - INFO - Responding to request for clock.html.
+2017-01-31 20:36:27,418 - __main__ - INFO - Responding to request for clock.html.
+2017-01-31 20:36:39,442 - __main__ - INFO - Responding to request for clock.html.
+2017-01-31 20:38:08,319 - __main__ - INFO - Volume slider was moved. Setting volume to: 35.
+2017-01-31 20:39:39,017 - __main__ - INFO - Responding to request for clock.html.
+2017-01-31 20:39:39,994 - __main__ - INFO - Responding to request for clock.html.
+2017-01-31 20:39:47,211 - __main__ - INFO - Responding to request for clock.html.
+2017-01-31 20:40:14,945 - __main__ - INFO - Responding to request for clock.html.
+2017-01-31 20:40:46,057 - __main__ - INFO - Responding to request for clock.html.
+2017-01-31 20:40:52,748 - __main__ - INFO - Volume slider was moved. Setting volume to: 50.
+2017-01-31 20:40:53,686 - __main__ - INFO - Volume slider was moved. Setting volume to: 62.
+2017-01-31 20:40:55,844 - __main__ - INFO - Volume slider was moved. Setting volume to: 31.
+2017-01-31 20:41:14,855 - __main__ - INFO - Responding to request for clock.html.
+2017-01-31 20:41:15,673 - __main__ - INFO - Responding to request for clock.html.
+2017-01-31 20:48:31,074 - __main__ - INFO - Fading off the light for 10 minutes.
+2017-01-31 20:48:49,897 - __main__ - INFO - Fading off the light for 10 minutes.
+2017-01-31 20:49:12,369 - __main__ - INFO - Fading off the light for 10 minutes.
+2017-01-31 20:49:53,226 - __main__ - INFO - Successful opened json data file loaded into dictionary.
+2017-01-31 20:49:53,317 - __main__ - INFO - Successful opened json data file loaded into dictionary.
+2017-01-31 20:49:58,529 - __main__ - INFO - Responding to request for clock.html.
+2017-01-31 20:52:11,383 - __main__ - INFO - Responding to request for clock.html.
+2017-01-31 20:52:12,645 - __main__ - INFO - Responding to request for clock.html.
+2017-01-31 20:57:25,201 - __main__ - INFO - Responding to request for clock.html.
+2017-01-31 20:57:28,474 - __main__ - INFO - Sleep light switch flipped.
+2017-01-31 20:57:28,478 - __main__ - INFO - Received sleep light on/off state: true; Starting sleep light thread to turn on light for 30 minutes before fading off
+2017-01-31 20:57:33,481 - __main__ - INFO - Sleep light switch flipped.
+2017-01-31 20:57:33,481 - __main__ - INFO - Received sleep light on/off state: false; Cancelling sleep light thread and turning off light.
+2017-01-31 20:57:33,486 - __main__ - INFO - Turning off the light.
+2017-01-31 20:57:51,139 - __main__ - INFO - Responding to request for clock.html.
+2017-01-31 20:58:14,127 - __main__ - INFO - Responding to request for clock.html.
+2017-01-31 20:58:15,795 - __main__ - INFO - Sleep light switch flipped.
+2017-01-31 20:58:15,799 - __main__ - INFO - Received sleep light on/off state: true; Starting sleep light thread to turn on light for 30 minutes before fading off
+2017-01-31 20:58:25,198 - __main__ - INFO - Sleep light switch flipped.
+2017-01-31 20:58:25,198 - __main__ - INFO - Received sleep light on/off state: false; Cancelling sleep light thread and turning off light.
+2017-01-31 20:58:25,201 - __main__ - INFO - Turning off the light.
+2017-01-31 21:04:17,071 - __main__ - INFO - Responding to request for clock.html.
+2017-01-31 21:04:18,732 - __main__ - INFO - Volume slider was moved. Setting volume to: 49.
+2017-01-31 21:04:24,335 - __main__ - INFO - Volume slider was moved. Setting volume to: 31.
+2017-01-31 21:04:26,085 - __main__ - INFO - Volume slider was moved. Setting volume to: 73.
+2017-01-31 21:04:27,753 - __main__ - INFO - Volume slider was moved. Setting volume to: 44.
+2017-01-31 21:04:34,084 - __main__ - INFO - Responding to request for clock.html.
+2017-01-31 21:04:36,232 - __main__ - INFO - Volume slider was moved. Setting volume to: 53.
+2017-01-31 21:04:39,332 - __main__ - INFO - Volume slider was moved. Setting volume to: 68.
+2017-01-31 21:04:42,365 - __main__ - INFO - Volume slider was moved. Setting volume to: 56.
+2017-01-31 21:06:56,242 - __main__ - INFO - Responding to request for clock.html.
+2017-01-31 21:07:12,614 - __main__ - INFO - Responding to request for clock.html.
+2017-01-31 21:07:14,602 - __main__ - INFO - Sleep light switch flipped.
+2017-01-31 21:07:14,607 - __main__ - INFO - Received sleep light on/off state: true; Starting sleep light thread to turn on light for 30 minutes before fading off
+2017-01-31 21:07:17,802 - __main__ - INFO - Sleep light switch flipped.
+2017-01-31 21:07:17,802 - __main__ - INFO - Received sleep light on/off state: false; Cancelling sleep light thread and turning off light.
+2017-01-31 21:07:17,806 - __main__ - INFO - Turning off the light.
+2017-01-31 21:07:43,683 - __main__ - INFO - Responding to request for clock.html.
+2017-01-31 21:07:50,515 - __main__ - INFO - Responding to request for clock.html.
+2017-01-31 21:07:51,338 - __main__ - INFO - Responding to request for clock.html.
+2017-01-31 21:07:53,361 - __main__ - INFO - Sleep light switch flipped.
+2017-01-31 21:07:53,365 - __main__ - INFO - Received sleep light on/off state: true; Starting sleep light thread to turn on light for 30 minutes before fading off
+2017-01-31 21:07:56,686 - __main__ - INFO - Sleep light switch flipped.
+2017-01-31 21:07:56,686 - __main__ - INFO - Received sleep light on/off state: false; Cancelling sleep light thread and turning off light.
+2017-01-31 21:07:56,690 - __main__ - INFO - Turning off the light.
+2017-01-31 21:17:28,478 - __main__ - INFO - Fading off the light for 10 minutes.
+2017-01-31 21:18:15,799 - __main__ - INFO - Fading off the light for 10 minutes.
+2017-01-31 21:23:58,333 - __main__ - INFO - Responding to request for clock.html.
+2017-01-31 21:24:53,382 - __main__ - INFO - Responding to request for clock.html.
+2017-01-31 21:24:54,162 - __main__ - INFO - Responding to request for clock.html.
+2017-01-31 21:24:54,773 - __main__ - INFO - Responding to request for clock.html.
+2017-01-31 21:25:21,283 - __main__ - INFO - Responding to request for clock.html.
+2017-01-31 21:26:02,366 - __main__ - INFO - Responding to request for clock.html.
+2017-01-31 21:26:07,717 - __main__ - INFO - Responding to request for clock.html.
+2017-01-31 21:27:14,607 - __main__ - INFO - Fading off the light for 10 minutes.
+2017-01-31 21:27:46,756 - __main__ - INFO - Responding to request for clock.html.
+2017-01-31 21:27:53,366 - __main__ - INFO - Fading off the light for 10 minutes.
+2017-01-31 21:38:47,538 - __main__ - INFO - Responding to request for clock.html.
+2017-01-31 21:38:49,111 - __main__ - INFO - Sleep light switch flipped.
+2017-01-31 21:38:49,115 - __main__ - INFO - Received sleep light on/off state: true; Starting sleep light thread to turn on light for 30 minutes before fading off
+2017-01-31 21:38:52,535 - __main__ - INFO - Sleep light switch flipped.
+2017-01-31 21:38:52,535 - __main__ - INFO - Received sleep light on/off state: false; Cancelling sleep light thread and turning off light.
+2017-01-31 21:38:52,539 - __main__ - INFO - Turning off the light.
+2017-01-31 21:39:08,525 - __main__ - INFO - Received command: snooze
+2017-01-31 21:39:08,526 - __main__ - INFO - Snooze button was pressed, but alarm is off. Nothing to do.
+2017-01-31 21:39:08,526 - __main__ - INFO - Snooze trigger; Starting snooze thread.
+2017-01-31 21:39:08,526 - __main__ - INFO - Finished handling general purpose button captures; writing file and returning json to client.
+2017-01-31 21:39:23,776 - __main__ - INFO - Volume slider was moved. Setting volume to: 24.
+2017-01-31 21:39:25,143 - __main__ - INFO - Volume slider was moved. Setting volume to: 61.
+2017-01-31 21:39:26,866 - __main__ - INFO - Volume slider was moved. Setting volume to: 54.

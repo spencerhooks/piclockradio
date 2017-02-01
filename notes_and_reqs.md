@@ -5,8 +5,8 @@
   1. Volume not working in chrome on Ubuntu for some reason (works in Firefox on Ubuntu)
 2. If you turn off alarm within one minute and immediately turn it back on the alarm sounds because it's still the right time
 3. Text inputs on settings page send entry even though it doesn't match the regex pattern. Need to stop that from going into the file/dict
-4. Finish adding logging messages
-5. Clean up html/css
+4. Clean up html/css
+5. Make sure fade off is canceled in sleep light
 
 ## List of Requirements ##
 1. Sunrise light (control external Hue light)

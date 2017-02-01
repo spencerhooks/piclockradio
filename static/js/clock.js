@@ -1,15 +1,10 @@
 
 // Setup a listener for input events to switches and sliders and send to server
-document.addEventListener("input", changeListener)
+document.addEventListener("change", changeListener);
 function changeListener(o) {
   console.log("Target ID of changed: " + o.target.id)
   console.log(o.target.value)
   console.log(o.target.checked)
-
-  // Handle volume slider
-  if (o.target.id === "volumeSlider") {
-    myRequest(updateClock, "/change_volume/" + o.target.value)
-  }
 
   // Handle alarm on/off switch
   if (o.target.id === "alarmSwitch") {
@@ -21,6 +16,20 @@ function changeListener(o) {
     myRequest(updateClock, "/sleep_light_on_off/" + o.target.checked)
   }
 
+}
+
+// // Setup listener for input events on the sleep light switch
+// var sleepLightSwitchElement = document.querySelector("#sleepLightSwitch")
+// sleepLightSwitchElement.addEventListener("change", sleepLight)
+// function sleepLight(e) {
+//   myRequest(updateClock, "/sleep_light_on_off/" + e.target.checked)
+// }
+
+// Setup listener for input events on the volume slider
+var volumeSliderElement = document.querySelector("#volumeSlider")    // These can be simplified
+volumeSliderElement.addEventListener("input", changeVolume)
+function changeVolume(e) {
+  myRequest(updateClock, "/change_volume/" + e.target.value)
 }
 
 // Setup a listener for click events on the noise generator button

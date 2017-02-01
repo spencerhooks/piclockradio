@@ -123,6 +123,7 @@ def alarm_state_change(state):
 # Sleep light on/off
 @app.route('/sleep_light_on_off/<state>')
 def sleep_light_state_change(state):
+    logger.info("Sleep light switch flipped.")
     clock_data['sleep_light_on_off'] = str2bool(state)
     if clock_data['sleep_light_on_off'] == True:
         b.set_light(3, {'on':True, 'bri':200, 'hue':15191})
