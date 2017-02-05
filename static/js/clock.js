@@ -29,6 +29,7 @@ function changeListener(o) {
 var volumeSliderElement = document.querySelector("#volumeSlider")    // These can be simplified
 volumeSliderElement.addEventListener("input", changeVolume)
 function changeVolume(e) {
+  console.log("volume slider moved")
   myRequest(updateClock, "/change_volume/" + e.target.value)
 }
 

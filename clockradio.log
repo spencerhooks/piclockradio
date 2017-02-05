@@ -254,3 +254,275 @@
 2017-01-31 21:39:23,776 - __main__ - INFO - Volume slider was moved. Setting volume to: 24.
 2017-01-31 21:39:25,143 - __main__ - INFO - Volume slider was moved. Setting volume to: 61.
 2017-01-31 21:39:26,866 - __main__ - INFO - Volume slider was moved. Setting volume to: 54.
+2017-02-03 09:22:31,705 - __main__ - INFO - Successful opened json data file loaded into dictionary.
+2017-02-03 09:22:31,797 - __main__ - INFO - Successful opened json data file loaded into dictionary.
+2017-02-03 09:22:37,836 - __main__ - INFO - Responding to request for clock.html.
+2017-02-03 09:22:40,952 - __main__ - INFO - Sleep light switch flipped.
+2017-02-03 09:22:40,956 - __main__ - INFO - Received sleep light on/off state: true; Starting sleep light thread to turn on light for 30 minutes before fading off
+2017-02-03 09:22:48,936 - __main__ - INFO - Sleep light switch flipped.
+2017-02-03 09:22:48,936 - __main__ - INFO - Received sleep light on/off state: false; Cancelling sleep light thread and turning off light.
+2017-02-03 09:22:48,939 - __main__ - INFO - Turning off the light.
+2017-02-03 09:23:09,161 - __main__ - INFO - Volume slider was moved. Setting volume to: 41.
+2017-02-03 09:23:12,637 - __main__ - INFO - Volume slider was moved. Setting volume to: 78.
+2017-02-03 09:23:19,024 - __main__ - INFO - Volume slider was moved. Setting volume to: 49.
+2017-02-03 09:23:20,277 - __main__ - INFO - Volume slider was moved. Setting volume to: 32.
+2017-02-03 09:23:21,145 - __main__ - INFO - Volume slider was moved. Setting volume to: 54.
+2017-02-03 09:23:21,814 - __main__ - INFO - Volume slider was moved. Setting volume to: 69.
+2017-02-03 09:23:22,971 - __main__ - INFO - Volume slider was moved. Setting volume to: 81.
+2017-02-03 09:23:39,334 - __main__ - INFO - Received command: generate_noise
+2017-02-03 09:23:39,335 - __main__ - INFO - Noise button pressed. Generating brownian noise at a gain of -10dBFS.
+2017-02-03 09:23:39,336 - __main__ - INFO - Finished handling general purpose button captures; writing file and returning json to client.
+2017-02-03 09:23:40,812 - __main__ - INFO - Received command: generate_noise
+2017-02-03 09:23:40,812 - __main__ - INFO - Noise button pressed. Stopping brownian noise generation.
+2017-02-03 09:23:40,812 - __main__ - INFO - Finished handling general purpose button captures; writing file and returning json to client.
+2017-02-03 09:23:42,236 - __main__ - INFO - Received command: generate_noise
+2017-02-03 09:23:42,237 - __main__ - INFO - Noise button pressed. Generating brownian noise at a gain of -10dBFS.
+2017-02-03 09:23:42,238 - __main__ - INFO - Finished handling general purpose button captures; writing file and returning json to client.
+2017-02-03 09:23:43,112 - __main__ - INFO - Volume slider was moved. Setting volume to: 48.
+2017-02-03 09:23:45,468 - __main__ - INFO - Received command: generate_noise
+2017-02-03 09:23:45,468 - __main__ - INFO - Noise button pressed. Stopping brownian noise generation.
+2017-02-03 09:23:45,469 - __main__ - INFO - Finished handling general purpose button captures; writing file and returning json to client.
+2017-02-03 09:23:47,311 - __main__ - INFO - Received command: mute
+2017-02-03 09:23:47,315 - __main__ - INFO - Mute button pressed. Unmuting volume and enabling volume slider.
+2017-02-03 09:23:47,315 - __main__ - INFO - Finished handling general purpose button captures; writing file and returning json to client.
+2017-02-03 09:23:48,755 - __main__ - INFO - Received command: generate_noise
+2017-02-03 09:23:48,756 - __main__ - INFO - Noise button pressed. Generating brownian noise at a gain of -10dBFS.
+2017-02-03 09:23:48,757 - __main__ - INFO - Finished handling general purpose button captures; writing file and returning json to client.
+2017-02-03 09:23:49,783 - __main__ - INFO - Received command: generate_noise
+2017-02-03 09:23:49,783 - __main__ - INFO - Noise button pressed. Stopping brownian noise generation.
+2017-02-03 09:23:49,783 - __main__ - INFO - Finished handling general purpose button captures; writing file and returning json to client.
+2017-02-03 09:23:50,779 - __main__ - INFO - Received command: mute
+2017-02-03 09:23:50,783 - __main__ - INFO - Mute button pressed. Muting volume and disabling volume slider.
+2017-02-03 09:23:50,783 - __main__ - INFO - Finished handling general purpose button captures; writing file and returning json to client.
+2017-02-03 09:23:51,776 - __main__ - INFO - Received command: generate_noise
+2017-02-03 09:23:51,777 - __main__ - INFO - Noise button pressed. Generating brownian noise at a gain of -10dBFS.
+2017-02-03 09:23:51,778 - __main__ - INFO - Finished handling general purpose button captures; writing file and returning json to client.
+2017-02-03 09:23:53,041 - __main__ - INFO - Received command: generate_noise
+2017-02-03 09:23:53,041 - __main__ - INFO - Noise button pressed. Stopping brownian noise generation.
+2017-02-03 09:23:53,041 - __main__ - INFO - Finished handling general purpose button captures; writing file and returning json to client.
+2017-02-03 09:24:02,133 - __main__ - INFO - Received alarm on/off state: true; Setting dictionary and writing to file.
+2017-02-03 09:24:03,659 - __main__ - INFO - Received alarm on/off state: false; Setting dictionary and writing to file.
+2017-02-03 09:24:18,208 - __main__ - INFO - Responding to request for clock.html.
+2017-02-03 09:24:20,882 - __main__ - INFO - Volume slider was moved. Setting volume to: 72.
+2017-02-03 09:24:23,196 - __main__ - INFO - Received command: mute
+2017-02-03 09:24:23,199 - __main__ - INFO - Mute button pressed. Unmuting volume and enabling volume slider.
+2017-02-03 09:24:23,199 - __main__ - INFO - Finished handling general purpose button captures; writing file and returning json to client.
+2017-02-03 09:24:25,014 - __main__ - INFO - Received command: mute
+2017-02-03 09:24:25,018 - __main__ - INFO - Mute button pressed. Muting volume and disabling volume slider.
+2017-02-03 09:24:25,018 - __main__ - INFO - Finished handling general purpose button captures; writing file and returning json to client.
+2017-02-03 09:24:26,502 - __main__ - INFO - Volume slider was moved. Setting volume to: 50.
+2017-02-03 09:24:30,244 - __main__ - INFO - Received command: generate_noise
+2017-02-03 09:24:30,245 - __main__ - INFO - Noise button pressed. Generating brownian noise at a gain of -10dBFS.
+2017-02-03 09:24:30,246 - __main__ - INFO - Finished handling general purpose button captures; writing file and returning json to client.
+2017-02-03 09:24:31,560 - __main__ - INFO - Received command: generate_noise
+2017-02-03 09:24:31,563 - __main__ - INFO - Noise button pressed. Stopping brownian noise generation.
+2017-02-03 09:24:31,563 - __main__ - INFO - Finished handling general purpose button captures; writing file and returning json to client.
+2017-02-03 09:24:51,153 - __main__ - INFO - Volume slider was moved. Setting volume to: 52.
+2017-02-03 09:24:51,392 - __main__ - INFO - Volume slider was moved. Setting volume to: 53.
+2017-02-03 09:24:51,408 - __main__ - INFO - Volume slider was moved. Setting volume to: 54.
+2017-02-03 09:24:51,440 - __main__ - INFO - Volume slider was moved. Setting volume to: 55.
+2017-02-03 09:24:51,456 - __main__ - INFO - Volume slider was moved. Setting volume to: 56.
+2017-02-03 09:24:51,468 - __main__ - INFO - Volume slider was moved. Setting volume to: 57.
+2017-02-03 09:24:51,478 - __main__ - INFO - Volume slider was moved. Setting volume to: 58.
+2017-02-03 09:24:51,492 - __main__ - INFO - Volume slider was moved. Setting volume to: 59.
+2017-02-03 09:24:51,503 - __main__ - INFO - Volume slider was moved. Setting volume to: 60.
+2017-02-03 09:24:51,517 - __main__ - INFO - Volume slider was moved. Setting volume to: 61.
+2017-02-03 09:24:51,565 - __main__ - INFO - Volume slider was moved. Setting volume to: 62.
+2017-02-03 09:24:51,583 - __main__ - INFO - Volume slider was moved. Setting volume to: 63.
+2017-02-03 09:24:51,605 - __main__ - INFO - Volume slider was moved. Setting volume to: 64.
+2017-02-03 09:24:51,620 - __main__ - INFO - Volume slider was moved. Setting volume to: 65.
+2017-02-03 09:24:51,640 - __main__ - INFO - Volume slider was moved. Setting volume to: 66.
+2017-02-03 09:24:51,713 - __main__ - INFO - Volume slider was moved. Setting volume to: 67.
+2017-02-03 09:24:51,729 - __main__ - INFO - Volume slider was moved. Setting volume to: 68.
+2017-02-03 09:24:51,763 - __main__ - INFO - Volume slider was moved. Setting volume to: 69.
+2017-02-03 09:25:21,249 - __main__ - INFO - Volume slider was moved. Setting volume to: 54.
+2017-02-03 09:25:26,411 - __main__ - INFO - Volume slider was moved. Setting volume to: 33.
+2017-02-03 09:25:27,559 - __main__ - INFO - Volume slider was moved. Setting volume to: 60.
+2017-02-03 09:25:42,598 - __main__ - INFO - Volume slider was moved. Setting volume to: 43.
+2017-02-03 09:25:43,630 - __main__ - INFO - Volume slider was moved. Setting volume to: 60.
+2017-02-03 09:25:56,452 - __main__ - INFO - Volume slider was moved. Setting volume to: 39.
+2017-02-03 09:25:57,713 - __main__ - INFO - Volume slider was moved. Setting volume to: 61.
+2017-02-03 09:26:44,258 - __main__ - INFO - Responding to request for clock.html.
+2017-02-03 09:26:51,147 - __main__ - INFO - Received command: mute
+2017-02-03 09:26:51,149 - __main__ - INFO - Mute button pressed. Unmuting volume and enabling volume slider.
+2017-02-03 09:26:51,150 - __main__ - INFO - Finished handling general purpose button captures; writing file and returning json to client.
+2017-02-03 09:26:52,081 - __main__ - INFO - Received command: mute
+2017-02-03 09:26:52,084 - __main__ - INFO - Mute button pressed. Muting volume and disabling volume slider.
+2017-02-03 09:26:52,084 - __main__ - INFO - Finished handling general purpose button captures; writing file and returning json to client.
+2017-02-03 09:26:53,842 - __main__ - INFO - Volume slider was moved. Setting volume to: 40.
+2017-02-03 09:26:54,954 - __main__ - INFO - Volume slider was moved. Setting volume to: 55.
+2017-02-03 09:27:05,331 - __main__ - INFO - Volume slider was moved. Setting volume to: 39.
+2017-02-03 09:28:23,571 - __main__ - INFO - Responding to request for clock.html.
+2017-02-03 09:28:26,252 - __main__ - INFO - Volume slider was moved. Setting volume to: 59.
+2017-02-03 09:28:28,322 - __main__ - INFO - Volume slider was moved. Setting volume to: 45.
+2017-02-03 09:28:29,129 - __main__ - INFO - Volume slider was moved. Setting volume to: 29.
+2017-02-03 09:28:49,271 - __main__ - INFO - Responding to request for clock.html.
+2017-02-03 09:28:50,040 - __main__ - INFO - Responding to request for clock.html.
+2017-02-03 09:28:50,608 - __main__ - INFO - Responding to request for clock.html.
+2017-02-03 09:28:53,294 - __main__ - INFO - Volume slider was moved. Setting volume to: 52.
+2017-02-03 09:29:05,197 - __main__ - INFO - Volume slider was moved. Setting volume to: 61.
+2017-02-03 09:29:11,178 - __main__ - INFO - Responding to request for clock.html.
+2017-02-03 09:29:13,169 - __main__ - INFO - Responding to request for clock.html.
+2017-02-03 09:29:16,223 - __main__ - INFO - Volume slider was moved. Setting volume to: 39.
+2017-02-03 09:29:40,445 - __main__ - INFO - Volume slider was moved. Setting volume to: 62.
+2017-02-03 09:29:54,090 - __main__ - INFO - Volume slider was moved. Setting volume to: 40.
+2017-02-03 09:30:08,322 - __main__ - INFO - Volume slider was moved. Setting volume to: 54.
+2017-02-03 09:30:11,289 - __main__ - INFO - Volume slider was moved. Setting volume to: 68.
+2017-02-03 09:30:12,349 - __main__ - INFO - Volume slider was moved. Setting volume to: 67.
+2017-02-03 09:30:12,388 - __main__ - INFO - Volume slider was moved. Setting volume to: 66.
+2017-02-03 09:30:12,418 - __main__ - INFO - Volume slider was moved. Setting volume to: 65.
+2017-02-03 09:30:12,433 - __main__ - INFO - Volume slider was moved. Setting volume to: 64.
+2017-02-03 09:30:12,461 - __main__ - INFO - Volume slider was moved. Setting volume to: 63.
+2017-02-03 09:30:12,539 - __main__ - INFO - Volume slider was moved. Setting volume to: 62.
+2017-02-03 09:30:12,583 - __main__ - INFO - Volume slider was moved. Setting volume to: 61.
+2017-02-03 09:30:12,748 - __main__ - INFO - Volume slider was moved. Setting volume to: 60.
+2017-02-03 09:30:12,798 - __main__ - INFO - Volume slider was moved. Setting volume to: 59.
+2017-02-03 09:30:12,833 - __main__ - INFO - Volume slider was moved. Setting volume to: 58.
+2017-02-03 09:30:12,852 - __main__ - INFO - Volume slider was moved. Setting volume to: 57.
+2017-02-03 09:30:13,056 - __main__ - INFO - Volume slider was moved. Setting volume to: 56.
+2017-02-03 09:30:13,091 - __main__ - INFO - Volume slider was moved. Setting volume to: 55.
+2017-02-03 09:30:13,137 - __main__ - INFO - Volume slider was moved. Setting volume to: 54.
+2017-02-03 09:30:13,193 - __main__ - INFO - Volume slider was moved. Setting volume to: 53.
+2017-02-03 09:30:13,220 - __main__ - INFO - Volume slider was moved. Setting volume to: 52.
+2017-02-03 09:30:13,348 - __main__ - INFO - Volume slider was moved. Setting volume to: 51.
+2017-02-03 09:30:13,379 - __main__ - INFO - Volume slider was moved. Setting volume to: 50.
+2017-02-03 09:30:13,465 - __main__ - INFO - Volume slider was moved. Setting volume to: 49.
+2017-02-03 09:30:13,488 - __main__ - INFO - Volume slider was moved. Setting volume to: 48.
+2017-02-03 09:30:13,523 - __main__ - INFO - Volume slider was moved. Setting volume to: 47.
+2017-02-03 09:30:14,035 - __main__ - INFO - Volume slider was moved. Setting volume to: 46.
+2017-02-03 09:30:14,085 - __main__ - INFO - Volume slider was moved. Setting volume to: 45.
+2017-02-03 09:30:14,107 - __main__ - INFO - Volume slider was moved. Setting volume to: 44.
+2017-02-03 09:30:14,123 - __main__ - INFO - Volume slider was moved. Setting volume to: 43.
+2017-02-03 09:30:14,378 - __main__ - INFO - Volume slider was moved. Setting volume to: 42.
+2017-02-03 09:30:14,409 - __main__ - INFO - Volume slider was moved. Setting volume to: 41.
+2017-02-03 09:30:14,508 - __main__ - INFO - Volume slider was moved. Setting volume to: 40.
+2017-02-03 09:30:14,519 - __main__ - INFO - Volume slider was moved. Setting volume to: 39.
+2017-02-03 09:30:14,549 - __main__ - INFO - Volume slider was moved. Setting volume to: 38.
+2017-02-03 09:30:24,739 - __main__ - INFO - Volume slider was moved. Setting volume to: 50.
+2017-02-03 09:30:28,119 - __main__ - INFO - Responding to request for clock.html.
+2017-02-03 09:30:29,685 - __main__ - INFO - Volume slider was moved. Setting volume to: 49.
+2017-02-03 09:30:29,708 - __main__ - INFO - Volume slider was moved. Setting volume to: 48.
+2017-02-03 09:30:29,732 - __main__ - INFO - Volume slider was moved. Setting volume to: 47.
+2017-02-03 09:30:29,752 - __main__ - INFO - Volume slider was moved. Setting volume to: 46.
+2017-02-03 09:30:29,788 - __main__ - INFO - Volume slider was moved. Setting volume to: 45.
+2017-02-03 09:30:29,844 - __main__ - INFO - Volume slider was moved. Setting volume to: 44.
+2017-02-03 09:30:29,860 - __main__ - INFO - Volume slider was moved. Setting volume to: 43.
+2017-02-03 09:30:29,875 - __main__ - INFO - Volume slider was moved. Setting volume to: 42.
+2017-02-03 09:30:29,883 - __main__ - INFO - Volume slider was moved. Setting volume to: 42.
+2017-02-03 09:30:29,904 - __main__ - INFO - Volume slider was moved. Setting volume to: 41.
+2017-02-03 09:30:30,566 - __main__ - INFO - Volume slider was moved. Setting volume to: 40.
+2017-02-03 09:30:30,580 - __main__ - INFO - Volume slider was moved. Setting volume to: 39.
+2017-02-03 09:30:30,609 - __main__ - INFO - Volume slider was moved. Setting volume to: 38.
+2017-02-03 09:30:30,714 - __main__ - INFO - Volume slider was moved. Setting volume to: 37.
+2017-02-03 09:30:30,731 - __main__ - INFO - Volume slider was moved. Setting volume to: 36.
+2017-02-03 09:30:30,751 - __main__ - INFO - Volume slider was moved. Setting volume to: 35.
+2017-02-03 09:30:30,777 - __main__ - INFO - Volume slider was moved. Setting volume to: 34.
+2017-02-03 09:30:30,867 - __main__ - INFO - Volume slider was moved. Setting volume to: 33.
+2017-02-03 09:30:30,881 - __main__ - INFO - Volume slider was moved. Setting volume to: 32.
+2017-02-03 09:30:30,914 - __main__ - INFO - Volume slider was moved. Setting volume to: 31.
+2017-02-03 09:30:30,980 - __main__ - INFO - Volume slider was moved. Setting volume to: 30.
+2017-02-03 09:30:31,017 - __main__ - INFO - Volume slider was moved. Setting volume to: 29.
+2017-02-03 09:30:31,153 - __main__ - INFO - Volume slider was moved. Setting volume to: 30.
+2017-02-03 09:30:31,182 - __main__ - INFO - Volume slider was moved. Setting volume to: 31.
+2017-02-03 09:30:31,186 - __main__ - INFO - Volume slider was moved. Setting volume to: 32.
+2017-02-03 09:30:31,195 - __main__ - INFO - Volume slider was moved. Setting volume to: 32.
+2017-02-03 09:30:31,199 - __main__ - INFO - Volume slider was moved. Setting volume to: 33.
+2017-02-03 09:30:31,220 - __main__ - INFO - Volume slider was moved. Setting volume to: 33.
+2017-02-03 09:30:31,231 - __main__ - INFO - Volume slider was moved. Setting volume to: 34.
+2017-02-03 09:30:31,232 - __main__ - INFO - Volume slider was moved. Setting volume to: 34.
+2017-02-03 09:30:31,242 - __main__ - INFO - Volume slider was moved. Setting volume to: 35.
+2017-02-03 09:30:31,245 - __main__ - INFO - Volume slider was moved. Setting volume to: 36.
+2017-02-03 09:30:31,246 - __main__ - INFO - Volume slider was moved. Setting volume to: 36.
+2017-02-03 09:30:31,263 - __main__ - INFO - Volume slider was moved. Setting volume to: 37.
+2017-02-03 09:30:31,294 - __main__ - INFO - Volume slider was moved. Setting volume to: 38.
+2017-02-03 09:30:31,299 - __main__ - INFO - Volume slider was moved. Setting volume to: 38.
+2017-02-03 09:30:31,304 - __main__ - INFO - Volume slider was moved. Setting volume to: 38.
+2017-02-03 09:30:31,308 - __main__ - INFO - Volume slider was moved. Setting volume to: 39.
+2017-02-03 09:30:31,315 - __main__ - INFO - Volume slider was moved. Setting volume to: 39.
+2017-02-03 09:30:31,328 - __main__ - INFO - Volume slider was moved. Setting volume to: 39.
+2017-02-03 09:30:31,351 - __main__ - INFO - Volume slider was moved. Setting volume to: 40.
+2017-02-03 09:30:31,354 - __main__ - INFO - Volume slider was moved. Setting volume to: 40.
+2017-02-03 09:30:31,360 - __main__ - INFO - Volume slider was moved. Setting volume to: 40.
+2017-02-03 09:30:31,371 - __main__ - INFO - Volume slider was moved. Setting volume to: 40.
+2017-02-03 09:30:31,376 - __main__ - INFO - Volume slider was moved. Setting volume to: 41.
+2017-02-03 09:30:31,389 - __main__ - INFO - Volume slider was moved. Setting volume to: 41.
+2017-02-03 09:30:31,412 - __main__ - INFO - Volume slider was moved. Setting volume to: 42.
+2017-02-03 09:30:31,417 - __main__ - INFO - Volume slider was moved. Setting volume to: 43.
+2017-02-03 09:30:31,418 - __main__ - INFO - Volume slider was moved. Setting volume to: 43.
+2017-02-03 09:30:31,426 - __main__ - INFO - Volume slider was moved. Setting volume to: 43.
+2017-02-03 09:30:31,437 - __main__ - INFO - Volume slider was moved. Setting volume to: 44.
+2017-02-03 09:30:31,444 - __main__ - INFO - Volume slider was moved. Setting volume to: 44.
+2017-02-03 09:30:31,446 - __main__ - INFO - Volume slider was moved. Setting volume to: 44.
+2017-02-03 09:30:31,452 - __main__ - INFO - Volume slider was moved. Setting volume to: 45.
+2017-02-03 09:30:31,460 - __main__ - INFO - Volume slider was moved. Setting volume to: 45.
+2017-02-03 09:30:31,495 - __main__ - INFO - Volume slider was moved. Setting volume to: 46.
+2017-02-03 09:30:31,497 - __main__ - INFO - Volume slider was moved. Setting volume to: 46.
+2017-02-03 09:30:31,505 - __main__ - INFO - Volume slider was moved. Setting volume to: 46.
+2017-02-03 09:30:31,510 - __main__ - INFO - Volume slider was moved. Setting volume to: 46.
+2017-02-03 09:30:31,519 - __main__ - INFO - Volume slider was moved. Setting volume to: 47.
+2017-02-03 09:30:31,522 - __main__ - INFO - Volume slider was moved. Setting volume to: 48.
+2017-02-03 09:30:31,526 - __main__ - INFO - Volume slider was moved. Setting volume to: 49.
+2017-02-03 09:30:31,527 - __main__ - INFO - Volume slider was moved. Setting volume to: 49.
+2017-02-03 09:30:31,533 - __main__ - INFO - Volume slider was moved. Setting volume to: 50.
+2017-02-03 09:30:31,534 - __main__ - INFO - Volume slider was moved. Setting volume to: 50.
+2017-02-03 09:30:31,540 - __main__ - INFO - Volume slider was moved. Setting volume to: 50.
+2017-02-03 09:30:31,562 - __main__ - INFO - Volume slider was moved. Setting volume to: 50.
+2017-02-03 09:30:31,573 - __main__ - INFO - Volume slider was moved. Setting volume to: 51.
+2017-02-03 09:30:31,589 - __main__ - INFO - Volume slider was moved. Setting volume to: 52.
+2017-02-03 09:30:31,590 - __main__ - INFO - Volume slider was moved. Setting volume to: 52.
+2017-02-03 09:30:31,598 - __main__ - INFO - Volume slider was moved. Setting volume to: 52.
+2017-02-03 09:30:31,612 - __main__ - INFO - Volume slider was moved. Setting volume to: 53.
+2017-02-03 09:30:31,618 - __main__ - INFO - Volume slider was moved. Setting volume to: 51.
+2017-02-03 09:30:31,622 - __main__ - INFO - Volume slider was moved. Setting volume to: 53.
+2017-02-03 09:30:31,626 - __main__ - INFO - Volume slider was moved. Setting volume to: 54.
+2017-02-03 09:30:31,627 - __main__ - INFO - Volume slider was moved. Setting volume to: 54.
+2017-02-03 09:30:31,649 - __main__ - INFO - Volume slider was moved. Setting volume to: 54.
+2017-02-03 09:30:31,651 - __main__ - INFO - Volume slider was moved. Setting volume to: 54.
+2017-02-03 09:30:31,659 - __main__ - INFO - Volume slider was moved. Setting volume to: 55.
+2017-02-03 09:30:31,660 - __main__ - INFO - Volume slider was moved. Setting volume to: 55.
+2017-02-03 09:30:31,663 - __main__ - INFO - Volume slider was moved. Setting volume to: 55.
+2017-02-03 09:30:31,667 - __main__ - INFO - Volume slider was moved. Setting volume to: 56.
+2017-02-03 09:30:31,675 - __main__ - INFO - Volume slider was moved. Setting volume to: 57.
+2017-02-03 09:30:31,683 - __main__ - INFO - Volume slider was moved. Setting volume to: 57.
+2017-02-03 09:30:34,508 - __main__ - INFO - Volume slider was moved. Setting volume to: 29.
+2017-02-03 09:42:40,956 - __main__ - INFO - Fading off the light for 10 minutes.
+2017-02-03 18:54:40,523 - __main__ - INFO - Successful opened json data file loaded into dictionary.
+2017-02-03 18:54:40,624 - __main__ - INFO - Successful opened json data file loaded into dictionary.
+2017-02-03 18:54:50,836 - __main__ - INFO - Responding to request for clock.html.
+2017-02-03 18:57:51,830 - __main__ - INFO - Received command: generate_noise
+2017-02-03 18:57:51,831 - __main__ - INFO - Noise button pressed. Generating brownian noise at a gain of -10dBFS.
+2017-02-03 18:57:51,836 - __main__ - INFO - Finished handling general purpose button captures; writing file and returning json to client.
+2017-02-03 18:57:53,099 - __main__ - INFO - Received command: generate_noise
+2017-02-03 18:57:53,099 - __main__ - INFO - Noise button pressed. Stopping brownian noise generation.
+2017-02-03 18:57:53,099 - __main__ - INFO - Finished handling general purpose button captures; writing file and returning json to client.
+2017-02-03 19:02:58,787 - __main__ - INFO - Responding to request for clock.html.
+2017-02-03 19:03:11,583 - __main__ - INFO - Responding to request for clock.html.
+2017-02-03 19:03:11,953 - __main__ - INFO - Responding to request for clock.html.
+2017-02-03 19:03:39,661 - __main__ - INFO - Received command: snooze
+2017-02-03 19:03:39,661 - __main__ - INFO - Snooze button was pressed, but alarm is off. Nothing to do.
+2017-02-03 19:03:39,661 - __main__ - INFO - Snooze trigger; Starting snooze thread.
+2017-02-03 19:03:39,662 - __main__ - INFO - Finished handling general purpose button captures; writing file and returning json to client.
+2017-02-03 19:03:52,951 - __main__ - INFO - Volume slider was moved. Setting volume to: 59.
+2017-02-03 19:03:54,612 - __main__ - INFO - Volume slider was moved. Setting volume to: 58.
+2017-02-03 19:03:54,642 - __main__ - INFO - Volume slider was moved. Setting volume to: 57.
+2017-02-03 19:03:54,772 - __main__ - INFO - Volume slider was moved. Setting volume to: 56.
+2017-02-03 19:03:54,792 - __main__ - INFO - Volume slider was moved. Setting volume to: 55.
+2017-02-03 19:03:54,943 - __main__ - INFO - Volume slider was moved. Setting volume to: 54.
+2017-02-03 19:03:55,286 - __main__ - INFO - Volume slider was moved. Setting volume to: 53.
+2017-02-03 19:03:55,290 - __main__ - INFO - Volume slider was moved. Setting volume to: 51.
+2017-02-03 19:03:55,293 - __main__ - INFO - Volume slider was moved. Setting volume to: 50.
+2017-02-03 19:03:55,296 - __main__ - INFO - Volume slider was moved. Setting volume to: 49.
+2017-02-03 19:03:55,299 - __main__ - INFO - Volume slider was moved. Setting volume to: 48.
+2017-02-03 19:03:57,140 - __main__ - INFO - Volume slider was moved. Setting volume to: 76.
+2017-02-03 19:03:57,298 - __main__ - INFO - Volume slider was moved. Setting volume to: 77.
+2017-02-03 19:03:59,509 - __main__ - INFO - Volume slider was moved. Setting volume to: 61.
+2017-02-03 19:04:00,529 - __main__ - INFO - Received command: generate_noise
+2017-02-03 19:04:00,531 - __main__ - INFO - Noise button pressed. Generating brownian noise at a gain of -10dBFS.
+2017-02-03 19:04:00,531 - __main__ - INFO - Finished handling general purpose button captures; writing file and returning json to client.
+2017-02-03 19:04:01,647 - __main__ - INFO - Received command: generate_noise
+2017-02-03 19:04:01,647 - __main__ - INFO - Noise button pressed. Stopping brownian noise generation.
+2017-02-03 19:04:01,647 - __main__ - INFO - Finished handling general purpose button captures; writing file and returning json to client.
+2017-02-03 19:04:08,307 - __main__ - INFO - Sleep light switch flipped.
+2017-02-03 19:04:08,312 - __main__ - INFO - Received sleep light on/off state: true; Starting sleep light thread to turn on light for 30 minutes before fading off
+2017-02-03 19:04:15,777 - __main__ - INFO - Sleep light switch flipped.
+2017-02-03 19:04:15,777 - __main__ - INFO - Received sleep light on/off state: false; Cancelling sleep light thread and turning off light.

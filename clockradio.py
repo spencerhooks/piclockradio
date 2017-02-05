@@ -23,7 +23,7 @@ logger.addHandler(handler)
 
 noiseplayer = streamgen.Player()
 alarmplayer = streamgen.Player()
-mixer = alsaaudio.Mixer(device='pulse')
+mixer = alsaaudio.Mixer(device='pulse') # should be control='PCM' for a pi headphone output
 
 app = Flask(__name__)
 
