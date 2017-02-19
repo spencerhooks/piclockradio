@@ -253,6 +253,7 @@ def sunrise(state):
 # Sound the alarm
 def alarm_loop():
     while True:
+        get_time()
         mytime = clock_data['alarm_time']
         if clock_data['snoozing'] == True: mytime = clock_data['snooze_time']
         if clock_data['time'] == mytime and clock_data['alarm_on_off'] == True and clock_data['alarm_sounding'] == False:

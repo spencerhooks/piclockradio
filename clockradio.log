@@ -526,3 +526,5 @@
 2017-02-03 19:04:08,312 - __main__ - INFO - Received sleep light on/off state: true; Starting sleep light thread to turn on light for 30 minutes before fading off
 2017-02-03 19:04:15,777 - __main__ - INFO - Sleep light switch flipped.
 2017-02-03 19:04:15,777 - __main__ - INFO - Received sleep light on/off state: false; Cancelling sleep light thread and turning off light.
+2017-02-12 11:18:29,688 - __main__ - INFO - Successful opened json data file loaded into dictionary.
+2017-02-12 11:18:29,800 - __main__ - INFO - Successful opened json data file loaded into dictionary.

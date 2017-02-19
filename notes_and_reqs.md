@@ -7,6 +7,8 @@
 3. Text inputs on settings page send entry even though it doesn't match the regex pattern. Need to stop that from going into the file/dict
 4. Clean up html/css
 5. Make sure fade off is canceled in sleep light
+6. Can't snooze twice
+7. Alarm wouldn't shut off after snooze
 
 ## List of Requirements ##
 1. Sunrise light (control external Hue light)
