@@ -125,16 +125,6 @@ def command(cmd='NONE'):
 def alarm_state_change(state):
     clock_data['alarm_on_off'] = str2bool(state)
 
-    # # Set indicator on LED matrix
-    # if clock_data['alarm_on_off'] == True:
-    #     print('alarm on')
-    #     with canvas(device) as draw:
-    #         draw.point([(31, 7), (30, 7), (31, 6)], fill="white")
-    # elif clock_data['alarm_on_off'] == False:
-    #     print('alarm off')
-    #     with canvas(device) as draw:
-    #         draw.point([(31, 7), (30, 7), (31, 6)], fill="black")
-
     logger.info("Received alarm on/off state: %s; Setting dictionary and writing to file.", state)
     write_file()
     logger.debug("Returning file: %s", json.dumps(clock_data))
