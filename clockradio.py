@@ -6,7 +6,7 @@ from phue import Bridge
 import json, time, datetime, logging, logging.handlers
 import alsaaudio, streamgen
 
-from luma.led_matrix import legacy
+from luma.core import legacy
 from luma.led_matrix.device import max7219
 from luma.core.serial import spi, noop
 from luma.core.render import canvas
@@ -168,7 +168,6 @@ def sleep_light_state_change(state):
 @app.route('/get_time/')
 def get_time():
     full_time = (datetime.datetime.now().strftime('%H:%M'))
-    clock_display = (datetime.datetime.now().strftime('%I:%M'))
 
     # Pause clock refesh to indicate snooze
     if not clock_data['indicate_snooze']: clock_data['time'] = full_time
@@ -177,19 +176,6 @@ def get_time():
     if full_time == clock_data['alarm_reset_time'] and datetime.datetime.now().strftime('%w') in ('1', '2', '3', '4', '5'):
         clock_data['alarm_on_off'] = True
         logger.info("Turning the alarm on automatically.")
-
-    # with canvas(device) as draw:
-    #     legacy.text(draw, (0, 0), clock_display, fill="white", font=legacy.proportional(legacy.SINCLAIR_FONT))
-    #     draw.point([(31, 7), (30, 7), (31, 6)], fill="white")
-
-    # # Set LED matrix
-    if clock_data['alarm_on_off'] == True:
-        with canvas(device) as draw:
-            legacy.text(draw, (0, 0), clock_display, fill="white", font=legacy.proportional(legacy.SINCLAIR_FONT))
-            draw.point([(31, 7), (30, 7), (31, 6)], fill="white")
-    elif clock_data['alarm_on_off'] == False:
-        with canvas(device) as draw:
-            legacy.text(draw, (0, 0), clock_display, fill="white", font=legacy.proportional(legacy.SINCLAIR_FONT))
 
     logger.debug("Returning file: %s", json.dumps(clock_data))
     return (json.dumps(clock_data))
@@ -329,6 +315,44 @@ def alarm_loop():
 alarm_thread = Thread(target=alarm_loop)
 alarm_thread.daemon = True
 alarm_thread.start()
+
+# Set LED matrix
+def set_LED():
+    show_dots = True
+    counter = 1
+
+    while True:
+        clock_display = (datetime.datetime.now().strftime('%I:%M'))
+        #
+        # if clock_data['alarm_on_off'] == True:
+        #     with canvas(device) as draw:
+        #         legacy.text(draw, (0, 0), clock_display, fill="white", font=legacy.font.proportional(legacy.font.SINCLAIR_FONT))
+        #         draw.point([(31, 7), (30, 7), (31, 6)], fill="white")
+        # elif clock_data['alarm_on_off'] == False:
+        #     with canvas(device) as draw:
+        #         legacy.text(draw, (0, 0), clock_display, fill="white", font=legacy.font.proportional(legacy.font.SINCLAIR_FONT))
+        #
+        # time.sleep(.5)
+
+        if show_dots == True:
+            with canvas(device) as draw:
+                legacy.text(draw, (0, 0), clock_display, fill="white", font=legacy.font.proportional(legacy.font.SINCLAIR_FONT))
+                draw.point([(31, 7), (30, 7), (31, 6)], fill="white")
+        elif show_dots == False:
+            with canvas(device) as draw:
+                legacy.text(draw, (0, 0), clock_display, fill="white", font=legacy.font.proportional(legacy.font.SINCLAIR_FONT))
+
+        time.sleep(.5)
+        counter += 1
+
+        if counter == 8:
+            show_dots = not show_dots
+            counter = 1
+
+# Spawn thread for LED setter
+LED_thread = Thread(target=set_LED)
+LED_thread.daemon = True
+LED_thread.start()
 
 # Turn off light
 def turn_off_light():
