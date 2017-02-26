@@ -6,9 +6,19 @@ from phue import Bridge
 import json, time, datetime, logging, logging.handlers
 import alsaaudio, streamgen
 
+from luma.led_matrix import legacy
+from luma.led_matrix.device import max7219
+from luma.core.serial import spi, noop
+from luma.core.render import canvas
+
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
+
+# create matrix device
+serial = spi(port=0, device=0, gpio=noop())
+device = max7219(serial, cascaded=4, block_orientation="vertical")
+print("Created device")
 
 # create a file handler
 handler = logging.handlers.RotatingFileHandler('clockradio.log', maxBytes=10*1024*1024, backupCount=5)
@@ -23,7 +33,8 @@ logger.addHandler(handler)
 
 noiseplayer = streamgen.Player()
 alarmplayer = streamgen.Player()
-mixer = alsaaudio.Mixer(device='pulse') # should be control='PCM' for a pi headphone output
+mixer = alsaaudio.Mixer(control='PCM') # Use this line for a Raspberry Pi 3
+# mixer = alsaaudio.Mixer(device='pulse') # Use this line for linux desktop
 
 app = Flask(__name__)
 
@@ -87,9 +98,7 @@ def command(cmd='NONE'):
             clock_data['generating_noise'] = False
             logger.info("Noise button pressed. Stopping brownian noise generation.")
 
-    # Update the dictionary for snooze
-    if cmd == 'snooze':
-        snooze_thread = Thread(target=snooze)
+    # Update the dictionary fd(target=snooze)
         snooze_thread.daemon = True
         snooze_thread.start()
         logger.info("Snooze trigger; Starting snooze thread.")
@@ -115,6 +124,17 @@ def command(cmd='NONE'):
 @app.route('/alarm_on_off/<state>')
 def alarm_state_change(state):
     clock_data['alarm_on_off'] = str2bool(state)
+
+    # # Set indicator on LED matrix
+    # if clock_data['alarm_on_off'] == True:
+    #     print('alarm on')
+    #     with canvas(device) as draw:
+    #         draw.point([(31, 7), (30, 7), (31, 6)], fill="white")
+    # elif clock_data['alarm_on_off'] == False:
+    #     print('alarm off')
+    #     with canvas(device) as draw:
+    #         draw.point([(31, 7), (30, 7), (31, 6)], fill="black")
+
     logger.info("Received alarm on/off state: %s; Setting dictionary and writing to file.", state)
     write_file()
     logger.debug("Returning file: %s", json.dumps(clock_data))
@@ -148,10 +168,29 @@ def sleep_light_state_change(state):
 @app.route('/get_time/')
 def get_time():
     full_time = (datetime.datetime.now().strftime('%H:%M'))
-    if not clock_data['indicate_snooze']: clock_data['time'] = full_time # Pause clock refesh to indicate snooze
-    if full_time == clock_data['alarm_reset_time'] and datetime.datetime.now().strftime('%w') in ('1', '2', '3', '4', '5'): # Turn on alarm automatically on weekdays
+    clock_display = (datetime.datetime.now().strftime('%I:%M'))
+
+    # Pause clock refesh to indicate snooze
+    if not clock_data['indicate_snooze']: clock_data['time'] = full_time
+
+    # Turn on alarm automatically on weekdays
+    if full_time == clock_data['alarm_reset_time'] and datetime.datetime.now().strftime('%w') in ('1', '2', '3', '4', '5'):
         clock_data['alarm_on_off'] = True
         logger.info("Turning the alarm on automatically.")
+
+    # with canvas(device) as draw:
+    #     legacy.text(draw, (0, 0), clock_display, fill="white", font=legacy.proportional(legacy.SINCLAIR_FONT))
+    #     draw.point([(31, 7), (30, 7), (31, 6)], fill="white")
+
+    # # Set LED matrix
+    if clock_data['alarm_on_off'] == True:
+        with canvas(device) as draw:
+            legacy.text(draw, (0, 0), clock_display, fill="white", font=legacy.proportional(legacy.SINCLAIR_FONT))
+            draw.point([(31, 7), (30, 7), (31, 6)], fill="white")
+    elif clock_data['alarm_on_off'] == False:
+        with canvas(device) as draw:
+            legacy.text(draw, (0, 0), clock_display, fill="white", font=legacy.proportional(legacy.SINCLAIR_FONT))
+
     logger.debug("Returning file: %s", json.dumps(clock_data))
     return (json.dumps(clock_data))
 
@@ -255,21 +294,33 @@ def alarm_loop():
     while True:
         get_time()
         mytime = clock_data['alarm_time']
+
+        # Check if we are snoozing and if so, use snooze time instead of alarm time
         if clock_data['snoozing'] == True: mytime = clock_data['snooze_time']
+
+        # Check to see if alarm is on, is not already sounding, and if it's time to sound; if all are true then play KQED
         if clock_data['time'] == mytime and clock_data['alarm_on_off'] == True and clock_data['alarm_sounding'] == False:
             logger.info("Sound the alarm for " + clock_data['alarm_duration'] + " minutes!!")
-            alarmplayer.play(duration=(int(clock_data['alarm_duration'])*60))
+            alarmplayer.play(duration=(int(clock_data['alarm_duration'])*60)) # Play KQED for 60 minutes
             clock_data['alarm_sounding'] = True
+
+        # Check to see if alarm is sounding
         elif clock_data['alarm_sounding'] == True:
+
+            # Check to see if the alarm stopped after playing for duration, if it did then reset values
             if alarmplayer.is_playing() == False:
                 clock_data['alarm_sounding'] = False
                 clock_data['snoozing'] == False
                 logger.info("Alarm stopped automatically after %s minute duration.", clock_data['alarm_duration'])
+
+            # Check to see if alarm was shut off, if so then stop playback and reset values
             elif clock_data['alarm_on_off'] == False:
                 alarmplayer.stop()
                 clock_data['alarm_sounding'] = False
                 clock_data['snoozing'] == False
                 logger.info("Alarm stopped because it was switched off by the user.")
+
+
         if clock_data['alarm_on_off'] == False:
             clock_data['snoozing'] = False
         time.sleep(.5)
