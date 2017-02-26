@@ -11,6 +11,8 @@ from luma.led_matrix.device import max7219
 from luma.core.serial import spi, noop
 from luma.core.render import canvas
 
+import RPi.GPIO as GPIO
+
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
@@ -40,6 +42,9 @@ app = Flask(__name__)
 
 # Hue bridge
 b = Bridge('192.168.1.217')
+
+# Set RPi GPIO mode
+GPIO.setmode(GPIO.BCM)
 
 # Constants for sunrise/sleep light
 TRANSITION_TIME = 4*60 # 4 minutes
@@ -124,6 +129,7 @@ def command(cmd='NONE'):
 @app.route('/alarm_on_off/<state>')
 def alarm_state_change(state):
     clock_data['alarm_on_off'] = str2bool(state)
+    set_LED()
 
     logger.info("Received alarm on/off state: %s; Setting dictionary and writing to file.", state)
     write_file()
@@ -306,43 +312,56 @@ alarm_thread = Thread(target=alarm_loop)
 alarm_thread.daemon = True
 alarm_thread.start()
 
-# Set LED matrix
-def set_LED():
-    show_dots = True
-    counter = 1
+# Get the RC time for the light sensor circuit, used to set the LED matrix brightness
+def RCtime (RCpin):
+        reading = 1000
+        GPIO.setup(RCpin, GPIO.OUT)
+        GPIO.output(RCpin, GPIO.LOW)
+        time.sleep(0.1)
 
+        GPIO.setup(RCpin, GPIO.IN)
+        # This takes about 1 millisecond per loop cycle
+        while (GPIO.input(RCpin) == GPIO.LOW):
+                reading -= 1
+        if reading < 1: reading = 1
+        reading = normalize(reading)
+        return reading
+
+# Set the LED matrix brightness
+def set_LED_brightness():
     while True:
-        clock_display = (datetime.datetime.now().strftime('%I:%M'))
-        #
-        # if clock_data['alarm_on_off'] == True:
-        #     with canvas(device) as draw:
-        #         legacy.text(draw, (0, 0), clock_display, fill="white", font=legacy.font.proportional(legacy.font.SINCLAIR_FONT))
-        #         draw.point([(31, 7), (30, 7), (31, 6)], fill="white")
-        # elif clock_data['alarm_on_off'] == False:
-        #     with canvas(device) as draw:
-        #         legacy.text(draw, (0, 0), clock_display, fill="white", font=legacy.font.proportional(legacy.font.SINCLAIR_FONT))
-        #
-        # time.sleep(.5)
+            brightness = RCtime(18)
+            device.contrast(brightness)
 
-        if show_dots == True:
-            with canvas(device) as draw:
-                legacy.text(draw, (0, 0), clock_display, fill="white", font=legacy.font.proportional(legacy.font.SINCLAIR_FONT))
-                draw.point([(31, 7), (30, 7), (31, 6)], fill="white")
-        elif show_dots == False:
-            with canvas(device) as draw:
-                legacy.text(draw, (0, 0), clock_display, fill="white", font=legacy.font.proportional(legacy.font.SINCLAIR_FONT))
+# Spawn thread for alarm
+LED_brightness_thread = Thread(target=set_LED_brightness)
+LED_brightness_thread.daemon = True
+LED_brightness_thread.start()
 
+
+# Set the LED matrix
+def set_LED():
+    clock_display = (datetime.datetime.now().strftime('%I:%M'))
+
+    with canvas(device) as draw:
+        legacy.text(draw, (0, 0), clock_display, fill="white", font=legacy.font.proportional(legacy.font.SINCLAIR_FONT))
+        if clock_data['alarm_on_off'] == True:
+            draw.point([(31, 7), (30, 7), (31, 6)], fill="white")
+
+    # brightness = RCtime(18)  # Try this in real-world to see if this updates the brightness fast enough. If yes, remove function/thread above.
+    # device.contrast(brightness)
+
+# Update LED matrix regularly
+def LED_loop():
+    while True:
+        set_LED()
         time.sleep(.5)
-        counter += 1
-
-        if counter == 8:
-            show_dots = not show_dots
-            counter = 1
 
 # Spawn thread for LED setter
-LED_thread = Thread(target=set_LED)
-LED_thread.daemon = True
-LED_thread.start()
+LED_loop_thread = Thread(target=LED_loop)
+LED_loop_thread.daemon = True
+LED_loop_thread.start()
+
 
 # Turn off light
 def turn_off_light():
@@ -435,6 +454,20 @@ def write_file():
 def str2bool(v):
     return v.lower() in ("yes", "true", "t", "1")
 
+# Normalize values to within a new range
+def normalize(in_value):
+        IN_MAX = 1000
+        IN_MIN = 1
+
+        OUT_MAX = 255
+        OUT_MIN = 0
+
+        in_range = (IN_MAX - IN_MIN)
+        out_range = (OUT_MAX - OUT_MIN)
+
+        out_value = (((in_value - IN_MIN) * out_range) / in_range) + OUT_MIN
+        return out_value
+
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    app.run(debug=True, use_reloader=False, host='0.0.0.0', port=5000)
     cache.init_app(app)
